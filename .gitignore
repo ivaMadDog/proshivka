@@ -3,4 +3,9 @@
 /app/config/core.php
 /app/tmp
 /cake
+<<<<<<< HEAD
 /plugins
+=======
+/plugins
+/vendors
+>>>>>>> df4527c... ppc
