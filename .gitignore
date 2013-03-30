@@ -1,1 +1,6 @@
 /nbproject/private/
+/app/config/database.php
+/app/config/core.php
+/app/tmp
+/cake
+/plugins
