@@ -1,7 +1,11 @@
 /nbproject/private/
-/app/config/database.php
-/app/config/core.php
+/app/Config/database.php
+/app/Config/core.php
 /app/tmp
 /cake
 /vendors
 /plugins
+Thumbs.db
+.idea
+/lib/
+/layouts/
