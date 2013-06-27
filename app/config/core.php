@@ -138,7 +138,13 @@
  * or in each action using $this->cacheAction = true.
  *
  */
-	//Configure::write('Cache.check', true);
+	Configure::write('Cache.check', true);
+        
+        /**
+ * Defines the default error type when using the log() function. Used for
+ * differentiating error logging and debugging. Currently PHP supports LOG_DEBUG.
+ */
+	define('LOG_ERROR', LOG_ERR);
 
 /**
  * Enable cache view prefixes.
@@ -188,13 +194,23 @@
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'php'
+		'defaults' => 'php',
+		'cookie' => 'proshivki',
+	    'ini' => array(
+    	    'session.use_trans_sid' => true,
+    	    'session.cookie_path' => '/app/tmp'
+    	)
 	));
-
+/**
+ * The level of CakePHP security.
+ */
+	Configure::write('Security.level', 'medium');
+        
+        
 /**
  * A random string used in security hashing methods.
  */
-	Configure::write('Security.salt', 'DYhG93b0qyJfIxffkR39sDFk893Fs1sxEFXbWwvniR2983kxRAlpG0FgaC9mi');
+	Configure::write('Security.salt', 'DYhG93b0qyJfIxffkR39sDFk893F!s1sxEFXbWwvniR2983kxRAlpG0FgaC9mi');
 
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
@@ -313,15 +329,17 @@
  *       and their settings.
  */
 $engine = 'File';
-
+if (extension_loaded('apc') && function_exists('apc_dec') && (php_sapi_name() !== 'cli' || ini_get('apc.enable_cli'))) {
+	$engine = 'Apc';
+}
 // In development mode, caches should expire quickly.
 $duration = '+999 days';
-if (Configure::read('debug') > 0) {
+if (Configure::read('debug') >= 1) {
 	$duration = '+10 seconds';
 }
 
 // Prefix each application on the same server with a different string, to avoid Memcache and APC conflicts.
-$prefix = 'myapp_';
+$prefix = 'pr_';
 
 /**
  * Configure the cache used for general framework caching. Path information,
@@ -346,3 +364,51 @@ Cache::config('_cake_model_', array(
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
+
+// read config vars
+if(!$config = parse_ini_file(ROOT.DS.APP_DIR.DS.'config'.DS.'config.ini', true)){
+    die('Fill config by data');
+}
+foreach($config AS $c_key=>$c_val){
+	Configure::write($c_key, $c_val);
+}
+
+/** EMAIL SETTINGS **/
+$search = array('&lt;','&gt;',);
+$replace = array('<','>',);
+$var = str_replace($search, $replace, $config['EMAIL_SIGNATURE_HTML']);
+Configure::write('EMAIL_SIGNATURE_HTML',$var);
+
+/** WEBSITE SETTINGS **/
+Configure::write('WEBSITE_LOCATION','http://'.$_SERVER['SERVER_NAME']);    // ???
+Configure::write('WEBSITE_NAME',$config['WEBSITE_NAME']);               // ???
+define('WEBSITE_LOC','http://'.$_SERVER['SERVER_NAME']);                   // ???
+
+/** GENERIC LANGUAGE SETTINGS **/ // ???
+Configure::write('NOT_AUTHORIZED','Warning, you are not authorized to access this page !');
+Configure::write('NOT_USER_TURN','Warning, It is not your turn in the chain !');
+
+// libs pathes
+if(preg_match('/^windows/i', php_uname('s'))){
+      define('IMAGEMAGICK','"C:\\Program Files\\ImageMagick-6.8.5-Q16\\convert.exe" '); // windows
+//    define('FFMPEG','"D:\ffmpeg\bin\ffmpeg.exe" '); // Windows
+//    define('IMAGEMAGICK', 'convert.exe'); // Windows
+//    define('FFMPEG', 'D:/Work/Projects/video_convert/ffmpeg/bin'); // Windows
+}
+else{
+    define('IMAGEMAGICK','/usr/bin/convert '); // keep the space at the end
+    define('FFMPEG','/usr/bin/ffmpeg '); // keep the space at the end
+   // define('FFMPEG','"C:\\ImageMagick-6.7.9-Q16\\ffmpeg.exe" '); // keep the space at the end
+}
+
+//Newsletter
+//Configure::write('NEWSLETTER_URL',"http://tmp.net/");
+//Configure::write('NEWSLETTER_HOST', 'ndpnewsletter.tmp.net');
+//Configure::write('NEWSLETTER_REGISTRATION_PATH',"/registers/index/13/1");
+
+// Ticket System
+Configure::write('TICKETSYSTEM_URL',"http://web-i.dp.ua");
+
+//Recaptcha
+Configure::write('PRIVATE_KEY_FROM_RECAPTCHA_DOT_NET', '6Lcoa-MSAAAAAAB1WHBPlUs2rHYk917YA16eH6C0');
+Configure::write('PUBLIC_KEY_FROM_RECAPTCHA_DOT_NET', '6Lcoa-MSAAAAAH1mDBYHCSu_id_-_oHtUZtlqwhd');
