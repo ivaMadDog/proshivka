@@ -1,0 +1,43 @@
+*{ margin: 0; padding: 0;}
+
+body { background: #FF9000 ; text-align: center;font-family: Arial, Tahoma, Verdana;}
+a {
+  text-decoration: none;
+  border: 0;
+}
+
+#wrapper{
+  width: 500px;
+  margin:0 auto;
+  padding: 150px 0;
+  background: url(../img/bg_refit.png) no-repeat top center;
+}
+.logo {
+  height: 125px;
+}
+
+.middle p {
+  color: #fff;
+  opacity: 0.5;
+  font-size: .83em;
+  font-weight: bold;
+}
+.name {
+  padding: 5px 0;
+}
+
+.footer div{width: 50%;font-size: .75em}
+.footer div, .footer a { color: #eeda59 ;  }
+.footer span {
+  display: block;
+}
+
+.lft {
+  float: left;
+}
+.rght {
+  float: right;
+}
+.clr{
+  clear: both;
+}

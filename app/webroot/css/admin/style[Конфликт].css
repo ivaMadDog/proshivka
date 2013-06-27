@@ -1,0 +1,144 @@
+.wrapper {width: 1000px; margin: 0 auto; }
+
+/*==============================================================================
+Шапка
+==============================================================================*/
+#header {
+    height: 50px;
+    background: #00C8E4;
+    position: fixed;
+    width: 100%;
+    -webkit-box-shadow: 0px 1px 1px rgba(50, 50, 50, 1);
+    -moz-box-shadow:    0px 1px 1px rgba(50, 50, 50, 1);
+    box-shadow:         0px 1px 1px rgba(50, 50, 50, 1);
+   border-bottom-left-radius: 5px;
+   border-bottom-right-radius: 5px;
+   behavior: url(border-radius.htc);
+}
+.logo {float: left; margin: 10px 0 0;}
+
+.admin_top_menu {float: right;}
+.admin_top_menu>li{
+    float: left; 
+    background: url(../../img/admin/bg_v_2px.png) no-repeat left;
+    padding: 5px;
+    height: 40px;
+}
+/*спрайты для иконок админ панели*/
+.sprite_cp_admin{
+    background: url(../../img/admin/sprites_cp_icons.png);
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+}
+.cp-users{background-position: 0 0}
+.cp-groups {background-position: 0 -40px}
+.cp-sales{background-position: 0 -80px}
+.cp-comments{background-position: 0 -120px}
+.cp-messages{background-position: 0 -160px}
+.cp-orders{background-position: 0 -200px}
+.cp-typeorders{background-position: 0 -240px}
+.cp-printers{background-position: 0 -280px}
+.cp-brands{background-position: 0 -320px }
+.cp-fix{background-position: 0 -360px}
+.cp-categories{background-position: 0 -400px}
+.cp-articles{background-position: 0 -440px}
+.cp-banners{background-position: 0 -480px}
+.cp-viewsite{background-position: 0 -520px}
+.cp-settings{background-position: 0 -560px}
+.cp-contacts{background-position: 0 -600px}
+.cp-logout{background-position: 0 -640px}
+
+.active .cp-users, .cp-users:hover{background-position: -40px 0}
+.active .cp-groups, .cp-groups:hover {background-position: -40px -40px}
+.active .cp-sales, .cp-sales:hover{background-position: -40px -80px}
+.active .cp-comments, .cp-comments:hover{background-position: -40px -120px}
+.active .cp-messages, .cp-messages:hover{background-position: -40px -160px}
+.active .cp-orders, .cp-orders:hover{background-position: -40px -200px}
+.active .cp-typeorders, .cp-typeorders:hover{background-position: -40px -240px}
+.active .cp-printers, .cp-printers:hover{background-position: -40px -280px}
+.active .cp-brands, .cp-brands:hover{background-position: -40px -320px }
+.active .cp-fix, .cp-fix:hover{background-position: -40px -360px}
+.active .cp-categories, .cp-categories:hover{background-position: -40px -400px}
+.active .cp-articles, .cp-articles:hover{background-position: -40px -440px}
+.active .cp-banners, .cp-banners:hover{background-position: -40px -480px}
+.active .cp-viewsite, .cp-viewsite:hover{background-position: -40px -520px}
+.active .cp-settings, .cp-settings:hover{background-position: -40px -560px}
+.active .cp-contacts, .cp-contacts:hover {background-position: -40px -600px}
+.active .cp-logout,  .cp-logout:hover{background-position: -40px -640px}
+
+
+
+/*==============================================================================
+Контент
+==============================================================================*/
+#content {margin: 55px 20px 0;}
+
+/* заголовок контента, ссылка в профиль админа */
+.cp_header {
+    height: 50px; 
+    padding: 0 40px 15px;
+    margin-bottom: 15px;
+    background: #fff  url(../../img/bg_line-shadow.png) no-repeat bottom center;; 
+    line-height: 50px; 
+    font-weight: bold;
+}
+.cp_title {
+    font-size: 1.6em;
+    color: #FA9B05;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9); 
+}
+.cp_command {float: right;}
+.cp_command a {text-decoration: none; color: #01A0B6;}
+.cp_command a:hover {text-decoration: underline}
+/*==============================================================================
+Подвал сайта
+==============================================================================*/
+.footer {height: 50px; }
+.footer a {text-decoration: none; color: #ACACAC}
+
+.pagin {font-weight: bold; width: 200px; margin: 20px auto 5px}
+.pagin span {margin: 0 5px;}
+.pagin a{color: #000; text-decoration: none;}
+.current {color: #fff; border: 1px solid #E9EFF8;padding: 0 5px;background: #9547BC;}
+
+/*==============================================================================
+Сетка для контента
+==============================================================================*/
+.grid_1 {width: 60px;}
+.grid_2 {width: 140px;}
+.grid_3 {width: 220px;}
+.grid_4 {width: 300px;}
+.grid_5 {width: 380px;}
+.grid_6 {width: 460px;}
+.grid_7 {width: 540px;}
+.grid_8 {width: 620px;}
+.grid_9 {width: 700px;}
+.grid_10 {width: 780px;}
+.grid_11 {width: 860px;}
+.grid_12 {width: 940px;}
+.column {margin: 0 10px 0 10px;overflow: hidden; float: left; display: inline;}
+.column.title {
+    text-align: center;
+    font-weight: bold;
+    color: blueviolet;
+}
+.row {width: 960px;margin: 0 auto;overflow: hidden;}
+.row .row {margin: 0 -10px 0 -10px; width: auto; display: inline-block;}
+.row a{text-decoration: none;}
+/*==============================================================================
+иконки для кнопок управления
+==============================================================================*/
+.controls{ 
+    width: 16px; 
+    height: 16px; 
+    float: left; 
+    margin-right: 5px;
+    background: url(../../img/sprite_controls.png) no-repeat;
+}
+.control-add{background-position: 0 0;}
+.control-view{background-position: -160px -96px;}
+.control-edit{background-position: -128px -32px;}
+.control-del{background-position: -224px -32px;}
+.control-locked{background-position: 0 -32px;}
+.control-unlocked{background-position: -32px -32px;}
