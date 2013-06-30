@@ -1,7 +1,11 @@
 <div>
     <ul id="topmenu" class="gmenu">
-        <li><a href="login.html" title="">Вход</a></li>
-        <li><a href="register.html" title="">Регистрация</a></li>
+        <li>
+            <?=$this->html->link('Вход', array('controller'=>'users', 'action'=>'login'), array('title'=>'Вход'));?>
+        </li>
+        <li>
+            <?=$this->html->link('Регистрация', array('controller'=>'users', 'action'=>'register'), array('title'=>'Регистрация'));?>
+        </li>
         <li id="top_contacts">
             <a  href="#" title="">+38 (097) 187 84 85</a>
             <div id="top_all_contacts" class="top_arrow" style="display: none">

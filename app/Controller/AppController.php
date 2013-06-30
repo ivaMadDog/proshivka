@@ -40,24 +40,18 @@ class AppController extends Controller
 {
     var $uses = array();
     var $helpers = array('Form', 'Html', 'Js', 'Time', 'Ck', 'Text', 'Cache');
-    var $components = array('Session','RequestHandler','Acl','Email');
+    var $components = array('Session','RequestHandler', 'Email',
+                            'Auth' => array(
+                                    'loginRedirect' => array('controller' => 'posts', 'action' => 'index'),
+                                    'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
+                                ));
 
 
-    function beforeFilter()
-    {
-        if (!empty($this->request->params["admin"])) {
-            if (!$this->Session->read('Admin.level')) {
-                $this->Session->setFlash('Неверный запрос!', null, null, 'err');
-                $this->redirect(array('admin' => false, 'controller' => 'administrators', 'action' => 'logout'));
-                exit;
-            } else {
-                $this->admin_beforeFilter();
-                $this->set('adminname', $this->Session->read('Admin.admin_name'));
-                $this->layout = "admin/default";
-            }
-        } else {
-            $this->user_beforeFilter();
-        }
+    function beforeFilter(){
+        
+        $this->Auth->allow('index', 'view');
+        
+      
     }
 
 

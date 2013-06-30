@@ -3,13 +3,13 @@ class UsersController extends AppController {
 
     var $name = 'Users';
     var $uses = array('User');
-	//var $components=array('Captcha');
+    //var $components=array('Captcha');
     var $paginate = array('limit'=>20);
     var $roles = array('admin'=>'Admnistrator','user'=>'User');
     var $helpers = array('User');
     var $modelName = 'User';
-	var $pageTitle = 'Members';
-	var $menuFlag = 'Members';
+    var $pageTitle = 'Members';
+    var $menuFlag = 'Members';
 
     var $image_dir = '/files/users/';
     var $big_image_dir = 'big/';
@@ -21,33 +21,10 @@ class UsersController extends AppController {
     
     function beforeFilter(){
 
-        parent::beforeFilter();
-		$modelName = $this->modelName;
-		$this->set('modelName',$modelName);
-        
-        $this->User->Auth = $this->Auth;
-        $this->set('modelName', $this->modelName);
-
-        // avoid hashing at once after submit form, pwd hashed in beforeSave() only
-        //if($this->params['action'] == 'register')  $this->Auth->authenticate = $this->User;
-/*        
-        // rights
-        if(!$this->isRole('user')) $this->Auth->deny(array('profile_edit','new_password','change_photo','delete_photo'));
-        if($this->isRole('admin'))  $this->Auth->deny(array('profile_edit','register'));
-        if($this->Auth->user('id'))  $this->Auth->deny(array('register'));
-        
-        if($this->params['action'] == 'profile' && empty($this->params['pass'][0]) && !$this->isRole('user')){
-            $this->Auth->deny('profile');
-        }
-//
-//        if($this->isRole('user') && in_array($this->params['action'], array('register')))
-//        $this->redirect(array('action'=>'profile'));
-        
-        //if($this->isRole('user')){
-            $user_id = $this->Auth->user('id');
-        
-        //}
-*/        
+         parent::beforeFilter();
+         $this->Auth->allow('add');
+         
+         
 		if(isset($this->params['admin'])){
 			$pageTitle = $this->pageTitle;
 			$menuFlag = $this->menuFlag;
@@ -279,16 +256,20 @@ class UsersController extends AppController {
     }
 
     function login($data = null){
-    	$login = $this->Auth->login($data);
-    	if(!empty($_POST) && !$login){
-    		$this->set('error', $this->Auth->loginError);
-    	}
+        if ($this->request->is('post')) {
+            if ($this->Auth->login()) {
+                $this->redirect($this->Auth->redirect());
+            } else {
+                $this->Session->setFlash(__('Invalid username or password, try again'));
+            }
+        }
+
     }
 
 
     function logout() {
         $role = $this->viewVars['Auth']['User']['role'];
-		$this->Session->destroy();
+        $this->Session->destroy();
         $this->Auth->logout();
         $this->redirect(Router::url(array('controller'=>'home','action'=>'index', 'lang'=>$this->lang)));
     }
