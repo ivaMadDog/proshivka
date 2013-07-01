@@ -3,13 +3,13 @@ class UsersController extends AppController {
 
     var $name = 'Users';
     var $uses = array('User');
-	//var $components=array('Captcha');
+    //var $components=array('Captcha');
     var $paginate = array('limit'=>20);
     var $roles = array('admin'=>'Admnistrator','user'=>'User');
     var $helpers = array('User');
     var $modelName = 'User';
-	var $pageTitle = 'Members';
-	var $menuFlag = 'Members';
+    var $pageTitle = 'Members';
+    var $menuFlag = 'Members';
 
     var $image_dir = '/files/users/';
     var $big_image_dir = 'big/';
@@ -21,45 +21,9 @@ class UsersController extends AppController {
     
     function beforeFilter(){
 
-        parent::beforeFilter();
-		$modelName = $this->modelName;
-		$this->set('modelName',$modelName);
-        
-        $this->User->Auth = $this->Auth;
-        $this->set('modelName', $this->modelName);
-
-        // avoid hashing at once after submit form, pwd hashed in beforeSave() only
-        //if($this->params['action'] == 'register')  $this->Auth->authenticate = $this->User;
-/*        
-        // rights
-        if(!$this->isRole('user')) $this->Auth->deny(array('profile_edit','new_password','change_photo','delete_photo'));
-        if($this->isRole('admin'))  $this->Auth->deny(array('profile_edit','register'));
-        if($this->Auth->user('id'))  $this->Auth->deny(array('register'));
-        
-        if($this->params['action'] == 'profile' && empty($this->params['pass'][0]) && !$this->isRole('user')){
-            $this->Auth->deny('profile');
-        }
-//
-//        if($this->isRole('user') && in_array($this->params['action'], array('register')))
-//        $this->redirect(array('action'=>'profile'));
-        
-        //if($this->isRole('user')){
-            $user_id = $this->Auth->user('id');
-        
-        //}
-*/        
-		if(isset($this->params['admin'])){
-			$pageTitle = $this->pageTitle;
-			$menuFlag = $this->menuFlag;
-			$this->$modelName->locale = 'eng';
-			$this->set(compact('menuFlag','pageTitle'));
-			
-		}            
-        
-		foreach($this->title_options AS $k=>$v){
-			$this->title_options[$k] = __($v,'');
-		}
-        $this->set('title_options', $this->title_options);
+         parent::beforeFilter();
+         $this->Auth->allow('register');
+         
     }
 
     /////////////////////////////	ADMIN	///////////////////////////////////////        
@@ -279,59 +243,34 @@ class UsersController extends AppController {
     }
 
     function login($data = null){
-    	$login = $this->Auth->login($data);
-    	if(!empty($_POST) && !$login){
-    		$this->set('error', $this->Auth->loginError);
-    	}
+        if ($this->request->is('post')) {
+            if ($this->Auth->login()) {
+                $this->redirect($this->Auth->redirect());
+            } else {
+                $this->Session->setFlash(__('Invalid username or password, try again'));
+            }
+        }
+
     }
 
 
     function logout() {
         $role = $this->viewVars['Auth']['User']['role'];
-		$this->Session->destroy();
+        $this->Session->destroy();
         $this->Auth->logout();
         $this->redirect(Router::url(array('controller'=>'home','action'=>'index', 'lang'=>$this->lang)));
     }
     
     
     function register(){
-        if (!empty($this->data)) {
-            $err = false;
-            if (!empty($_POST['recaptcha_response_field']) && !$this->Captcha->validate()) {
-            	$err = true;
-            	$this->Session->write('captcha_error', $this->Captcha->error);
+        if ($this->request->is('post')) {
+            $this->User->create();
+            if ($this->User->save($this->request->data)) {
+                $this->Session->setFlash(__('The user has been saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
             }
-//debug($this->data);
-//exit;         
-            $group = $this->User->Group->findByName('user');
-            $this->data['User']['group_id'] = $group['Group']['id'];
-            //$this->data['User']['is_blocked'] = 1;
-            //$this->data['User']['status'] = 'pending';
-            //$this->data['User']['code'] = $this->User->_generateRegisterCode($this->data['User']);
-            $this->User->set($this->data);
-            if($this->User->validates() && !$err){
-                unset($this->data['User']['confirm_password'], $this->data['User']['retype_username']);
-                $this->data['User']['email'] = $this->data['User']['username'];
-                $this->data['User']['is_confirmed'] = 1;
-                
-                $this->User->saveAll($this->data, array('validate' => false));
-            	
-            	$this->data['User']['role'] = 'user';
-            	$this->data['User']['id'] = $this->User->id;
-            	$this->Session->write($this->Auth->sessionKey, $this->data['User']);
-                
-                $this->_sendRegisterMail($this->data['User']);
-                //$page_text = $this->requestAction(array('controller'=>'dynamic_pages', 'action'=>'text_block'), array('pass'=>array('Thank-you-for-signing-up-text'), 'lang'=>$this->lang));
-                //$msg = $page_text;
-                die(json_encode(array('reload'=>Router::url(array('controller'=>'forms', 'action'=>'step1', 'lang'=>$this->lang, 'section'=>$this->params['section'])))));
-            }
-            else{
-            	unset($this->data['User']['password'], $this->data['User']['confirm_password']);
-            	if(!empty($this->User->validationErrors['username'])){
-                	die(json_encode(array('error'=>__($this->User->validationErrors['username'],'') )));
-                }
-            }
-            //debug($this->User->validationErrors);
         }
     }
 
