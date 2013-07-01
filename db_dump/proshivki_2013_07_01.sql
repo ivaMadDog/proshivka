@@ -1,0 +1,1 @@
+ALTER TABLE `proshivki`.`users` ADD COLUMN `role` VARCHAR(20) NULL  AFTER `modified` ;

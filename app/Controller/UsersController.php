@@ -22,21 +22,8 @@ class UsersController extends AppController {
     function beforeFilter(){
 
          parent::beforeFilter();
-         $this->Auth->allow('add');
+         $this->Auth->allow('register');
          
-         
-		if(isset($this->params['admin'])){
-			$pageTitle = $this->pageTitle;
-			$menuFlag = $this->menuFlag;
-			$this->$modelName->locale = 'eng';
-			$this->set(compact('menuFlag','pageTitle'));
-			
-		}            
-        
-		foreach($this->title_options AS $k=>$v){
-			$this->title_options[$k] = __($v,'');
-		}
-        $this->set('title_options', $this->title_options);
     }
 
     /////////////////////////////	ADMIN	///////////////////////////////////////        
@@ -276,43 +263,14 @@ class UsersController extends AppController {
     
     
     function register(){
-        if (!empty($this->data)) {
-            $err = false;
-            if (!empty($_POST['recaptcha_response_field']) && !$this->Captcha->validate()) {
-            	$err = true;
-            	$this->Session->write('captcha_error', $this->Captcha->error);
+        if ($this->request->is('post')) {
+            $this->User->create();
+            if ($this->User->save($this->request->data)) {
+                $this->Session->setFlash(__('The user has been saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
             }
-//debug($this->data);
-//exit;         
-            $group = $this->User->Group->findByName('user');
-            $this->data['User']['group_id'] = $group['Group']['id'];
-            //$this->data['User']['is_blocked'] = 1;
-            //$this->data['User']['status'] = 'pending';
-            //$this->data['User']['code'] = $this->User->_generateRegisterCode($this->data['User']);
-            $this->User->set($this->data);
-            if($this->User->validates() && !$err){
-                unset($this->data['User']['confirm_password'], $this->data['User']['retype_username']);
-                $this->data['User']['email'] = $this->data['User']['username'];
-                $this->data['User']['is_confirmed'] = 1;
-                
-                $this->User->saveAll($this->data, array('validate' => false));
-            	
-            	$this->data['User']['role'] = 'user';
-            	$this->data['User']['id'] = $this->User->id;
-            	$this->Session->write($this->Auth->sessionKey, $this->data['User']);
-                
-                $this->_sendRegisterMail($this->data['User']);
-                //$page_text = $this->requestAction(array('controller'=>'dynamic_pages', 'action'=>'text_block'), array('pass'=>array('Thank-you-for-signing-up-text'), 'lang'=>$this->lang));
-                //$msg = $page_text;
-                die(json_encode(array('reload'=>Router::url(array('controller'=>'forms', 'action'=>'step1', 'lang'=>$this->lang, 'section'=>$this->params['section'])))));
-            }
-            else{
-            	unset($this->data['User']['password'], $this->data['User']['confirm_password']);
-            	if(!empty($this->User->validationErrors['username'])){
-                	die(json_encode(array('error'=>__($this->User->validationErrors['username'],'') )));
-                }
-            }
-            //debug($this->User->validationErrors);
         }
     }
 

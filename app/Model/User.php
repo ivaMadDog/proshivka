@@ -1,4 +1,5 @@
 <?php
+App::uses('AuthComponent', 'Controller/Component');
 
 class User extends AppModel {
     
@@ -48,11 +49,23 @@ class User extends AppModel {
         'role' => array(
             'valid' => array(
                 'rule' => array('inList', array('admin', 'user')),
-                'message' => 'Please enter a valid role',
+                'message' => 'Ошибка. Не верно указанная роль',
                 'allowEmpty' => false
             )
         )
     );
+    
+    public function beforeSave($options = array()) {
+        if (isset($this->data[$this->alias]['password'])) {
+            $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
+        }
+        return true;
+    }
+    
+    
+    
+    
+    
 }
 
 
