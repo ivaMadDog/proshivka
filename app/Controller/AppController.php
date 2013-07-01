@@ -38,20 +38,33 @@
 
 class AppController extends Controller
 {
-    var $uses = array();
-    var $helpers = array('Form', 'Html', 'Js', 'Time', 'Ck', 'Text', 'Cache');
-    var $components = array('Session','RequestHandler', 'Email',
-                            'Auth' => array(
-                                    'loginRedirect' => array('controller' => 'posts', 'action' => 'index'),
-                                    'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
-                                ));
+    public $uses = array();
+    public $helpers = array('Form', 'Html', 'Js', 'Time', 'Ck', 'Text', 'Cache','Session');
+    public $components = array('Session','RequestHandler', 'Email', 
+                             'Auth' => array(
+                                   'authenticate' => array('Form' => 
+                                                    array('fields' => array('username' => 'email'),
+                                                          'scope'  => array('User.is_active' => 1)
+                                                     )
+                                     ),
+                                    'authError'      => 'У Вас нет прав доступа к данной странице',
+                                    'loginError'     => 'Некорректный логин или пароль',
+                                    'loginRedirect'  => array('controller' => 'home', 'action' => 'index'),
+                                    'logoutRedirect' => array('controller' => 'home', 'action' => 'index'),
+                                    'authorize'      => array('Controller'), // Added this line
+                                )
+        );
 
 
     function beforeFilter(){
         
         $this->Auth->allow('index', 'view');
         
-      
+        $this->admin=$this->_isAdmin();
+        $this->logged_in=$this->_loggedIn();
+
+        $this->set('admin', $this->admin);
+        $this->set('logged_in', $this->logged_in);
     }
 
 
@@ -103,30 +116,26 @@ class AppController extends Controller
             return 1;
         } else return 0;
     }
-	
-	/* gets the aro_id of this user */
-	function getAroId($userId){
-		$this->loadModel("Aro");
-		$aroInfo = $this->Aro->find("first",array("conditions"=>array("Aro.foreign_key"=>$userId,"Aro.model"=>"Administrator")));
-		
-		if(!empty($aroInfo["Aro"]["id"]))
-			$aroId = $aroInfo["Aro"]["id"];
-		else $aroId = 0;
-		
-		return $aroId;
-	}
-	
-	function checkPermissions($acoName,$action){
-		$userInfo = $this->Session->read("Admin.data");
-		$userId = $userInfo["Administrator"]["id"];
-		$userParentAroId = $userInfo["Administrator"]["administrator_group_id"];
-		$userAroId = $this->getAroId($userId);
-		
-		if($userParentAroId > 0 && !$this->Acl->check(array('model' => 'AdministratorGroup', 'foreign_key' => $userParentAroId), $acoName, $action)){
-			$this->Session->setFlash("You don't have enought permissions to access this page","admin/admin_err");
-			$this->redirect("/admin/Administrators/index");
-			exit;
-		}
-		
-	}
+
+  /* Метод проверяет имеет ли пользователь права администратора
+  * @return boolean
+  */
+        private function _isAdmin(){
+            $admin=FALSE;
+            if ($this->Auth->user('role')=='admin') {
+                $admin=TRUE;
+            }
+            return $admin;
+        }
+ 
+/* Метод проверяет авторизован ли пользователь на сайте
+ * @return boolean
+*/      
+        private function  _loggedIn() {
+           $logged_in=FALSE;
+           if ($this->Auth->user()) {
+               $logged_in=TRUE;
+           }
+           return $logged_in;
+       }  
 }

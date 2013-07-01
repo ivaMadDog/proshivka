@@ -20,7 +20,8 @@
 		<div id="container">
                     
 			<div id="content">
-                           
+                             <?php echo $this->Session->flash();// echo $this->element('flashMessage'); ?>
+                            
                              <?php echo $content_for_layout ?>
                             
                              <?php echo $this->element('bottom');?>
@@ -33,6 +34,10 @@
         <?php echo $this->element('footer');?>
 
 </div><!-- #wrapper -->
-<?php  if(Configure::read('debug')>=1) echo $this->element('sql_dump'); ?>
+<div class="clear"></div>
+    <pre>
+    <?php echo $this->element('sql_dump'); ?> 
+    </pre>
+<?php // if(Configure::read('debug')>=1) echo $this->element('sql_dump'); ?>
 </body>
 </html>

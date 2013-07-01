@@ -34,17 +34,22 @@ class User extends AppModel {
     );
     
     public $validate = array(
-        'username' => array(
+        'email' => array(
             'required' => array(
-                'rule' => array('notEmpty'),
-                'message' => 'A username is required'
+                'rule' => array('email'),
+                'message' => 'Неверный email адрес'
             )
         ),
         'password' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'A password is required'
-            )
+                'message' => 'Вы не верно ввели пароль'
+            ),
+            'minLength' => array(
+                'rule' => array('minLength', 6),
+                'message' => 'Минимальная длина пароля 6 символов',
+                'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
         ),
         'role' => array(
             'valid' => array(

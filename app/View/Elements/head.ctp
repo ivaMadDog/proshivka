@@ -1,4 +1,6 @@
 <?
+  echo $this->Html->charset('utf-8');
+
   echo $this->Html->css('jquery/jquery-ui-1.10.2.custom');
   echo $this->html->css('reset');
   echo $this->html->css('style');
@@ -16,3 +18,5 @@
 ?>
 
 <script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
+
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">

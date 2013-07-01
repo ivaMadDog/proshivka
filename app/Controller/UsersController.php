@@ -1,29 +1,29 @@
 <?php
 class UsersController extends AppController {
-
-    var $name = 'Users';
-    var $uses = array('User');
-    //var $components=array('Captcha');
-    var $paginate = array('limit'=>20);
-    var $roles = array('admin'=>'Admnistrator','user'=>'User');
-    var $helpers = array('User');
-    var $modelName = 'User';
-    var $pageTitle = 'Members';
-    var $menuFlag = 'Members';
-
-    var $image_dir = '/files/users/';
-    var $big_image_dir = 'big/';
-    var $small_image_dir = 'small/';
-    var $mid_image_dir = 'mid/';
-    var $tiny_image_dir = 'tiny/';
     
-    var $title_options = array('Mr.'=>'Mr.','Ms.'=>'Ms.','Mrs.'=>'Mrs.');
+    
+    public $name = 'Users';
+    public $uses = array('User');
+
+    public $modelName = 'User';
+    public $controller = 'Users';
+
+    
+    public $image_dir = '/files/users/';
+    public $big_image_dir = 'big/';
+    public $small_image_dir = 'small/';
+    public $mid_image_dir = 'mid/';
+    public $tiny_image_dir = 'tiny/';
+    
+    private $roles = array('admin'=>'admin','user'=>'user');
+
     
     function beforeFilter(){
 
          parent::beforeFilter();
          $this->Auth->allow('register');
          
+         $this->set('roles', $this->roles);
     }
 
     /////////////////////////////	ADMIN	///////////////////////////////////////        
@@ -257,19 +257,33 @@ class UsersController extends AppController {
     function logout() {
         $role = $this->viewVars['Auth']['User']['role'];
         $this->Session->destroy();
+        $this->set('logged_in', false);
         $this->Auth->logout();
         $this->redirect(Router::url(array('controller'=>'home','action'=>'index', 'lang'=>$this->lang)));
     }
     
     
     function register(){
+        
+        if($this->Auth->user()) {
+               $this->Session->setFlash('Вы уже авторизованы.');
+               $this->redirect($this->Auth->redirect());
+               exit();
+           }
+        
+        $groups= $this->User->Group->find('list', array('conditions'=>array('is_default'=>1)));
+        $sales= $this->User->Sale->find('list', array('conditions'=>array('is_default'=>1)));
+        
+        $this->set(compact('groups', 'sales'));
+        
         if ($this->request->is('post')) {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('The user has been saved'));
-                $this->redirect(array('action' => 'index'));
+                $this->Session->setFlash(__('Вы успешно зарегистрировались на сайте'));
+                $this->Session->setFlash(__('Вы успешно зарегистрировались на сайте. Попробуйте ещё раз.'),'flash_msg', array('class' => 'msg_success'));
+                $this->redirect(array('controller'=>'home','action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+                $this->Session->setFlash(__('Вы не смогли зарегистрироваться на сайте. Попробуйте ещё раз.'),'flash_msg', array('class' => 'msg_error'));
             }
         }
     }

@@ -17,6 +17,12 @@ $(document).ready(function(){
     }
     });
 
+    $('#msg').load(function() {
+         $(this).show('slow');
+    });
+    $('.msg_close').click(function(){$('#msg').hide('slow');})
+    
+
 //placeholder для кроссбраузерности
     jQuery('input[data-placeholder], textarea[data-placeholder]').placeholder();    
 });
