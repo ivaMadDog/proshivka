@@ -42,23 +42,27 @@ class AppController extends Controller
     public $helpers = array('Form', 'Html', 'Js', 'Time', 'Ck', 'Text', 'Cache','Session');
     public $components = array('Session','RequestHandler', 'Email', 
                              'Auth' => array(
-                                   'authenticate' => array('Form' => 
+                                   'authenticate' => 
+                                            array('Form' => 
                                                     array('fields' => array('username' => 'email'),
-                                                          'scope'  => array('User.is_active' => 1)
+                                                          'scope'  => array('User.is_active' => 1),
+                                                          'recursive'=>-1
                                                      )
                                      ),
                                     'loginAction' => array('controller' => 'users', 'action' => 'login'),
                                     'authError'      => 'У Вас нет прав доступа к данной странице',
                                     'loginError'     => 'Некорректный логин или пароль',
-                                    'loginRedirect'  => array('controller' => 'home', 'action' => 'index'),
+                                    'loginRedirect'  => array('controller' => 'users', 'action' => 'profile'),
                                     'logoutRedirect' => array('controller' => 'home', 'action' => 'index'),
                                     'authorize'      => array('Controller'), // Added this line
                                 )
         );
 
+    protected $admin=FALSE, $logged_in=FALSE;
+        
 
     function beforeFilter(){
-        
+          
           $this->Auth->allow('index', 'view');
         
           $this->admin=$this->_isAdmin();
@@ -102,7 +106,7 @@ class AppController extends Controller
   /* Метод проверяет имеет ли пользователь права администратора
   * @return boolean
   */
-        private function _isAdmin(){
+        protected function _isAdmin(){
             $admin=FALSE;
             if ($this->Auth->user('role')==='admin') {
                 $admin=TRUE;
@@ -113,16 +117,15 @@ class AppController extends Controller
 /* Метод проверяет авторизован ли пользователь на сайте
  * @return boolean
 */      
-        private function  _loggedIn() {
+        protected function  _loggedIn() {
            $logged_in=FALSE;
            if ($this->Auth->user()) {
                $logged_in=TRUE;
            }
            return $logged_in;
        }  
-       
-       
-       function isAuthorized() {
-            return true;
-        }
+        
+       public function homePageRedirect () {
+            $this->redirect(Router::url(array('controller'=>'home','action'=>'index')));
+       }
 }
