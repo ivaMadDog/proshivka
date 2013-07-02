@@ -17,6 +17,10 @@ $(document).ready(function(){
     }
     });
 
+    $('#msg').delay(4000).hide('highlight', 1500);
+    $('.msg_close').click(function(){$('#msg').hide('highlight');})
+    
+
 //placeholder для кроссбраузерности
     jQuery('input[data-placeholder], textarea[data-placeholder]').placeholder();    
 });

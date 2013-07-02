@@ -34,17 +34,36 @@ class User extends AppModel {
     );
     
     public $validate = array(
-        'username' => array(
+        'email' => array(
             'required' => array(
-                'rule' => array('notEmpty'),
-                'message' => 'A username is required'
-            )
+                'rule' => array('email'),
+                'message' => 'Неверный email адрес',
+                'required'=> true
+            ),
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' => 'Пользователь с данным email-ом уже существует'
+            ),
         ),
         'password' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
-                'message' => 'A password is required'
-            )
+                'message' => 'Пароль не должен быть пустым'
+            ),
+            'minLength' => array(
+                'rule' => array('minLength', 6),
+                'message' => 'Минимальная длина пароля 6 символов',
+            ),
+            'alphaNumeric' => array(
+                'rule' => 'alphaNumeric',
+                'message' => 'Пароль должен состоять из букв и цифр',
+            ),
+        ),
+        'confirm_password' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Вы не верно ввели пароль'
+            ),
         ),
         'role' => array(
             'valid' => array(
@@ -55,9 +74,13 @@ class User extends AppModel {
         )
     );
     
+    public function validatePwdConfirm($check){
+       return (strcmp($this->request->data[$this->alias]['password'], AuthComponent::password($check['confirm_password'])) === 0);
+    }
+
     public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['password'])) {
-            $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
+            $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
         }
         return true;
     }

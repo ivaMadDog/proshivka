@@ -193,13 +193,9 @@
  * the cake shell command: cake schema create Sessions
  *
  */
-	Configure::write('Session', array(
+        Configure::write('Session', array(
 		'defaults' => 'php',
-		'cookie' => 'proshivki',
-	    'ini' => array(
-    	    'session.use_trans_sid' => true,
-    	    'session.cookie_path' => '/app/tmp'
-    	)
+		'cookie' => 'proshivka'
 	));
 /**
  * The level of CakePHP security.

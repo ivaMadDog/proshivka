@@ -1,5 +1,5 @@
 <header id="header" >
-    <div id="bgheader" style="background: url(files/header_bg/home.png) no-repeat">
+    <div id="bgheader" style="background: url(/files/header_bg/<?php echo $headerBgImg?> ) no-repeat">
         
         <?php echo $this->element('menus/top_menu');?>
         
