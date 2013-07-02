@@ -209,7 +209,7 @@ Style for sprite
     background: url(../img/sprite_bg_2px.png) repeat-x 0 -136px;
     height: 60px;
     width: 300px;
-    line-height: 60px;
+    line-height: 100%;
     color: #fff;
     font-weight: bold;
     font-size: 1.9em;
@@ -250,28 +250,28 @@ Style for sprite
 messages
 =============================================================================*/
 #msg {
-  margin-left: -350px;
+  margin: -10px 0 0 -185px;
   padding: 5px 5px 5px 15px;
   width: 350px;
   border-radius: 5px;
-  -moz-border-radius: 5px; /* Firefox */
-  -webkit-border-radius: 5px; /* Safari, Chrome */
-  -khtml-border-radius: 5px; /* KHTML */
-  behavior: url(border-radius.htc); /* учим IE border-radius */
+  -moz-border-radius: 5px;  
+  -webkit-border-radius: 5px; 
+  -khtml-border-radius: 5px;  
+  behavior: url(border-radius.htc);  
   color: #fff;
   position: absolute;
   top:50%;
   left: 50%;
+  z-index: 1000;
 }
 
 .msg_success {background: #6F8216 url(../img/bg_msg.png) repeat-x;}
 .msg_info {background: #FFC700 }
 .msg_error {background: #DE230B;    }
 
-
 #msg>div{
-   width: 280px;
-  padding-left: 45px;
+  width: 280px;
+  padding: 5px 5px 5px 45px;
 }
 
 .msg_success>div {background: url(../img/bg_ico_info.png) no-repeat 0 5px; }
@@ -281,20 +281,12 @@ messages
 .msg_title {
   font-weight: bold;
   font-size: 1.5em;
-  height: 5px;
 }
 
-.msg_info .msg_title  {
-  color: #dd220d;
-}
+.msg_info .msg_title  {color: #dd220d;}
 
-.msg_info p {
-  color: #393939;
-}
-
-#msg p {
-  font-size: 1em;
-}
+.msg_info p {color: #393939;}
+#msg p {font-size: 1em;}
 .msg_close {
   float: right;
   width: 16px;

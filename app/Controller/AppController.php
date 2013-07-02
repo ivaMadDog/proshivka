@@ -47,6 +47,7 @@ class AppController extends Controller
                                                           'scope'  => array('User.is_active' => 1)
                                                      )
                                      ),
+                                    'loginAction' => array('controller' => 'users', 'action' => 'login'),
                                     'authError'      => 'У Вас нет прав доступа к данной странице',
                                     'loginError'     => 'Некорректный логин или пароль',
                                     'loginRedirect'  => array('controller' => 'home', 'action' => 'index'),
@@ -58,37 +59,18 @@ class AppController extends Controller
 
     function beforeFilter(){
         
-        $this->Auth->allow('index', 'view');
+          $this->Auth->allow('index', 'view');
         
-        $this->admin=$this->_isAdmin();
-        $this->logged_in=$this->_loggedIn();
+          $this->admin=$this->_isAdmin();
+          $this->logged_in=$this->_loggedIn();
 
-        $this->set('admin', $this->admin);
-        $this->set('logged_in', $this->logged_in);
+          $this->set('admin', $this->admin);
+          $this->set('logged_in', $this->logged_in);
+          
+          $this->set('headerColor', 'header-lblue'); //дефолтный клас для фона хедера
+          $this->set('headerBgImg', 'home.png');     //дефолтный клас для фонового изображения хедера
     }
 
-
-    function admin_beforeFilter()
-    {
-        ini_set('upload_max_filesize', '64M');
-        $level = $this->Session->read('Admin.level');
-        $this->set('level', $level);
-        $this->set('adminid', $this->Session->read('Admin.id'));
-    }
-
-    function user_beforeFilter() {
-
-    }
-
-    function saveSlug($modelName)
-    {
-        if (isset($this->request->data["$modelName"]["slug"])) {
-            $slug = $this->request->data["$modelName"]["slug"];
-            $slug = strtolower(addslashes(preg_replace("/ /", "-", htmlspecialchars($slug))));
-            $slug = strtolower(addslashes(preg_replace("/'/", "-", htmlspecialchars($slug))));
-            $this->request->data["$modelName"]["slug"] = $slug;
-        }
-    }
 
     function sendEmail($to, $subject, $template, $data, $reply_to = "", $from_email = "")
     {
@@ -122,7 +104,7 @@ class AppController extends Controller
   */
         private function _isAdmin(){
             $admin=FALSE;
-            if ($this->Auth->user('role')=='admin') {
+            if ($this->Auth->user('role')==='admin') {
                 $admin=TRUE;
             }
             return $admin;
@@ -138,4 +120,9 @@ class AppController extends Controller
            }
            return $logged_in;
        }  
+       
+       
+       function isAuthorized() {
+            return true;
+        }
 }
