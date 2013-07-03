@@ -71,8 +71,12 @@ class UsersController extends AppController {
                  $this->Session->setFlash(__('Пароли не совпадают.'),'flash_msg_error',array('title'=>'Ошибка регистрации'));
             }else {
                 $this->User->create();
-                $this->request->data[$this->modelName]['group_id']= $groups['Group']['id'];
-                $this->request->data[$this->modelName]['sale_id']= $sales['Sale']['id'];
+                $this->request->data[$this->modelName]['group_id']= $groups['Group']['id']; //получаем группу по дефолту
+                $this->request->data[$this->modelName]['sale_id']= $sales['Sale']['id'];    //получаем скидку по дефолту
+                
+                $login=explode("@", $this->request->data[$this->modelName]['email']);
+                if(!empty($login)) $this->request->data[$this->modelName]['username']= $login[0];
+                
                 if ($this->User->save($this->request->data)) {
                     $this->Session->setFlash(__('Вы успешно зарегистрировались на сайте.</br> Теперь можете авторизоваться.'),'flash_msg_success',array('title'=>'Успех регистрации'));
                     $this->redirect(array('controller'=>'users','action' => 'login'));
