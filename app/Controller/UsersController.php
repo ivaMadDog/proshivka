@@ -37,7 +37,7 @@ class UsersController extends AppController {
        }
        //если запрос с формы, то пытаемся авторизовать пользователя 
         if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
+            if ($this->Auth->login($this->request->data)) {
                 $this->Session->setFlash(__('Спасибо, что Вы снова с нами.'),'flash_msg_success', array('title'=>'Авторизация прошла успешно'));
                 $this->redirect($this->Auth->redirect());
             } else {
