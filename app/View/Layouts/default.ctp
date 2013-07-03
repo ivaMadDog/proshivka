@@ -13,7 +13,6 @@
 <body class="<?php echo $headerColor ?>">
 <?php echo $this->Session->flash(); ?>
 <div id="wrapper" >
-
         <?php echo $this->element('header');?>
 
 	<section id="middle">

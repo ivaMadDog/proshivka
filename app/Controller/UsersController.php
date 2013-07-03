@@ -21,7 +21,7 @@ class UsersController extends AppController {
     function beforeFilter(){
 
          parent::beforeFilter();
-         $this->Auth->allow('register');
+         $this->Auth->allow('forgot','register','logout');
          
          $this->set('roles', $this->roles);
          $this->set('headerColor', 'header-purple'); //переопределяем дефолтный клас для фона хедера
@@ -29,28 +29,35 @@ class UsersController extends AppController {
     }
 
     public function login($data = null){
+       //если пользователь уже зарегистрирован, редирект на главную 
+       if($this->_loggedIn()) {
+           $this->Session->setFlash(__('Вы уже авторизованы.'),'flash_msg_info', array('title'=>'Авторизация невозможна'));
+           $this->homePageRedirect();
+           exit();
+       }
+       //если запрос с формы, то пытаемся авторизовать пользователя 
         if ($this->request->is('post')) {
-            if ($this->Auth->login()) {
+            if ($this->Auth->login($this->request->data)) {
+                $this->Session->setFlash(__('Спасибо, что Вы снова с нами.'),'flash_msg_success', array('title'=>'Авторизация прошла успешно'));
                 $this->redirect($this->Auth->redirect());
             } else {
-                $this->Session->setFlash(__('Invalid username or password, try again'));
+                $this->Session->setFlash(__('Неправильный email  или пароль'),'flash_msg_error',array('title'=>'Ошибка авторизации'));
             }
         }
     }
 
 
     public function logout() {
-        $role = $this->viewVars['Auth']['User']['role'];
         $this->Session->destroy();
-        $this->set('logged_in', false);
-        $this->Auth->logout();
-        $this->redirect(Router::url(array('controller'=>'home','action'=>'index', 'lang'=>$this->lang)));
+        $this->logged_in=FALSE;
+        $this->set('logged_in', $this->logged_in);
+        $this->redirect($this->Auth->logout());
     }
     
     
     public function register(){
         
-       if($this->Auth->user()) {
+       if($this->_loggedIn()) {
            $this->Session->setFlash(__('Вы уже авторизованы.'),'flash_msg_info', array('title'=>'Авторизация невозможна'));
            $this->redirect($this->Auth->redirect());
            exit();
@@ -71,8 +78,12 @@ class UsersController extends AppController {
                  $this->Session->setFlash(__('Пароли не совпадают.'),'flash_msg_error',array('title'=>'Ошибка регистрации'));
             }else {
                 $this->User->create();
-                $this->request->data[$this->modelName]['group_id']= $groups['Group']['id'];
-                $this->request->data[$this->modelName]['sale_id']= $sales['Sale']['id'];
+                $this->request->data[$this->modelName]['group_id']= $groups['Group']['id']; //получаем группу по дефолту
+                $this->request->data[$this->modelName]['sale_id']= $sales['Sale']['id'];    //получаем скидку по дефолту
+                
+                $login=explode("@", $this->request->data[$this->modelName]['email']);
+                if(!empty($login)) $this->request->data[$this->modelName]['username']= $login[0];
+                
                 if ($this->User->save($this->request->data)) {
                     $this->Session->setFlash(__('Вы успешно зарегистрировались на сайте.</br> Теперь можете авторизоваться.'),'flash_msg_success',array('title'=>'Успех регистрации'));
                     $this->redirect(array('controller'=>'users','action' => 'login'));

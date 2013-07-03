@@ -11,6 +11,12 @@
             <div class="register-user-row">
                 <?= $this->Form->input('confirm_password', array('type'=>'password','label'=>'', 'data-placeholder'=>'Подтвердите пароль', 'placeholder'=>'Подтвердите пароль'));?>
             </div>
+            <div class="register-user-row">
+                <?= $this->Form->input('money', array('type'=>'hidden','value'=>0,'label'=>''));?>
+            </div>
+            <div class="register-user-row">
+                <?= $this->Form->input('balls', array('type'=>'hidden','value'=>0,'label'=>''));?>
+            </div>
         </div> 
         <div class="clr"></div>
         <input class="btn big_orange" type="submit" value="Регистрация"/>
