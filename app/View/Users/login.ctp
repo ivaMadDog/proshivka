@@ -9,7 +9,7 @@
                 <?= $this->Form->input('password', array('type'=>'password', 'label'=>'','data-placeholder'=>'Пароль', 'placeholder'=>'Пароль'));?>
             </div>
             <div class="register-user-row">
-                <a class="txt_purple" href="remind.html">Забыли пароль?</a>
+                <?=$this->html->link('Забыли пароль?', array('action'=>'forgot_password'), array('class'=>'txt_purple'));?>
             </div>                                        
         </div> 
         <div class="clr"></div>

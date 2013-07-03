@@ -128,4 +128,53 @@ class AppController extends Controller
        public function homePageRedirect () {
             $this->redirect(Router::url(array('controller'=>'home','action'=>'index')));
        }
+       
+       public	function setFlashError($msg, $json = false){
+		return $this->setFlashMessage($msg, $json, $status = 'error');
+	}
+	
+       public function setFlashMessage($msg, $json = false, $status = 'message'){
+		if($status == 'message') $key = 'message';
+		if($status == 'error') $key = 'error';
+		
+		if($this->RequestHandler->isAjax()){
+			if($json){
+				$msg = '<div id="flashMessage" class="'.$key.'">'.$msg.'</div>';
+				die(json_encode(array($key => $msg)));
+			}
+			else{
+				$this->viewVars['msg'] = $msg;
+				$this->set('msg', $msg);
+				if($key == 'error' && empty($this->params['admin'])){
+					$this->Session->setFlash($msg, 'flash_failure');
+				}
+				else{
+					$this->Session->setFlash($msg);
+				}
+			}
+		}
+		else{
+			if($key == 'error'){
+				if(empty($this->params['admin'])){
+					$this->Session->setFlash($msg, 'flash_failure');
+				}
+				else{ 
+					$this->Session->setFlash($msg);
+				}
+			}
+			else{
+				$this->Session->setFlash($msg);
+			}
+		}
+	}
+       
+       
+       public  function _sendNewPwdMail($data)
+    {
+        $subject = __('New password', true);
+        $template = 'new_pwd';
+        return $this->sendEmail($data, $data['email'], $subject, $template);
+    }
+       
+       
 }

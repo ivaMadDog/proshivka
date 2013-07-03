@@ -85,7 +85,35 @@ class User extends AppModel {
         return true;
     }
     
+    public  function saveNewPwd($data, $new_pwd = null) {   
+        if(empty($data['id'])) return;
+        $this->id = $data['id'];
+        if(!$new_pwd) $new_pwd = self::_generateNewPwd();
+        $this->saveField('password', $this->password($new_pwd));
+        $data = array_merge($data, array('password'=>$new_pwd));
+        return $data;
+    }
     
+    public  function _generateNewPwd()
+    {
+        $chars = "abcdefghijkmnopqrstuvwxyz023456789";
+        $length = 7;
+        srand((double)microtime()*1000000);    
+        $i = 0;    
+        $pass = '' ;    
+        while ($i <= $length) {        
+            $num = rand() % 33;        
+            $tmp = substr($chars, $num, 1);        
+            $pass = $pass . $tmp;        
+            $i++;    
+        }
+        //$pass = 1;
+        return $pass;
+    }
+    
+    public function password($password) {
+            return AuthComponent::password($password);
+        }
     
     
     

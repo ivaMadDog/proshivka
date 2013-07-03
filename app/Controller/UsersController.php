@@ -21,13 +21,14 @@ class UsersController extends AppController {
     function beforeFilter(){
 
          parent::beforeFilter();
-         $this->Auth->allow('forgot','register','logout');
+         $this->Auth->allow('forgot_password','register','logout');
          
          $this->set('roles', $this->roles);
          $this->set('headerColor', 'header-purple'); //переопределяем дефолтный клас для фона хедера
          $this->set('headerBgImg', 'login.png');     //переопределяем фоновое изображения хедера
     }
 
+    
     public function login($data = null){
        //если пользователь уже зарегистрирован, редирект на главную 
        if($this->_loggedIn()) {
@@ -85,14 +86,42 @@ class UsersController extends AppController {
                 if(!empty($login)) $this->request->data[$this->modelName]['username']= $login[0];
                 
                 if ($this->User->save($this->request->data)) {
+                    $this->sendEmail($this->request->data[$this->modelName]['email'], 
+                                     "Успешная регистрация на proshivki.biz", 
+                                     'register', 
+                                     $this->request->data[$this->modelName]);
                     $this->Session->setFlash(__('Вы успешно зарегистрировались на сайте.</br> Теперь можете авторизоваться.'),'flash_msg_success',array('title'=>'Успех регистрации'));
                     $this->redirect(array('controller'=>'users','action' => 'login'));
                 } else {
                     $this->Session->setFlash(__('Вы не смогли зарегистрироваться на сайте. Попробуйте ещё раз.'),'flash_msg_error',array('title'=>'Ошибка регистрации'));
                 }
             }    
-        }
-    }
+         }
+      }
+      
+      
+      public function forgot_password() {
+         if(!empty($this->request->data['User'])){
+                $data = $this->request->data['User'];
+                $User = $this->User->find('first', array('conditions'=>array('email'=>$data['email']), 'recursive'=>-1));
+                if(empty($data['email']) || !Validation::email($data['email'])){
+                    $this->User->invalidate('email', $error = __('Введите правильный email', true));
+                    $this->setFlashError($error,'json');
+                }
+                elseif(!$User){
+                    //$this->Session->setFlash(__('Invalid Email', true));
+                    $this->setFlashError($error = __('Please enter a valid email address', true),'json');
+                }
+                if($data = $this->User->saveNewPwd($User['User'])){
+                    $data['link'] = Router::url(array('controller'=>'users', 'action'=>'login', 'lang'=>$this->lang), true);
+                    $this->_sendNewPwdMail($data);
+                    $msg = __('Your password has been changed successfully', true);
+                    $this->setFlashMessage($msg,'json');
+                    //$this->Session->setFlash($msg);
+                    $this->redirect(array('action'=>'login'));
+                }
+          }
+      }
 
     
 }
