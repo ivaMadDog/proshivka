@@ -1,10 +1,22 @@
 <div>
     <ul id="topmenu" class="gmenu">
-        <li>
-            <?=$this->html->link('Вход', array('controller'=>'users', 'action'=>'login'), array('title'=>'Вход'));?>
+        <li> 
+            <?
+                if(!$logged_in):
+                   echo $this->html->link('Вход', array('controller'=>'users', 'action'=>'login'), array('title'=>'Вход'));
+                else:
+                   echo $this->html->link('Профиль', array('controller'=>'users', 'action'=>'profile'), array('title'=>'Профиль пользователя'));
+                endif;    
+            ?>
         </li>
         <li>
-            <?=$this->html->link('Регистрация', array('controller'=>'users', 'action'=>'register'), array('title'=>'Регистрация'));?>
+            <?
+                if(!$logged_in):
+                   echo $this->html->link('Регистрация', array('controller'=>'users', 'action'=>'register'), array('title'=>'Регистрация пользователя'));
+                else:
+                   echo $this->html->link('Выход', array('controller'=>'users', 'action'=>'logout'), array('title'=>'Выход'));
+                endif;    
+            ?>
         </li>
         <li id="top_contacts">
             <a  href="#" title="">+38 (097) 187 84 85</a>
