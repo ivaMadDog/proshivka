@@ -129,7 +129,7 @@ class AppController extends Controller
             $this->redirect(Router::url(array('controller'=>'home','action'=>'index')));
        }
        
-       public	function setFlashError($msg, $json = false){
+       public function setFlashError($msg, $json = false){
 		return $this->setFlashMessage($msg, $json, $status = 'error');
 	}
 	
@@ -173,7 +173,7 @@ class AppController extends Controller
     {
         $subject = __('New password', true);
         $template = 'new_pwd';
-        return $this->sendEmail($data, $data['email'], $subject, $template);
+        return $this->sendEmail($data['email'], $subject, $template, $data);
     }
        
        

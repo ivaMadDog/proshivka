@@ -110,12 +110,12 @@ class UsersController extends AppController {
                 }
                 elseif(!$User){
                     //$this->Session->setFlash(__('Invalid Email', true));
-                    $this->setFlashError($error = __('Please enter a valid email address', true),'json');
+                    $this->setFlashError($error = __('Введите правильный email', true),'json');
                 }
                 if($data = $this->User->saveNewPwd($User['User'])){
                     $data['link'] = Router::url(array('controller'=>'users', 'action'=>'login', 'lang'=>$this->lang), true);
                     $this->_sendNewPwdMail($data);
-                    $msg = __('Your password has been changed successfully', true);
+                    $msg = __('Новый пароль был отправлен на Ваш email', true);
                     $this->setFlashMessage($msg,'json');
                     //$this->Session->setFlash($msg);
                     $this->redirect(array('action'=>'login'));
