@@ -38,7 +38,8 @@ class User extends AppModel {
             'required' => array(
                 'rule' => array('email'),
                 'message' => 'Неверный email адрес',
-                'required'=> true
+                'required'=> true,
+                'on'=>'create'
             ),
             'isUnique' => array(
                 'rule' => 'isUnique',
@@ -115,7 +116,16 @@ class User extends AppModel {
             return AuthComponent::password($password);
         }
     
-    
+    public function getUserEmail($email, $recursive) {
+        if(empty($email)) return false;
+        
+        $data= $this->find('first', array('condition'=>array('email'=>$email),
+                                           'recursive'=>$recursive));
+        
+        if (empty($data)) return false;
+        
+        return $data;
+    }
     
 }
 

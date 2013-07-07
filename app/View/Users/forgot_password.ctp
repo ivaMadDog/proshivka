@@ -1,13 +1,15 @@
 <h2 class="hpage txt_purple"><?=__('Восстановление пароля')?></h2>
 <div id="forgotpwd_container">
-            <p><?__('Just submit your Email ID and we will send your password to your Email')?></p>
+    <p><?=__('Just submit your Email ID and we will send your password to your Email')?></p>
 
-			<?if(!empty($error)){?>
-                            <div class="error-message"><?=sprintf(__('IMPORTANT: %s',''), $error)?></div>
-			<?}?>
+    <?if(!empty($error)){?>
+        <div class="error-message">
+            <?=sprintf(__('IMPORTANT: %s',''), $error)?>
+        </div>
+    <?}?>
     <?=$this->Form->create('User', array('action'=>'forgot_password#forgot_password', 'id'=>'forgotpwd-form', 'class'=>'form', 'inputDefaults' => array('div' => false, 'label'=>false, 'error'=>false)));?>
        <div class="register-user-row">
-           <?=$this->Form->input('email', array('label'=>'','id'=>'ForgotEmail','class'=>'textbox width-186', 'placeholder'=>'Введите пароль', 'data-placeholder'=>'Введите пароль'));?><br/>
+           <?=$this->Form->input('email', array('label'=>'','id'=>'ForgotEmail','class'=>'textbox width-186', 'placeholder'=>'Введите email', 'data-placeholder'=>'Введите email'));?><br/>
        </div>
        <div class="register-user-row">                     
           <?=$this->Form->end(array('label'=>__('Восстановить', true), 'class'=>'submit-btn btn big_orange', 'div'=>false));?>

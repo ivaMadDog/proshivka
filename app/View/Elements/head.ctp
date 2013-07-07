@@ -12,7 +12,7 @@
   echo $this->html->script('jquery/jquery-ui-1.10.2.custom.min.js');
   echo $this->html->script('fancybox/jquery.fancybox.pack.js');
   echo $this->html->script('jquery/jquery.liveFilter.js');
-  echo $this->html->script('jquery/jquery.cycle.all.js');
+ // echo $this->html->script('jquery/jquery.cycle.all.js');
   echo $this->html->script('jquery/jquery.placeholder.js');
   echo $this->html->script('default.js');
 ?>

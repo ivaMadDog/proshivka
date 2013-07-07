@@ -45,14 +45,14 @@ class AppController extends Controller
                                    'authenticate' => 
                                             array('Form' => 
                                                     array('fields' => array('username' => 'email'),
-                                                          'scope'  => array('User.is_active' => 1),
+                                                          'scope'  => array('is_active' => 1),
                                                           'recursive'=>-1
                                                      )
                                      ),
                                     'loginAction' => array('controller' => 'users', 'action' => 'login'),
                                     'authError'      => 'У Вас нет прав доступа к данной странице',
                                     'loginError'     => 'Некорректный логин или пароль',
-                                    'loginRedirect'  => array('controller' => 'users', 'action' => 'profile'),
+                                    'loginRedirect'  => array('controller' => 'users', 'action' => 'profile', 'user'=>true),
                                     'logoutRedirect' => array('controller' => 'home', 'action' => 'index'),
                                     'authorize'      => array('Controller'), // Added this line
                                 )
@@ -106,33 +106,50 @@ class AppController extends Controller
   /* Метод проверяет имеет ли пользователь права администратора
   * @return boolean
   */
-        protected function _isAdmin(){
-            $admin=FALSE;
-            if ($this->Auth->user('role')==='admin') {
-                $admin=TRUE;
-            }
-            return $admin;
+    protected function _isAdmin(){
+        $admin=FALSE;
+        if ($this->Auth->user('role')==='admin') {
+            $admin=TRUE;
         }
+        return $admin;
+    }
  
 /* Метод проверяет авторизован ли пользователь на сайте
  * @return boolean
 */      
-        protected function  _loggedIn() {
+      protected function  _loggedIn() {
            $logged_in=FALSE;
            if ($this->Auth->user()) {
                $logged_in=TRUE;
            }
            return $logged_in;
        }  
-        
+
+       
+        public function isAuthorized($user = null) {
+            // Any registered user can access public functions
+            if (empty($this->request->params['admin'])) {
+                return true;
+            }
+
+            // Only admins can access admin functions
+            if (isset($this->request->params['admin'])) {
+                return (bool)($user['role'] === 'admin');
+            }
+
+            // Default deny
+            return false;
+        }       
+       
+/*редирект на главную страницу*/        
        public function homePageRedirect () {
             $this->redirect(Router::url(array('controller'=>'home','action'=>'index')));
        }
-       
+/**/       
        public function setFlashError($msg, $json = false){
 		return $this->setFlashMessage($msg, $json, $status = 'error');
 	}
-	
+/**/	
        public function setFlashMessage($msg, $json = false, $status = 'message'){
 		if($status == 'message') $key = 'message';
 		if($status == 'error') $key = 'error';
@@ -168,7 +185,7 @@ class AppController extends Controller
 		}
 	}
        
-       
+/*отправка нового пароля*/       
        public  function _sendNewPwdMail($data)
     {
         $subject = __('New password', true);

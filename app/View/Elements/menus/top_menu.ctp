@@ -3,9 +3,9 @@
         <li> 
             <?
                 if(!$logged_in):
-                   echo $this->html->link('Вход', array('controller'=>'users', 'action'=>'login'), array('title'=>'Вход'));
+                   echo $this->html->link('Вход', array('controller'=>'users', 'action'=>'login', 'user'=>false), array('title'=>'Вход'));
                 else:
-                   echo $this->html->link('Профиль', array('controller'=>'users', 'action'=>'profile'), array('title'=>'Профиль пользователя'));
+                   echo $this->html->link('Профиль', array('controller'=>'users', 'action'=>'profile','user'=>true), array('title'=>'Профиль пользователя'));
                 endif;    
             ?>
         </li>
@@ -14,7 +14,7 @@
                 if(!$logged_in):
                    echo $this->html->link('Регистрация', array('controller'=>'users', 'action'=>'register'), array('title'=>'Регистрация пользователя'));
                 else:
-                   echo $this->html->link('Выход', array('controller'=>'users', 'action'=>'logout'), array('title'=>'Выход'));
+                   echo $this->html->link('Выход', array('controller'=>'users', 'action'=>'logout','user'=>false), array('title'=>'Выход'));
                 endif;    
             ?>
         </li>

@@ -37,8 +37,14 @@ class UsersController extends AppController {
            exit();
        }
        //если запрос с формы, то пытаемся авторизовать пользователя 
-        if ($this->request->is('post')) {
-            if ($this->Auth->login($this->request->data)) {
+        if ($this->request->is('post') && !empty($this->request->data[$this->modelName]['email']) && !empty($this->request->data[$this->modelName]['password']) ) {
+            $data = $this->{$this->modelName}->find('first', array(
+                    'conditions'=>array("AND"=>array("{$this->modelName}.email"=>$this->request->data[$this->modelName]['email'],
+                                         "{$this->modelName}.password"=> AuthComponent::password($this->request->data[$this->modelName]['password'])   
+                                        )),
+                    'recursive'=>-1
+                ));
+            if (!empty($data) && $this->Auth->login($data['User'])) {
                 $this->Session->setFlash(__('Спасибо, что Вы снова с нами.'),'flash_msg_success', array('title'=>'Авторизация прошла успешно'));
                 $this->redirect($this->Auth->redirect());
             } else {
@@ -50,9 +56,10 @@ class UsersController extends AppController {
 
     public function logout() {
         $this->Session->destroy();
+        $this->redirect($this->Auth->logout());
         $this->logged_in=FALSE;
         $this->set('logged_in', $this->logged_in);
-        $this->redirect($this->Auth->logout());
+        
     }
     
     
@@ -116,11 +123,56 @@ class UsersController extends AppController {
                     $data['link'] = Router::url(array('controller'=>'users', 'action'=>'login', 'lang'=>$this->lang), true);
                     $this->_sendNewPwdMail($data);
                     $msg = __('Новый пароль был отправлен на Ваш email', true);
-                    $this->setFlashMessage($msg,'json');
+                    $this->Session->setFlash(__($msg),'flash_msg_success',array('title'=>'Пароль восстановлен'));
+//                    $this->setFlashMessage($msg,'json');
                     //$this->Session->setFlash($msg);
                     $this->redirect(array('action'=>'login'));
                 }
           }
+      }
+      
+      
+      public function user_profile(){
+          
+           if(!$this->_loggedIn()){
+                $this->Session->setFlash( 'У Вас нет прав для доступа к данной странице','flash_msg_error',array('title'=>'Ошибка. Страница не найдена')); 
+                $this->redirect(array('action'=>'login'));
+                exit;
+            }
+            
+            $this->{$this->modelName}->recursive=-1;
+             if ($this->request->is('post')) {
+                 debug($this->request->data);
+                // If the form data can be validated and saved...
+                if ($this->User->save($this->request->data)) {
+                    // Set a session flash message and redirect.
+                    $this->Session->setFlash('Recipe Saved!');
+                    $this->redirect('/user_profile');
+                }
+            }
+            
+            $this->request->data=$this->User->findById($this->Auth->user('id'));
+            
+            
+            
+//           if(empty($this->request->data)){
+//               $this->{$this->modelName}->recursive=-1;
+//               $this->request->data=$this->{$this->modelName}->read(null, $this->Auth->user('id'));
+//           }else {
+////               debug($this->request->data);
+////               debug(AuthComponent::user('id'));
+////               die;
+//               $this->{$this->modelName}->id=$this->Auth->user('id');
+//               if($this->{$this->modelName}->save($this->request->data)){
+//                    $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Профиль обновлен')); 
+//                    $this->redirect(array('action'=>'user_profile'));                  
+//               }else{
+//                    $this->Session->setFlash( 'Не удалось обновить данные профиля','flash_msg_error',array('title'=>'Ошибка обновления данных')); 
+//                    $this->redirect(array('action'=>'user_profile'));
+//                    exit;
+//               }
+//           }
+          
       }
 
     
