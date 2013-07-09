@@ -28,7 +28,7 @@ class UsersController extends AppController {
          $this->set('headerBgImg', 'login.png');     //переопределяем фоновое изображения хедера
     }
 
-    
+ /* авторизация пользователя */   
     public function login($data = null){
        //если пользователь уже зарегистрирован, редирект на главную 
        if($this->_loggedIn()) {
@@ -39,9 +39,9 @@ class UsersController extends AppController {
        //если запрос с формы, то пытаемся авторизовать пользователя 
         if ($this->request->is('post') && !empty($this->request->data[$this->modelName]['email']) && !empty($this->request->data[$this->modelName]['password']) ) {
             $data = $this->{$this->modelName}->find('first', array(
-                    'conditions'=>array("AND"=>array("{$this->modelName}.email"=>$this->request->data[$this->modelName]['email'],
+                    'conditions'=>array("{$this->modelName}.email"=>$this->request->data[$this->modelName]['email'],
                                          "{$this->modelName}.password"=> AuthComponent::password($this->request->data[$this->modelName]['password'])   
-                                        )),
+                                        ),
                     'recursive'=>-1
                 ));
             if (!empty($data) && $this->Auth->login($data['User'])) {
@@ -53,7 +53,7 @@ class UsersController extends AppController {
         }
     }
 
-
+/* выход пользователя */
     public function logout() {
         $this->Session->destroy();
         $this->redirect($this->Auth->logout());
@@ -62,7 +62,7 @@ class UsersController extends AppController {
         
     }
     
-    
+ /* регистрация пользователя */   
     public function register(){
         
        if($this->_loggedIn()) {
@@ -106,7 +106,7 @@ class UsersController extends AppController {
          }
       }
       
-      
+ /* восстановление пароля */     
       public function forgot_password() {
          if(!empty($this->request->data['User'])){
                 $data = $this->request->data['User'];
@@ -131,47 +131,76 @@ class UsersController extends AppController {
           }
       }
       
-      
+ /* смена пароля */     
+        public function user_change_password() {
+                
+            if(!$this->_loggedIn()){
+                $this->Session->setFlash( 'У Вас нет прав доступа к данной странице','flash_msg_error',array('title'=>'Ошибка. Страница не найдена')); 
+                $this->redirect(array('action'=>'login'));
+                exit;
+            }
+            
+            $user=$this->{$this->modelName}->getAuthUser();
+//            debug($user);
+            if(!empty($this->request->data)){
+                
+                if(!empty($user['User']['password']) && $user['User']['password']!=$this->{$this->modelName}->password($this->request->data['User']['password'])){
+                       if(!empty($user['User']['new_password']) && !empty($user['User']['new_password_confirm']) &&
+                         $user['User']['new_password']== $user['User']['new_password_confirm']) {
+                            $user['User']['id']=$this->Auth->User('id'); 
+                            $user['User']['password']=$this->{$this->modelName}->password($user['User']['new_password']);
+                                if($this->{$this->modelName}->save($user)){
+                                   $this->Session->setFlash('Новый пароль успешно сохранен','flash_msg_success',array('title'=>'Пароль обновлен')); 
+                                   $this->redirect(array('action'=>'user_profile'));
+                                   exit;                                   
+                                }else{
+                                   $this->Session->setFlash('Новый пароль не удалось сохранить','flash_msg_error',array('title'=>'Ошибка.')); 
+                                   $this->redirect(array('action'=>'user_change_password'));
+                                   exit;                                     
+                                }
+                       }else{
+                            $this->Session->setFlash('Пароли не совпадают','flash_msg_error',array('title'=>'Ошибка.')); 
+                            $this->redirect(array('action'=>'user_change_password'));
+                            exit;                             
+                       }
+                }else{
+                   $this->Session->setFlash('Старый пароль не правильный','flash_msg_error',array('title'=>'Ошибка.')); 
+                   $this->redirect(array('action'=>'user_change_password'));
+                   exit;                    
+                }
+                
+            }else {             
+            }
+            
+        }
+
+
+
+
+ /* редактирование данных */     
       public function user_profile(){
           
            if(!$this->_loggedIn()){
-                $this->Session->setFlash( 'У Вас нет прав для доступа к данной странице','flash_msg_error',array('title'=>'Ошибка. Страница не найдена')); 
+                $this->Session->setFlash( 'У Вас нет прав доступа к данной странице','flash_msg_error',array('title'=>'Ошибка. Страница не найдена')); 
                 $this->redirect(array('action'=>'login'));
                 exit;
             }
             
             $this->{$this->modelName}->recursive=-1;
-             if ($this->request->is('post')) {
-                 debug($this->request->data);
-                // If the form data can be validated and saved...
+             if (!empty($this->request->data['User'])) {
+                $this->request->data['User']['id']=$this->Auth->User('id'); 
                 if ($this->User->save($this->request->data)) {
-                    // Set a session flash message and redirect.
-                    $this->Session->setFlash('Recipe Saved!');
-                    $this->redirect('/user_profile');
+                    $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Профиль обновлен')); 
+                    $this->redirect(array('action'=>'user_profile'));  
+                }else{
+                    $this->Session->setFlash( 'Не удалось обновить данные профиля','flash_msg_error',array('title'=>'Ошибка обновления данных')); 
+                    $this->redirect(array('action'=>'user_profile'));
+                    exit;                   
                 }
+            }else{
+                  $this->request->data=$this->{$this->modelName}->find('first', array('conditions'=>array("{$this->modelName}.id"=>$this->Auth->User('id')),
+                                                                                               'recursive'=>-1));
             }
-            
-            $this->request->data=$this->User->findById($this->Auth->user('id'));
-            
-            
-            
-//           if(empty($this->request->data)){
-//               $this->{$this->modelName}->recursive=-1;
-//               $this->request->data=$this->{$this->modelName}->read(null, $this->Auth->user('id'));
-//           }else {
-////               debug($this->request->data);
-////               debug(AuthComponent::user('id'));
-////               die;
-//               $this->{$this->modelName}->id=$this->Auth->user('id');
-//               if($this->{$this->modelName}->save($this->request->data)){
-//                    $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Профиль обновлен')); 
-//                    $this->redirect(array('action'=>'user_profile'));                  
-//               }else{
-//                    $this->Session->setFlash( 'Не удалось обновить данные профиля','flash_msg_error',array('title'=>'Ошибка обновления данных')); 
-//                    $this->redirect(array('action'=>'user_profile'));
-//                    exit;
-//               }
-//           }
           
       }
 

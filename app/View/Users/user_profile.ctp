@@ -1,14 +1,8 @@
-<? //  debug($this->data)?>
 <h1 class="hpage txt_purple">Кабинет пользователя</h1>
                             
 <section class="user-page">
 
-    <ul class="user-page-nav">
-        <li class="active"><a href="/user/users/profile"><span class="sprite-icons home"></span><span>Профиль</span></a></li>
-        <li><a href="/users/user_orders"><span class="sprite-icons trademark"></span><span>Мои заказы</span></a></li>
-        <li><a href="/users/change_password"><span class="sprite-icons psw"></span><span>Сменить пароль</span></a></li>
-        <li><a href="/users/logout"><span class="sprite-icons logout"></span><span>Выход</span></a></li>
-    </ul>
+    <?php echo $this->element('menus/user_menu');?>
 
     <section class="user-page-body">
         <div>
@@ -27,7 +21,7 @@
                         Email
                     </div>
                     <div class="form-row-value">
-                        <?= $this->form->input('email', array('disabled'=>"disabled",'placeholder'=>"Email", 'data-placeholder'=>"Email", 'label'=>false,'div'=>false)) ;?>
+                        <?=$this->data['User']['email'];?>
                     </div>
                 </div>    
                 <div class="form-row">   
@@ -74,4 +68,3 @@
 
 </section>
  
-<div class="clr"></div>

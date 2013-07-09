@@ -72,7 +72,17 @@ class User extends AppModel {
                 'message' => 'Ошибка. Не верно указанная роль',
                 'allowEmpty' => false
             )
-        )
+        ),
+//        'phone1' => array(
+//            'valid' => array(
+//                'rule'=>"(\+?\d[- .]*){7,13}"
+//            )
+//        ),
+//        'phone2' => array(
+//            'valid' => array(
+//                'rule'=>"(\+?\d[- .]*){7,13}"
+//            )
+//        ),        
     );
     
     public function validatePwdConfirm($check){
@@ -125,6 +135,10 @@ class User extends AppModel {
         if (empty($data)) return false;
         
         return $data;
+    }
+    
+    public function getAuthUser(){
+        return $this->find('first', array('conditions'=>array('id'=>  AuthComponent::User('id')), 'recursive'=>-1));
     }
     
 }
