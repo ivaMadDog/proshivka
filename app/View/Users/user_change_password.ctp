@@ -7,8 +7,7 @@
 
     <section class="user-page-body">
         <div>
-            <form action="#">
-            <?php echo $this->form->create(); ?>    
+            <?php echo $this->form->create('User', array('url'=>array('controller'=>'users', 'action'=>'user_change_password'))); ?>    
                 <div class="form-row">
                     <div class="form-row-label">
                         Старый пароль
@@ -22,7 +21,7 @@
                         Новый пароль
                     </div>
                     <div class="form-row-value">
-                        <?php echo $this->form->input('new_password', array("type"=>"password", "label"=>false ,"placeholder"=>"Новый пароль", "data-placeholder"=>"Новый пароль")); ?>
+                        <?php echo $this->form->input('new_password', array("type"=>"password","label"=>false ,"placeholder"=>"Новый пароль", "data-placeholder"=>"Новый пароль")); ?>
                     </div>
                 </div> 
                 <div class="form-row">
@@ -30,13 +29,13 @@
                         Повторить пароль
                     </div>
                     <div class="form-row-value">
-                        <?php echo $this->form->input('new_password_confirm', array("type"=>"password","label"=>false ,"placeholder"=>"Повторить пароль", "data-placeholder"=>"Повторить пароль")); ?>
+                        <?php echo $this->form->input('new_password_confirm', array("type"=>"password", "label"=>false ,"placeholder"=>"Повторить пароль", "data-placeholder"=>"Повторить пароль")); ?>
                     </div>
                 </div> 
                 <div class="form-row">
                     <div class="form-row-value">
                         <?php echo $this->form->submit('Сохранить', array('class'=>'btn_form btn_orange')); ?>
-                        <?php echo $this->html->link('Отправить на email новый пароль', 'user/users/reciveNewPwd'); ?>
+                        <?php echo $this->html->link('Отправить на email новый пароль', '/user/users/reciveNewPwd'); ?>
                     </div>
                 </div> 
             <?php echo $this->form->end(); ?>
@@ -44,3 +43,4 @@
     </section>
 
 </section>
+   

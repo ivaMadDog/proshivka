@@ -137,12 +137,12 @@ class UsersController extends AppController {
             if(!$this->_loggedIn()){
                 $this->Session->setFlash( 'У Вас нет прав доступа к данной странице','flash_msg_error',array('title'=>'Ошибка. Страница не найдена')); 
                 $this->redirect(array('action'=>'login'));
-                exit;
             }
             
             $user=$this->{$this->modelName}->getAuthUser();
 //            debug($user);
-            if(!empty($this->request->data)){
+            if(!empty($this->request->data['User']['password']) && !empty($this->request->data['User']['new_password']) && 
+                    !empty($this->request->data['User']['new_password_confirm']) ){
                 
                 if(!empty($user['User']['password']) && $user['User']['password']!=$this->{$this->modelName}->password($this->request->data['User']['password'])){
                        if(!empty($user['User']['new_password']) && !empty($user['User']['new_password_confirm']) &&
@@ -152,30 +152,21 @@ class UsersController extends AppController {
                                 if($this->{$this->modelName}->save($user)){
                                    $this->Session->setFlash('Новый пароль успешно сохранен','flash_msg_success',array('title'=>'Пароль обновлен')); 
                                    $this->redirect(array('action'=>'user_profile'));
-                                   exit;                                   
                                 }else{
                                    $this->Session->setFlash('Новый пароль не удалось сохранить','flash_msg_error',array('title'=>'Ошибка.')); 
                                    $this->redirect(array('action'=>'user_change_password'));
-                                   exit;                                     
                                 }
                        }else{
                             $this->Session->setFlash('Пароли не совпадают','flash_msg_error',array('title'=>'Ошибка.')); 
                             $this->redirect(array('action'=>'user_change_password'));
-                            exit;                             
                        }
                 }else{
                    $this->Session->setFlash('Старый пароль не правильный','flash_msg_error',array('title'=>'Ошибка.')); 
                    $this->redirect(array('action'=>'user_change_password'));
-                   exit;                    
                 }
-                
-            }else {             
             }
             
         }
-
-
-
 
  /* редактирование данных */     
       public function user_profile(){

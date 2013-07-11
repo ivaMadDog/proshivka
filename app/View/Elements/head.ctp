@@ -14,6 +14,7 @@
   echo $this->html->script('jquery/jquery.liveFilter.js');
  // echo $this->html->script('jquery/jquery.cycle.all.js');
   echo $this->html->script('jquery/jquery.placeholder.js');
+  echo $this->html->script('jquery/validate.js');
   echo $this->html->script('default.js');
 ?>
 
