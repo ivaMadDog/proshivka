@@ -139,33 +139,56 @@ class UsersController extends AppController {
                 $this->redirect(array('action'=>'login'));
             }
             
-            $user=$this->{$this->modelName}->getAuthUser();
-//            debug($user);
-            if(!empty($this->request->data['User']['password']) && !empty($this->request->data['User']['new_password']) && 
-                    !empty($this->request->data['User']['new_password_confirm']) ){
-                
-                if(!empty($user['User']['password']) && $user['User']['password']!=$this->{$this->modelName}->password($this->request->data['User']['password'])){
-                       if(!empty($user['User']['new_password']) && !empty($user['User']['new_password_confirm']) &&
-                         $user['User']['new_password']== $user['User']['new_password_confirm']) {
-                            $user['User']['id']=$this->Auth->User('id'); 
-                            $user['User']['password']=$this->{$this->modelName}->password($user['User']['new_password']);
-                                if($this->{$this->modelName}->save($user)){
+            $this->{$this->modelName}->validator()->remove('email');
+            $this->{$this->modelName}->validator()->add('new_confirm_password', array(
+                                                            'required' => array(
+                                                                'rule' => 'notEmpty',
+                                                                'required' => 'create'
+                                                            ),
+                                                        )); 
+                    
+            
+            $this->{$this->modelName}->recursive=-1;
+            $userdata=$this->{$this->modelName}->read(NULL, $this->Auth->User('id'));
+            if (!empty($this->request->data) && isset($this->request->data['User']['password']) &&
+                    !empty($this->request->data['User']['confirm_password']) && !empty($this->request->data['User']['new_confirm_password'])) {
+              if ($this->request->data['User']['confirm_password']==$this->request->data['User']['new_confirm_password'] && 
+                      $userdata['User']['password']==$this->{$this->modelName}->password($this->request->data['User']['password'])){
+                            if ($this->{$this->modelName}->saveField('password', $this->request->data['User']['confirm_password'])) {
                                    $this->Session->setFlash('Новый пароль успешно сохранен','flash_msg_success',array('title'=>'Пароль обновлен')); 
                                    $this->redirect(array('action'=>'user_profile'));
-                                }else{
+                             }else{
                                    $this->Session->setFlash('Новый пароль не удалось сохранить','flash_msg_error',array('title'=>'Ошибка.')); 
-                                   $this->redirect(array('action'=>'user_change_password'));
-                                }
-                       }else{
-                            $this->Session->setFlash('Пароли не совпадают','flash_msg_error',array('title'=>'Ошибка.')); 
-                            $this->redirect(array('action'=>'user_change_password'));
-                       }
-                }else{
-                   $this->Session->setFlash('Старый пароль не правильный','flash_msg_error',array('title'=>'Ошибка.')); 
-                   $this->redirect(array('action'=>'user_change_password'));
-                }
-            }
+                                   $this->redirect(array('action'=>'user_change_password'));                             }
+                 }else {
+                        $this->Session->setFlash('Пароли не совпадают','flash_msg_error',array('title'=>'Ошибка ввода пароля')); 
+                 }
+             }  
             
+//            debug($this->request->data);
+//            if(!empty($this->request->data) &&
+//               !empty($this->request->data['User']['password']) && 
+//               !empty($this->request->data['User']['new_password']) && 
+//               !empty($this->request->data['User']['new_password_confirm']) ){
+//                    if($this->request->data['User']['new_password']==$this->request->data['User']['new_password_confirm']){
+//                          if($user['User']['password']!=$this->{$this->modelName}->password($this->request->data['User']['password'])){
+//                                $user['User']['id']=$this->Auth->User('id'); 
+//                                $user['User']['password']=$this->{$this->modelName}->password($this->request->data['User']['new_password']);
+//                                if($this->{$this->modelName}->save($user)){
+//                                   $this->Session->setFlash('Новый пароль успешно сохранен','flash_msg_success',array('title'=>'Пароль обновлен')); 
+//                                   $this->redirect(array('action'=>'user_profile'));
+//                                }else{
+//                                   $this->Session->setFlash('Новый пароль не удалось сохранить','flash_msg_error',array('title'=>'Ошибка.')); 
+//                                   $this->redirect(array('action'=>'user_change_password'));
+//                                }
+//                          }else{
+//                              $this->Session->setFlash('Старый пароль не правильный','flash_msg_error',array('title'=>'Ошибка ввода пароля')); 
+//                          }    
+//                    }else{
+//                        $this->Session->setFlash('Пароли не совпадают','flash_msg_error',array('title'=>'Ошибка ввода пароля')); 
+//                    }    
+//            }
+
         }
 
  /* редактирование данных */     

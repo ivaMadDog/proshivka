@@ -13,7 +13,7 @@
                         Старый пароль
                     </div>
                     <div class="form-row-value">
-                        <?php echo $this->form->input('password', array("type"=>"password", "label"=>false ,"placeholder"=>"Старый пароль", "data-placeholder"=>"Старый пароль")); ?>
+                        <?php echo $this->form->input('password', array("type"=>"password", "label"=>false )); ?>
                     </div>
                 </div> 
                <div class="form-row">
@@ -21,7 +21,7 @@
                         Новый пароль
                     </div>
                     <div class="form-row-value">
-                        <?php echo $this->form->input('new_password', array("type"=>"password","label"=>false ,"placeholder"=>"Новый пароль", "data-placeholder"=>"Новый пароль")); ?>
+                        <?php echo $this->form->input('confirm_password', array("type"=>"password","label"=>false )); ?>
                     </div>
                 </div> 
                 <div class="form-row">
@@ -29,7 +29,7 @@
                         Повторить пароль
                     </div>
                     <div class="form-row-value">
-                        <?php echo $this->form->input('new_password_confirm', array("type"=>"password", "label"=>false ,"placeholder"=>"Повторить пароль", "data-placeholder"=>"Повторить пароль")); ?>
+                        <?php echo $this->form->input('new_confirm_password', array("type"=>"password", "label"=>false )); ?>
                     </div>
                 </div> 
                 <div class="form-row">
@@ -43,4 +43,10 @@
     </section>
 
 </section>
+
+<script type="text/javascript">
+  $(document).ready(function(){  
+        $('#UserPassword').focus();
+  });        
+</script>
    
