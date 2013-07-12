@@ -72,6 +72,9 @@ $('.forgot-pwd').click(function(e){
 	$('#forgotpwd_container').show();
 })
 
+$('#UserEmail').focus();
+
+
 //$('.close-box').click(function(e){
 //	e.preventDefault();
 //	$(this).parents('DIV:first').hide();

@@ -12,7 +12,7 @@
         <li>
             <?
                 if(!$logged_in):
-                   echo $this->html->link('Регистрация', array('controller'=>'users', 'action'=>'register'), array('title'=>'Регистрация пользователя'));
+                   echo $this->html->link('Регистрация', array('controller'=>'users', 'action'=>'register', 'user'=>false), array('title'=>'Регистрация пользователя'));
                 else:
                    echo $this->html->link('Выход', array('controller'=>'users', 'action'=>'logout','user'=>false), array('title'=>'Выход'));
                 endif;    

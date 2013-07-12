@@ -1,4 +1,7 @@
-<h1 class="hpage txt_purple">Кабинет пользователя</h1>
+<h1 class="hpage txt_purple">
+    Кабинет пользователя
+    <?php if(!empty($admin) && $admin) echo " - ".$this->html->link('админка', ('/admin/administrators/index'));?>
+</h1>
                             
 <section class="user-page">
 

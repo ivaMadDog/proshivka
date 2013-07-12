@@ -21,7 +21,7 @@ class UsersController extends AppController {
     function beforeFilter(){
 
          parent::beforeFilter();
-         $this->Auth->allow('forgot_password','register','logout');
+         $this->Auth->allow('forgot_password','register');
          
          $this->set('roles', $this->roles);
          $this->set('headerColor', 'header-purple'); //переопределяем дефолтный клас для фона хедера
@@ -77,7 +77,7 @@ class UsersController extends AppController {
         if(empty($groups) || empty($sales)) {
            $this->Session->setFlash(__('На данный момент на сайте невозможно зарегистрироваться.'),'flash_msg_info',array('title'=>'Регистрация невозможна'));
            CakeLog::write('register', 'Регистрация на сайте невозможна. Нет дефолтных значений для Груп или Скидок');
-           $this->redirect($this->Auth->redirect());
+           $this->redirect('/');
            exit();
         }
         
