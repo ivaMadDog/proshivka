@@ -25,13 +25,24 @@ class User extends AppModel {
     );
     
     public $hasMany = array(
-        'Order' => array(
-            'className'     => 'Order',
+        'Review' => array(
+            'className'     => 'Review',
             'foreignKey'    => 'user_id',
-            'order'         => 'Order.created DESC',
+            'order'         => 'Review.created DESC',
             'dependent'     => true
         )
     );
+    
+     public $hasAndBelongsToMany = array(
+        'Printer' =>
+            array(
+                'className'              => 'Printer',
+                'joinTable'              => 'orders',
+                'foreignKey'             => 'user_id',
+                'associationForeignKey'  => 'printer_id',
+                'unique'                 => true,
+            ),
+    );     
     
     public $validate = array(
         'email' => array(

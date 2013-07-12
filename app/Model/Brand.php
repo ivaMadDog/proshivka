@@ -4,11 +4,10 @@ class Brand extends AppModel {
     
     public $name = 'Brand';
 
-        public $hasMany = array(
-            'Company' => array(
-                'className'     => 'Company',
-                'foreignKey'    => 'city_id',
-                'order'         => 'Company.created DESC',
+    public $hasMany = array(
+            'Printer' => array(
+                'className'     => 'Printer',
+                'foreignKey'    => 'brand_id',
                 'dependent'     => false
         )
     );
