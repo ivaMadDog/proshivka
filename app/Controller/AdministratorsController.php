@@ -17,7 +17,6 @@ class AdministratorsController extends AppController
 	}
 
 	public function admin_index() {
-            echo 1;
         }
 
 	
