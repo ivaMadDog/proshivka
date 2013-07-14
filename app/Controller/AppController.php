@@ -64,6 +64,10 @@ class AppController extends Controller
     function beforeFilter(){
           
           $this->Auth->allow('index', 'view');
+          
+          if($this->Auth->User('role')==='admin' && !empty($this->request->params["admin"])) {
+                    $this->layout='admin/default';
+                }
         
           $this->admin=$this->_isAdmin();
           $this->logged_in=$this->_loggedIn();

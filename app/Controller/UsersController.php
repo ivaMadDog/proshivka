@@ -1,13 +1,12 @@
 <?php
 class UsersController extends AppController {
     
-    
     public $name = 'Users';
     public $uses = array('User');
 
     public $modelName = 'User';
     public $controller = 'Users';
-
+    public $cp_title='Пользователи proshivki.biz';
     
     public $image_dir = '/files/users/';
     public $big_image_dir = 'big/';
@@ -16,7 +15,6 @@ class UsersController extends AppController {
     public $tiny_image_dir = 'tiny/';
     
     private $roles = array('admin'=>'admin','user'=>'user');
-
     
     function beforeFilter(){
 
@@ -26,6 +24,9 @@ class UsersController extends AppController {
          $this->set('roles', $this->roles);
          $this->set('headerColor', 'header-purple'); //переопределяем дефолтный клас для фона хедера
          $this->set('headerBgImg', 'login.png');     //переопределяем фоновое изображения хедера
+         
+         $this->set(array('cp_title'=>$this->cp_title, 'controllerName'=>$this->controller,
+                          'modelName'=>$this->modelName));
     }
 
  /* авторизация пользователя */   
@@ -164,31 +165,6 @@ class UsersController extends AppController {
                         $this->Session->setFlash('Пароли не совпадают','flash_msg_error',array('title'=>'Ошибка ввода пароля')); 
                  }
              }  
-            
-//            debug($this->request->data);
-//            if(!empty($this->request->data) &&
-//               !empty($this->request->data['User']['password']) && 
-//               !empty($this->request->data['User']['new_password']) && 
-//               !empty($this->request->data['User']['new_password_confirm']) ){
-//                    if($this->request->data['User']['new_password']==$this->request->data['User']['new_password_confirm']){
-//                          if($user['User']['password']!=$this->{$this->modelName}->password($this->request->data['User']['password'])){
-//                                $user['User']['id']=$this->Auth->User('id'); 
-//                                $user['User']['password']=$this->{$this->modelName}->password($this->request->data['User']['new_password']);
-//                                if($this->{$this->modelName}->save($user)){
-//                                   $this->Session->setFlash('Новый пароль успешно сохранен','flash_msg_success',array('title'=>'Пароль обновлен')); 
-//                                   $this->redirect(array('action'=>'user_profile'));
-//                                }else{
-//                                   $this->Session->setFlash('Новый пароль не удалось сохранить','flash_msg_error',array('title'=>'Ошибка.')); 
-//                                   $this->redirect(array('action'=>'user_change_password'));
-//                                }
-//                          }else{
-//                              $this->Session->setFlash('Старый пароль не правильный','flash_msg_error',array('title'=>'Ошибка ввода пароля')); 
-//                          }    
-//                    }else{
-//                        $this->Session->setFlash('Пароли не совпадают','flash_msg_error',array('title'=>'Ошибка ввода пароля')); 
-//                    }    
-//            }
-
         }
 
  /* редактирование данных */     
@@ -218,6 +194,32 @@ class UsersController extends AppController {
           
       }
 
-    
+      public function  admin_index() {
+         $modelName=$this->modelName; 
+         $cotrollerName= $this->controller;
+          
+         $cond=array(); 
+          
+         $this->paginate = array(
+            'fields' => array("$modelName.id", "$modelName.email", "$modelName.money","$modelName.is_active"),
+            'limit' => 15,
+            'order' => array("$modelName.id" => 'DESC'),
+            'conditions' => $cond,
+            'contain'=>array(
+                  'Company'=>array(
+                      'fields'=>array("Company.id", "Company.name")
+                  ),
+                  'Group'=>array(
+                      'fields'=>array("Group.id","Group.name")
+                  ),
+                 'Sale'=>array(
+                      'fields'=>array("Sale.sale")
+                  )
+            )
+         );
+          
+          $data=$this->paginate("$modelName");
+          $this->set(compact('data'));
+      }
 }
 ?>

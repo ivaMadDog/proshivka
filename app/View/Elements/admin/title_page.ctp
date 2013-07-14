@@ -1,8 +1,8 @@
 <div class="cp_header">
-    <div class="cp_command">
+<!--    <div class="cp_command">
         <a href="#">Мой профиль</a>
-    </div>
+    </div>-->
     <div class="cp_title">
-        Пользователи proshivki.biz
+        <?php echo $cp_title?>
     </div>
 </div>  

@@ -11,9 +11,7 @@ class AdministratorsController extends AppController
                 
                 $this->Auth->allow('login');
                 
-                if($this->Auth->User('role')==='admin' && !empty($this->request->params["admin"])) {
-                    $this->layout='admin/default';
-                }
+                
 	}
 
 	public function admin_index() {
