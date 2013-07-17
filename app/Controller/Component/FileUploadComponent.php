@@ -20,7 +20,7 @@ App::uses('Component', 'Controller');
 class FileUploadComponent extends Component {
 
 	var $name='FileUpload';
-	var $imageMagick='/usr/bin';
+	var $imageMagick=IMAGEMAGICK;
 	var $ffmpeg=array(
 	'ffmpegPath'=>'/usr/bin',
 	'audioSamplingFrequency'=>'22050',
@@ -258,7 +258,7 @@ class FileUploadComponent extends Component {
 
 
 										$resizeSave=$resize['folder'].'/'.$fileName;
-										$command = $this->imageMagick."/convert -compress jpeg -quality 100 \"$fileDestination\" -scale '$resizeOpStart{$resize['width']}x{$resize['height']}$resizeOpEnd' \"$resizeSave\"";
+										$command = $this->imageMagick." -compress jpeg -quality 100 \"$fileDestination\" -scale \"$resizeOpStart{$resize['width']}x{$resize['height']}$resizeOpEnd\" \"$resizeSave\"";
 										@passthru($command);
 
 

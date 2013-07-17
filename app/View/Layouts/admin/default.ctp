@@ -5,7 +5,6 @@
 </head>
 
 <body>
-    <?php echo $this->Session->flash(); ?>
 
     <header id="header">
         <div class="wrapper">
@@ -17,6 +16,7 @@
     <div class="wrapper">
 
             <div id="content">
+                <?php echo $this->Session->flash(); ?>
                   
                 <?php echo $this->element('admin/title_page');?>
 

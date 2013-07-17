@@ -124,7 +124,10 @@
     font-weight: bold;
     color: blueviolet;
 }
-.row {width: 960px;margin: 0 auto;overflow: hidden;}
+.title-left {
+    text-align: left;font-weight: bold;
+}
+.row {width: 960px;margin: 5px auto;overflow: hidden;}
 .row .row {margin: 0 -10px 0 -10px; width: auto; display: inline-block;}
 .row a{text-decoration: none;}
 /*==============================================================================
@@ -143,3 +146,12 @@
 .control-del{background-position: -256px -96px;}
 .control-locked{background-position: 0 -32px;}
 .control-unlocked{background-position: -32px -32px;}
+
+/*==============================================================================
+ кнопки
+==============================================================================*/
+.btn_orange {
+    background: #FF9200;
+    color: #000;
+    font-weight: bold;
+}

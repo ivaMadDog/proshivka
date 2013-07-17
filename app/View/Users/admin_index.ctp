@@ -1,16 +1,12 @@
 <? 
 // debug($data) ?>
-
 <?php
 $link_view = "admin/$controllerName/view";
 $link_add = "admin/$controllerName/add";
 $link_edit = "admin/$controllerName/edit";
 $link_delete = "admin/$controllerName/delete";
 $link_active = "admin/$controllerName/active";
-
 ?>
-
-
 <div class="content_area">
      <div class="row">
         <div class="column grid_3 title">

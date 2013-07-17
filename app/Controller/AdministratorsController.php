@@ -2,8 +2,8 @@
 class AdministratorsController extends AppController
 {
         public $name = "Administrators";
-	public $helpers = array();
-	public $components = array();
+	public $helpers = array('Paginator');
+	public $components = array('RequestHandler');
 	public $uses=array('User');
         public $cp_title='Административная панель сайта ';
 
@@ -42,7 +42,7 @@ class AdministratorsController extends AppController
 
 	function logout(){
 		
-		setcookie("cyberchisel_ck_authorized", "false", 0, "/");
+		setcookie("proshivka_ck_authorized", "false", 0, "/");
 		
 		$this->Session->destroy();
 		$this->Session->setFlash('You are logged out! ','admin/admin_err');

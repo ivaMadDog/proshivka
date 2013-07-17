@@ -3,16 +3,17 @@ class UsersController extends AppController {
     
     public $name = 'Users';
     public $uses = array('User');
+    public $components = array('FileUpload');
 
     public $modelName = 'User';
     public $controller = 'Users';
     public $cp_title='Пользователи ';
     
-    public $image_dir = '/files/users/';
-    public $big_image_dir = 'big/';
-    public $small_image_dir = 'small/';
-    public $mid_image_dir = 'mid/';
-    public $tiny_image_dir = 'tiny/';
+    public $folderName = 'users';
+    public $previewWidth = "300";
+    public $previewHeight = "400";
+    public $thumbWidth = "90";
+    public $thumbHeight = "120";
     
     private $roles = array('admin'=>'admin','user'=>'user');
     
@@ -226,17 +227,55 @@ class UsersController extends AppController {
       
       public function admin_add(){
           
-          $this->set('cp_subtitle', 'Добавление пользователя');
-
+         
+          
+          
+          $modelName= $this->modelName;
+          
+          $sales=$this->$modelName->Sale->find('list');
+          $groups=$this->$modelName->Group->find('list');
+          
+          $this->set(array('cp_subtitle'=> 'Добавление пользователя',
+                            'sales'=>$sales,
+                            'groups'=>$groups
+                  ));
+           
           if($this->request->is('post') && !empty($this->request->data)){
-              $this->{$this->modelName}->create();
-              if($this->{$this->modelName}->save($this->request->data)){
-                  $this->Session->setFlash('Данные успешно были добавлены','flash_msg_success',array('title'=>'Добавление нового пользователя')); 
+            if (isset($this->request->data[$modelName]["photo"]) && !empty($this->request->data[$modelName]["photo"]["name"])){
+                   $resizes =array( 
+                                array('folder'=>WWW_ROOT."/files/images/$this->folderName/thumb","width"=>$this->thumbWidth,"height"=>$this->thumbHeight,'force'=>false),
+                                array('folder'=>WWW_ROOT."/files/images/$this->folderName/preview","width"=>$this->previewWidth,"height"=>$this->previewHeight,'force'=>false),
+                              );
+
+                    $this->request->data[$modelName]['photo']['name']=preg_replace("/[^A-Za-z0-9_\.]/","",$this->request->data[$modelName]['photo']['name']);
+                    $retArray=$this->FileUpload->uploadFile(
+                                                                $this->request->data[$modelName]['photo'],
+                                                                WWW_ROOT."/files/images/$this->folderName/original",
+                                                                'image',
+                                                                array('resize'=>true,
+                                                                      'resizeOptions'=>$resizes,
+                                                                      'randomName'=>false)
+                                                            );
+                    if(!$retArray['error']){
+                            $this->request->data["$modelName"]['photo']=$retArray['fileName'];
+                    }else{
+
+                            $fileError=$retArray['errorMsg'];
+                            $this->request->data["$modelName"]['photo']='';
+                            $this->Session->setFlash($fileError);
+                            $error=1;
+                    }
+            }else{
+                    $this->request->data["$modelName"]['photo']='';
+            }
+            
+              $this->$modelName->create();
+              if($this->$modelName->save($this->request->data)){
+                  $this->Session->setFlash('Данные успешно были добавлены','flash_msg_success',array('title'=>'Добавление пользователя')); 
                   $this->redirect("/admin/$this->controller/index");
-                  exit;
               }else{
                   $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка добавления данных')); 
-		  exit;
+		  //exit;
               }
           }
           
