@@ -6,7 +6,7 @@ class UsersController extends AppController {
 
     public $modelName = 'User';
     public $controller = 'Users';
-    public $cp_title='Пользователи proshivki.biz';
+    public $cp_title='Пользователи ';
     
     public $image_dir = '/files/users/';
     public $big_image_dir = 'big/';
@@ -25,7 +25,8 @@ class UsersController extends AppController {
          $this->set('headerColor', 'header-purple'); //переопределяем дефолтный клас для фона хедера
          $this->set('headerBgImg', 'login.png');     //переопределяем фоновое изображения хедера
          
-         $this->set(array('cp_title'=>$this->cp_title, 'controllerName'=>$this->controller,
+         $this->set(array('cp_title'=>$this->cp_title.Configure::read("WEBSITE_NAME"), 
+                          'controllerName'=>$this->controller,
                           'modelName'=>$this->modelName));
     }
 
@@ -220,6 +221,26 @@ class UsersController extends AppController {
           
           $data=$this->paginate("$modelName");
           $this->set(compact('data'));
+      }
+      
+      
+      public function admin_add(){
+          
+          $this->set('cp_subtitle', 'Добавление пользователя');
+
+          if($this->request->is('post') && !empty($this->request->data)){
+              $this->{$this->modelName}->create();
+              if($this->{$this->modelName}->save($this->request->data)){
+                  $this->Session->setFlash('Данные успешно были добавлены','flash_msg_success',array('title'=>'Добавление нового пользователя')); 
+                  $this->redirect("/admin/$this->controller/index");
+                  exit;
+              }else{
+                  $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка добавления данных')); 
+		  exit;
+              }
+          }
+          
+          
       }
 }
 ?>

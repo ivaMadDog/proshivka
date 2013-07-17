@@ -5,13 +5,12 @@ class AdministratorsController extends AppController
 	public $helpers = array();
 	public $components = array();
 	public $uses=array('User');
+        public $cp_title='Административная панель сайта ';
 
 	function beforeFilter(){
 		parent::beforeFilter();
-                
                 $this->Auth->allow('login');
-                
-                
+                $this->set(array('cp_title'=>$this->cp_title.Configure::read("WEBSITE_NAME")));
 	}
 
 	public function admin_index() {

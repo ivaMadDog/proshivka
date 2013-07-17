@@ -28,7 +28,7 @@
  */
     Router::connect("/admin/:controller/:action/*", array('admin'=>true));
     Router::connect('/admin/:controller/*', array('action' => 'index', 'admin'=>true)); //*//
-    Router::connect('/', array('controller' => 'home', 'action' => "index"));
+    Router::connect('/', array('controller' => 'home', 'action' => "index"));    
     Router::connect('/admin', array('controller' => 'administrators', 'action' => 'login'));
 
 /**

@@ -49,7 +49,7 @@ class AppController extends Controller
                                                           'recursive'=>-1
                                                      )
                                      ),
-                                    'loginAction' => array('controller' => 'users', 'action' => 'login'),
+                                    'loginAction' => array('controller' => 'users', 'action' => 'login', 'admin'=>false),
                                     'authError'      => 'У Вас нет прав доступа к данной странице',
                                     'loginError'     => 'Некорректный логин или пароль',
                                     'loginRedirect'  => array('controller' => 'users', 'action' => 'profile', 'user'=>true),

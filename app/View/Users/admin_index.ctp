@@ -1,4 +1,5 @@
-<? // debug($data) ?>
+<? 
+// debug($data) ?>
 
 <?php
 $link_view = "admin/$controllerName/view";
@@ -6,7 +7,6 @@ $link_add = "admin/$controllerName/add";
 $link_edit = "admin/$controllerName/edit";
 $link_delete = "admin/$controllerName/delete";
 $link_active = "admin/$controllerName/active";
-
 
 ?>
 
@@ -51,11 +51,11 @@ $link_active = "admin/$controllerName/active";
         </div>
         <div class="column grid_2">
             <p>
-                <a class="controls control-view" href="#" title=""></a>
-                <a class="controls control-add" href="#" title=""></a>
-                <a class="controls control-edit" href="#" title=""></a>
-                <a class="controls control-del" href="#" title=""></a>
-                <a class="controls control-locked" href="#" title=""></a>
+                <a class="controls control-view" href="/admin/users/view" title=""></a>
+                <a class="controls control-add" href="/admin/users/add" title=""></a>
+                <a class="controls control-edit" href="/admin/users/edit" title=""></a>
+                <a class="controls control-del" href="/admin/users/delete" title=""></a>
+                <a class="controls control-locked" href="/admin/users/is_active" title=""></a>
             </p>
         </div>
     </div><!-- end .row-->
