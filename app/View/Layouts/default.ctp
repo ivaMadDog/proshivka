@@ -20,9 +20,10 @@
                     
 			<div id="content">
                              
-                            
                              <?php echo $content_for_layout ?>
                             
+                             <div class="clr"></div>
+
                              <?php echo $this->element('bottom');?>
                             
                         </div><!-- #content-->

@@ -16,3 +16,9 @@
         <input class="btn big_orange" type="submit" value="Ввойти"/>
     <?= $this->Form->end() ;?>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){  
+        $('#UserEmail').focus();
+  });        
+</script>

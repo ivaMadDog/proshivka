@@ -4,11 +4,11 @@ App::uses('AuthComponent', 'Controller/Component');
 class User extends AppModel {
     
     public $name = 'User';
+    public $actsAs = array('Containable');
     
     public $hasOne = array(
         'Company' => array(
             'className'    => 'Company',
-            'conditions'   => array('Company.published' => '1'),
             'dependent'    => true
         )   
     );
@@ -25,20 +25,32 @@ class User extends AppModel {
     );
     
     public $hasMany = array(
-        'Order' => array(
-            'className'     => 'Order',
+        'Review' => array(
+            'className'     => 'Review',
             'foreignKey'    => 'user_id',
-            'order'         => 'Order.created DESC',
+            'order'         => 'Review.created DESC',
             'dependent'     => true
         )
     );
+    
+     public $hasAndBelongsToMany = array(
+        'Printer' =>
+            array(
+                'className'              => 'Printer',
+                'joinTable'              => 'orders',
+                'foreignKey'             => 'user_id',
+                'associationForeignKey'  => 'printer_id',
+                'unique'                 => true,
+            ),
+    );     
     
     public $validate = array(
         'email' => array(
             'required' => array(
                 'rule' => array('email'),
                 'message' => 'Неверный email адрес',
-                'required'=> true
+                'required'=> true,
+                'on'=>'create'
             ),
             'isUnique' => array(
                 'rule' => 'isUnique',
@@ -71,7 +83,17 @@ class User extends AppModel {
                 'message' => 'Ошибка. Не верно указанная роль',
                 'allowEmpty' => false
             )
-        )
+        ),
+//        'phone1' => array(
+//            'valid' => array(
+//                'rule'=>"(\+?\d[- .]*){7,13}"
+//            )
+//        ),
+//        'phone2' => array(
+//            'valid' => array(
+//                'rule'=>"(\+?\d[- .]*){7,13}"
+//            )
+//        ),        
     );
     
     public function validatePwdConfirm($check){
@@ -115,7 +137,20 @@ class User extends AppModel {
             return AuthComponent::password($password);
         }
     
+    public function getUserEmail($email, $recursive) {
+        if(empty($email)) return false;
+        
+        $data= $this->find('first', array('condition'=>array('email'=>$email),
+                                           'recursive'=>$recursive));
+        
+        if (empty($data)) return false;
+        
+        return $data;
+    }
     
+    public function getAuthUser(){
+        return $this->find('first', array('conditions'=>array('id'=>  AuthComponent::User('id')), 'recursive'=>-1));
+    }
     
 }
 

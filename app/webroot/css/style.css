@@ -246,53 +246,7 @@ Style for sprite
     text-transform: uppercase;
     background: url(../img/bg_line-shadow.png) no-repeat bottom center;
 }
-/*===========================================================================
-messages
-=============================================================================*/
-#msg {
-  margin: -10px 0 0 -185px;
-  padding: 5px 5px 5px 15px;
-  width: 350px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;  
-  -webkit-border-radius: 5px; 
-  -khtml-border-radius: 5px;  
-  behavior: url(border-radius.htc);  
-  color: #fff;
-  position: absolute;
-  top:50%;
-  left: 50%;
-  z-index: 1000;
-}
 
-.msg_success {background: #6F8216 url(../img/bg_msg.png) repeat-x;}
-.msg_info {background: #FFC700 }
-.msg_error {background: #DE230B;    }
-
-#msg>div{
-  width: 280px;
-  padding: 5px 5px 5px 45px;
-}
-
-.msg_success>div {background: url(../img/bg_ico_info.png) no-repeat 0 5px; }
-.msg_info>div {background: url(../img/bg_ico_confirm.png) no-repeat 0 5px; }
-.msg_error>div {background: url(../img/bg_ico_error.png) no-repeat 0 5px; }
-
-.msg_title {
-  font-weight: bold;
-  font-size: 1.5em;
-}
-
-.msg_info .msg_title  {color: #dd220d;}
-
-.msg_info p {color: #393939;}
-#msg p {font-size: 1em;}
-.msg_close {
-  float: right;
-  width: 16px;
-  height: 16px;
-  background: url(../img/msg_close.png) no-repeat center;
-}
 /*===========================================================================
 styles li
 =============================================================================*/

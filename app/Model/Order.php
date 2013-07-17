@@ -1,7 +1,7 @@
 <?php
+class Order extends AppModel {
+    
+    public $name = 'Order';
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+}
 ?>

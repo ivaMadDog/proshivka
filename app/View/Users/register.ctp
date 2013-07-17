@@ -23,3 +23,9 @@
    <?=$this->Form->end() ;?>
 
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){  
+        $('#UserEmail').focus();
+  });        
+</script>

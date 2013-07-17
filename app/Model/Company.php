@@ -7,7 +7,6 @@ class Company extends AppModel {
     public $hasOne = array(
         'User' => array(
             'className'    => 'User',
-            'conditions'   => array('User.published' => '1'),
             'dependent'    => false
         )   
     );

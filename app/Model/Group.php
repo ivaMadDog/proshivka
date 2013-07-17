@@ -1,7 +1,18 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+class Group extends AppModel {
+    
+    public $name = 'Group';
+    public $actsAs = array('Containable');
+    
+    public $hasMany = array(
+        'User' => array(
+            'className'     => 'User',
+            'foreignKey'    => 'group_id',
+            'dependent'     => false
+        )
+    );
+    
+}    
+    
 ?>

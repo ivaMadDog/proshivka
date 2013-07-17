@@ -1,13 +1,15 @@
-<?
+<title><?php echo $title_for_layout;?></title>
+
+<?php  
   echo $this->Html->charset('utf-8');
 
   echo $this->Html->css('jquery/jquery-ui-1.10.2.custom');
-  echo $this->html->css('reset');
-  echo $this->html->css('style');
   echo $this->html->css('../js/fancybox/jquery.fancybox');
+  echo $this->html->css('reset');
+  echo $this->html->css('admin/style');
 ?>
-<!--[if IE]><link rel="stylesheet" href="css/ie.css" type="text/css"  /><![endif]-->
-<?
+<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<?php  
   echo $this->html->script('jquery/jquery-1.9.1.min');
   echo $this->html->script('jquery/jquery-ui-1.10.2.custom.min');
   echo $this->html->script('fancybox/jquery.fancybox.pack');
@@ -16,9 +18,5 @@
   echo $this->html->script('jquery/jquery.placeholder');
   echo $this->html->script('jquery/validate');
   echo $this->html->script('all');
-  echo $this->html->script('default');
+  echo $this->html->script('admin/default');
 ?>
-
-<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
-
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
