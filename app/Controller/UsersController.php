@@ -6,7 +6,7 @@ class UsersController extends AppController {
     public $components = array('FileUpload');
 
     public $modelName = 'User';
-    public $controller = 'Users';
+    public $controllerName = 'users';
     public $cp_title='Пользователи ';
     
     public $folderName = 'users';
@@ -27,7 +27,7 @@ class UsersController extends AppController {
          $this->set('headerBgImg', 'login.png');     //переопределяем фоновое изображения хедера
          
          $this->set(array('cp_title'=>$this->cp_title.Configure::read("WEBSITE_NAME"), 
-                          'controllerName'=>$this->controller,
+                          'controllerName'=>$this->controllerName,
                           'modelName'=>$this->modelName));
     }
 
@@ -198,7 +198,7 @@ class UsersController extends AppController {
 
       public function  admin_index() {
          $modelName=$this->modelName; 
-         $cotrollerName= $this->controller;
+         $cotrollerName= $this->controllerName;
           
          $cond=array(); 
           
@@ -220,16 +220,12 @@ class UsersController extends AppController {
             )
          );
           
-          $data=$this->paginate("$modelName");
+          $data=$this->paginate($modelName);
           $this->set(compact('data'));
       }
       
       
       public function admin_add(){
-          
-         
-          
-          
           $modelName= $this->modelName;
           
           $sales=$this->$modelName->Sale->find('list');
@@ -257,29 +253,137 @@ class UsersController extends AppController {
                                                                       'randomName'=>false)
                                                             );
                     if(!$retArray['error']){
-                            $this->request->data["$modelName"]['photo']=$retArray['fileName'];
+                            $this->request->data[$modelName]['photo']=$retArray['fileName'];
                     }else{
 
                             $fileError=$retArray['errorMsg'];
-                            $this->request->data["$modelName"]['photo']='';
+                            $this->request->data[$modelName]['photo']='';
                             $this->Session->setFlash($fileError);
                             $error=1;
                     }
             }else{
-                    $this->request->data["$modelName"]['photo']='';
+                    $this->request->data[$modelName]['photo']='';
             }
             
               $this->$modelName->create();
               if($this->$modelName->save($this->request->data)){
                   $this->Session->setFlash('Данные успешно были добавлены','flash_msg_success',array('title'=>'Добавление пользователя')); 
-                  $this->redirect("/admin/$this->controller/index");
+                  $this->redirect("/admin/$this->controllerName/index");
               }else{
                   $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка добавления данных')); 
-		  //exit;
               }
           }
-          
-          
       }
+      
+      public function  admin_edit($id){
+          $modelName= $this->modelName;
+          $controllerName = $this->controllerName;
+          
+          if(empty($id)){
+               $this->Session->setFlash('Запись с данным id не существует','flash_msg_error',array('title'=>'Ошибочный запрос')); 
+               $this->redirect("/admin/$controllerName/index");
+               exit; 
+          }
+          
+          $sales=$this->$modelName->Sale->find('list');
+          $groups=$this->$modelName->Group->find('list');
+          $this->set(compact('sales','groups', 'modelName', 'controllerName'));
+          
+          $this->$modelName->id=(int)$id;
+          $get_data=$this->$modelName->read();
+          if(empty($this->request->data)) {
+                $this->request->data = $get_data;
+          }else{
+               if (isset($this->request->data[$modelName]["photo"]) && !empty($this->request->data[$modelName]["photo"]["name"])){
+                        $resizes =array( 
+                                array('folder'=>WWW_ROOT."/files/images/$this->folderName/thumb","width"=>$this->thumbWidth,"height"=>$this->thumbHeight,'force'=>false),
+                                array('folder'=>WWW_ROOT."/files/images/$this->folderName/preview","width"=>$this->previewWidth,"height"=>$this->previewHeight,'force'=>false),
+                              );
+
+                        $this->request->data[$modelName]['photo']['name']=preg_replace("/[^A-Za-z0-9_\.]/","",$this->request->data[$modelName]['photo']['name']);
+                        $retArray=$this->FileUpload->uploadFile($this->request->data[$modelName]['photo'],WWW_ROOT."/files/images/$this->folderName/original",'image',array('resize'=>true,'resizeOptions'=>$resizes,'randomName'=>false));
+                        if(!$retArray['error']){
+                                $this->request->data["$modelName"]['photo']=$retArray['fileName'];
+                        }else{
+
+                                $fileError=$retArray['errorMsg'];
+                                unset($this->request->data["$modelName"]['photo']);
+                                $this->request->data["$modelName"]['photo']=$get_data["$modelName"]['photo'];
+                                $this->Session->setFlash($fileError);
+                                $error=1;
+                        }
+                }else{
+                        unset($this->request->data["$modelName"]['photo']);
+                }
+              if($this->$modelName->save($this->request->data, false)){
+                  $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Обновление пользователя')); 
+                  $this->redirect("/admin/$controllerName/index");
+              }else{
+                  $this->Session->setFlash('Не удалоь обновить данные','flash_msg_error',array('title'=>'Ошибка редактирования')); 
+              }
+         }
+      }  
+      
+      
+      public function admin_delete($id) {
+          
+          $modelName=$this->modelName;
+          $controllerName = $this->controllerName;
+          $folder_name=$this->folderName;
+          
+          if(empty($id)){
+              $this->Session->setFlash('Запись с данным id не существует','flash_msg_error',array('title'=>'Ошибочный запрос')); 
+              $this->redirect("/admin/$controllerName/index");
+              exit;
+          }
+          
+          $data=$this->$modelName->find('first', array('conditions'=>array('id'=>(int)$id), 'recursive'=>-1));
+          $this->$modelName->id=(int)$id;
+          if($this->RequestHandler->isAjax()){
+                $this->layout='';
+          }
+          if($this->$modelName->delete($id)){
+                if(!empty($data["$modelName"]['photo'])) {
+                    $image_name=$data["$modelName"]['photo'];
+                    $original_location=WWW_ROOT."files/images/$folder_name/original/$image_name";
+                    $preview_location=WWW_ROOT."files/images/$folder_name/preview/$image_name";
+                    $thumb_location=WWW_ROOT."files/images/$folder_name/thumb/$image_name";
+                    if(file_exists($original_location)) unlink($original_location);
+                    if(file_exists($preview_location)) unlink($preview_location);
+                    if(file_exists($thumb_location)) unlink($thumb_location);
+                }
+                if($this->RequestHandler->isAjax()){
+                    echo 1;exit;
+                }else{
+                    $this->Session->setFlash('Данные успешно были удалены','flash_msg_success',array('title'=>'Удаление пользователя')); 
+                    $this->redirect("/admin/$controllerName/index");
+                }    
+          }else{
+               $this->Session->setFlash('Не удалоь удалить данные','flash_msg_error',array('title'=>'Ошибка удаления')); 
+               exit;
+          }
+      }
+      
+      public function admin_active($id){
+          $modelName=$this->modelName;
+          $controllerName = $this->controllerName;
+          $folder_name=$this->folderName;
+          
+          if($this->RequestHandler->isAjax()){ $this->layout='';}
+          
+          if(empty($id) || !$this->RequestHandler->isAjax() || !is_numeric($id)){ echo 0; exit;}
+          
+          
+          $data=$this->$modelName->find('first', array('conditions'=>array('id'=>(int)$id), 'fields'=>array('id','is_active'),'recursive'=>-1));
+          $active=(int)($data[$modelName]['is_active']==1)?0:1;
+          $this->$modelName->id=(int)$id;
+          if($this->$modelName->saveField('is_active',$active)){
+              echo 1;
+          }else{
+              echo 0;
+          }
+          exit;
+      }
+      
 }
 ?>

@@ -54,7 +54,7 @@
                 </div> 
                 <div class="form-row">
                     <div class="form-row-label">
-                        Счет
+                        Счет (грн.)
                     </div>
                     <div class="form-row-value">
                         <?=$this->data['User']['money'];?>                                               

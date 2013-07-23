@@ -14,3 +14,44 @@ $(document).ready(function(){
     
     
 });
+/* удаление записи */
+function delete_entry(link, row_id, del_span, del_a){
+	if(window.confirm("Вы действительно хотите удалить эту запись?")){
+		$('#'+del_span).append($('.loader_span').show());
+                $('#'+del_a).hide();
+		$.ajax({
+			url: link,
+			success: function(data){
+				if(data==1){
+                                    $('#'+row_id).fadeOut();
+                                }else{
+                                    console.log('Не удалось удалить запись');
+                                    $('#'+del_span+' .loader_span').remove();
+                                    $('#'+del_a).show();
+                                }
+                                    
+			}
+                        
+		});
+	}
+}
+
+function change_active (link, spanId, aId){
+        var aClass=$('#'+aId).attr('class');
+        $('#'+spanId).append($('.loader_span').show());
+        $('#'+aId).hide();
+        $.ajax({
+                url: link,
+                success: function(data){
+                        if(data==1){
+                            if(aClass=='controls control-locked') $('#'+aId).attr('class','controls control-unlocked');
+                            else $('#'+aId).attr('class','controls control-locked');
+                            $('#'+spanId+' .loader_span').remove();
+                        }else{
+                            $('#'+aId+' .loader_span').remove();
+                        }
+                        $('#'+aId).show();
+                }
+
+        });
+}
