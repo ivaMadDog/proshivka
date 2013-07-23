@@ -359,7 +359,7 @@ class UsersController extends AppController {
                     $this->redirect("/admin/$controllerName/index");
                 }    
           }else{
-               $this->Session->setFlash('Не удалоь удалить данные','flash_msg_error',array('title'=>'Ошибка удаления')); 
+               $this->Session->setFlash('Не удалось удалить данные','flash_msg_error',array('title'=>'Ошибка удаления')); 
                exit;
           }
       }

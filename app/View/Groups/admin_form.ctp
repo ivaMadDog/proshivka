@@ -1,5 +1,5 @@
 <div class="admin_area" >
-     <?php echo $this->form->create('Group', array('type'=>'file', 'url'=>array('controller'=>'groups', 'action'=>'add', 'admin'=>true), 'id'=>'GroupForm'));?>
+     <?php echo $this->form->create($modelName, array('url'=>array('controller'=>$controllerName, 'action'=>$action, !empty($id)?$id:'' ), 'id'=>'GroupForm'));?>
      <div class="row">
         <div class="column grid_2 title-left">
           <p>Группа</p>
@@ -29,14 +29,14 @@
           <p>По-умолчанию</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('is_default', array('placeholder'=>"Email", 'data-placeholder'=>"Email", 'label'=>false, 'div'=>false)) ;?>
+            <?= $this->form->input('is_default', array( 'label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
    
     <div class="row">
         <div class="column grid_2"><p></p></div>
         <div class="column grid_2 ">
-            <?= $this->form->submit('Добавить', array('class'=>'btn_orange','label'=>false, 'div'=>false)) ;?>
+            <?= $this->form->submit('Сохранить', array('class'=>'btn_orange','label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
     

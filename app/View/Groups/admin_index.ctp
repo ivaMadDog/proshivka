@@ -3,13 +3,16 @@
 
 <div class="content_area">
      <div class="row">
-        <div class="column grid_3 title">
+        <div class="column grid_2 title">
           <p>Название</p>
+        </div>
+        <div class="column grid_2 title">
+          <p>По-умолчанию</p>
         </div>
         <div class="column grid_1 title">
           <p>Позиция</p>
         </div>
-        <div class="column grid_4 title">
+        <div class="column grid_5 title">
           <p>Описание</p>
         </div>
         <div class="column grid_2 title">
@@ -18,13 +21,16 @@
     </div>
     <?php foreach($data as $key=>$item):  ?>
     <div id="row_<?=$item[$modelName]['id']?>" class="row">
-        <div class="column grid_3">
+        <div class="column grid_2">
           <p><?= $item[$modelName]['name']?></p>
+        </div>
+        <div class="column grid_2 center">
+          <p><?= $item[$modelName]['is_default']?></p>
         </div>
         <div class="column grid_1 center">
           <p><?= $item[$modelName]['position']?></p>
         </div>
-        <div class="column grid_4 center">
+        <div class="column grid_5">
           <p><?= $item[$modelName]['short_description']?></p>
         </div>
         <?php
