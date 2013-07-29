@@ -4,7 +4,7 @@
 Шапка
 ==============================================================================*/
 #header {
-    
+
     height: 50px;
     background: #5EE9FC;
     position: fixed;
@@ -21,7 +21,7 @@
 
 .admin_top_menu {float: right;}
 .admin_top_menu>li{
-    float: left; 
+    float: left;
     background: url(../../img/admin/bg_v_2px.png) no-repeat left;
     padding: 5px;
     height: 40px;
@@ -79,17 +79,17 @@
 
 /* заголовок контента, ссылка в профиль админа */
 .cp_header {
-    height: 50px; 
+    height: 50px;
     padding: 0 40px 15px;
     margin-bottom: 15px;
-    background: #fff  url(../../img/bg_line-shadow.png) no-repeat bottom center;; 
-    line-height: 50px; 
+    background: #fff  url(../../img/bg_line-shadow.png) no-repeat bottom center;;
+    line-height: 50px;
     font-weight: bold;
 }
 .cp_title {
     font-size: 1.6em;
     color: #FA9B05;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9); 
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
 }
 .cp_command {float: right;}
 .cp_command a {text-decoration: none; color: #01A0B6;}
@@ -132,13 +132,21 @@
 .row {width: 960px;margin: 5px auto;overflow: hidden;}
 .row .row {margin: 0 -10px 0 -10px; width: auto; display: inline-block;}
 .row a{text-decoration: none;}
+
+.seo {
+	float:left;
+	clear:both;
+	margin-bottom:20px;
+	color: #FA9B05;
+	border-bottom: 1px solid #FA9B05 ;
+}
 /*==============================================================================
 иконки для кнопок управления
 ==============================================================================*/
-.controls{ 
-    width: 16px; 
-    height: 16px; 
-    float: left; 
+.controls{
+    width: 16px;
+    height: 16px;
+    float: left;
     margin-right: 5px;
     background: url(../../img/sprite_controls.png) no-repeat;
 }

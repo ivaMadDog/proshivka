@@ -3,13 +3,14 @@
  * CKFinder
  * ========
  * http://ckfinder.com
- * Copyright (C) 2007-2010, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (C) 2007-2012, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
+if (!defined('IN_CKFINDER')) exit;
 
 /**
  * @package CKFinder
@@ -70,6 +71,16 @@ class Ckfinder_Connector_Utils_XmlNode
         }
     }
 
+    function getChild($name)
+    {
+        foreach ($this->_childNodes as $i => $node) {
+            if ($node->_name == $name) {
+                return $this->_childNodes[$i];
+            }
+        }
+        return null;
+    }
+
     /**
      * Add attribute
      *
@@ -83,6 +94,41 @@ class Ckfinder_Connector_Utils_XmlNode
     }
 
     /**
+     * Get attribute value
+     *
+     * @param string $name
+     * @access public
+     */
+    public function getAttribute($name)
+    {
+        return $this->_attributes[$name];
+    }
+
+    /**
+     * Set element value
+     *
+     * @param string $name
+     * @param string $value
+     * @access public
+     */
+    public function setValue($value)
+    {
+        $this->_value = $value;
+    }
+
+    /**
+     * Get element value
+     *
+     * @param string $name
+     * @param string $value
+     * @access public
+     */
+    public function getValue()
+    {
+        return $this->_value;
+    }
+
+    /**
      * Adds new child at the end of the children
      *
      * @param Ckfinder_Connector_Utils_XmlNode $node
@@ -91,6 +137,24 @@ class Ckfinder_Connector_Utils_XmlNode
     public function addChild(&$node)
     {
         $this->_childNodes[] =& $node;
+    }
+
+    /**
+     * Checks whether the string is valid UTF8
+     * @param string $string
+     */
+    public function asUTF8($string)
+    {
+        if (CKFinder_Connector_Utils_Misc::isValidUTF8($string)) {
+            return $string;
+        }
+
+        $ret = "";
+        for ($i = 0; $i < strlen($string); $i++) {
+            $ret .= CKFinder_Connector_Utils_Misc::isValidUTF8($string[$i]) ? $string[$i] : "?";
+        }
+
+        return $ret;
     }
 
     /**
@@ -106,7 +170,7 @@ class Ckfinder_Connector_Utils_XmlNode
         //print Attributes
         if (sizeof($this->_attributes)>0) {
             foreach ($this->_attributes as $_name => $_value) {
-                $ret .= " " . $_name . '="' . htmlspecialchars($_value) . '"';
+                $ret .= " " . $_name . '="' . $this->asUTF8(htmlspecialchars($_value)) . '"';
             }
         }
 
@@ -121,7 +185,7 @@ class Ckfinder_Connector_Utils_XmlNode
 
         //print value
         if (!is_null($this->_value)) {
-            $ret .= htmlspecialchars($this->_value);
+            $ret .= $this->asUTF8(htmlspecialchars($this->_value));
         }
 
         //print child nodes

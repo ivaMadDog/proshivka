@@ -1,36 +1,23 @@
 <?php
 class CkHelper extends Helper {
 
-    var $helpers = Array('Html', 'Javascript');
+    var $helpers = Array('Html');
 
-    var $default_config = 'config.js';
+    function load($id,$lang='en',$options=null){
+        if($lang == "ar")
+//      	  $config="customConfig :'config_ar.js'";
+      	  $config="contentsLangDirection :'rtl'";
+//      	else  $config="customConfig :'config.js'";
+      	else  $config="contentsLangDirection :'ltr'";
 
-    function load($id, $lang = 'en', $default_options = array()){
-        $did = '';
-        $config = $this->default_config;
-        foreach (explode('.', $id) as $v) {
-            $did .= ucfirst($v);
-        }
+	    $width="";
+	    $settings="width:'95%'";
+	    if($options["width"])
+	    	$settings.="width:".$options["width"];
 
-        $options = array();
-        if($default_options)
-            foreach($default_options AS $k=>$v){
-                $options[] = "$k:'$v'";
-            }
-        
-        $settings = array();
-        $settings[] = "defaultLanguage:'{$lang}'";
-        if($lang == "ar"){
-            $settings[] = "contentsLangDirection:'rtl'";
-            $settings[] = "EditorPreviewTemplate:'ck_preview_ar.html'";
-        }
+	    $code="$(function(){var ck_Content$lang = CKEDITOR.replace('".$id."',{".$config.",".$settings."});CKFinder.setupCKEditor(ck_Content$lang,{ basePath : '/js/ckfinder/'});})";
 
-        $settings = array_merge($settings, $options);
-        $settings = implode(',', $settings);
-
-        $code = "var ck_Content$lang = CKEDITOR.replace('$did',{{$settings}}); CKFinder.SetupCKEditor(ck_Content$lang);";  
-        return $this->Javascript->codeBlock($code); 
-        
+	    return $this->Html->scriptBlock($code);
 
     }
 }

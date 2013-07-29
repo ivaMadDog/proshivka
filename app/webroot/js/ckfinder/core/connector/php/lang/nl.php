@@ -1,43 +1,36 @@
 <?php
-/*
- * CKFinder
- * ========
- * http://ckfinder.com
- * Copyright (C) 2007-2010, CKSource - Frederico Knabben. All rights reserved.
- *
- * The software, this file and its contents are subject to the CKFinder
- * License. Please read the license.txt file before using, installing, copying,
- * modifying or distribute this file or part of its contents. The contents of
- * this file is part of the Source Code of CKFinder.
- *
- * ---
- * Dutch language file.
- */
+// Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
+// For licensing, see LICENSE.html or http://ckfinder.com/license
+
+//  Defines the object for the Dutch language.
 
 $GLOBALS['CKFLang'] = array (
-	// Connector Error Messages.
-	'ErrorUnknown' => 'It was not possible to complete the request. (Error %1)',
+	'ErrorUnknown' => 'Het was niet mogelijk om deze actie uit te voeren. (Fout %1)',
 	'Errors' => array (
-		10 => 'Verkeerd commando.',
-		11 => 'De bestand typen komt niet voor in de aanvraag.',
-		12 => 'De gevraagde resource type is niet geldig.',
-		102 => 'Foute bestand of folder naam.',
-		103 => 'Het was niet mogelijk om verzoek te doen naar de authorization restrictions.',
-		104 => 'Het was niet mogelijk om toegang te krijgen tot het permissie systeem.',
-		105 => 'Deze extentie mag niet.',
-		109 => 'Verkeerde aanvraag.',
-		110 => 'Onbekende fout.',
-		115 => 'Er bestaat al een bestand of folder met deze naam.',
-		116 => 'Folder niet gevonden, vernieuw het systeem of kies een andere folder.',
-		117 => 'Bestand niet gevonden, vernieuw het systeem of kies een andere folder.',
-		201 => 'Een bestand met de zelfde naam is er al. Het geuploade bestand is hernoemd naar: "%1"',
-		202 => 'Verkeerde bestand',
-		203 => 'Verkeerde bestand. Het bestand is te groot.',
-		204 => 'De geuploade file is kapot.',
-		205 => 'Er is geen hoofd folder gevonden.',
-		206 => 'Uploaden van de file is afgebroken, er is html in het bestand aangetroffen.',
-		207 => 'Het geuploade bestand is hernoemd naar: "%1"',
-		500 => 'Het uploaden van een file is momenteel niet mogelijk. Contacteer de admin of kijk in het CKFinder configuratie bestand..',
-		501 => 'Het is niet mogelijk om mini-afbeeldingen te maken.'
+		'10' => 'Ongeldig commando.',
+		'11' => 'Het bestandstype komt niet voor in de aanvraag.',
+		'12' => 'Het gevraagde brontype is niet geldig.',
+		'102' => 'Ongeldige bestands- of mapnaam.',
+		'103' => 'Het verzoek kon niet worden voltooid vanwege autorisatie beperkingen.',
+		'104' => 'Het verzoek kon niet worden voltooid door beperkingen in de rechten op het bestandssysteem.',
+		'105' => 'Ongeldige bestandsextensie.',
+		'109' => 'Ongeldige aanvraag.',
+		'110' => 'Onbekende fout.',
+		'111' => 'It was not possible to complete the request due to resulting file size.',
+		'115' => 'Er bestaat al een bestand of map met deze naam.',
+		'116' => 'Map niet gevonden, vernieuw de mappenlijst of kies een andere map.',
+		'117' => 'Bestand niet gevonden, vernieuw de mappenlijst of kies een andere map.',
+		'118' => 'Bron- en doelmap zijn gelijk.',
+		'201' => 'Er bestaat al een bestand met dezelfde naam. Het geüploade bestand is hernoemd naar: "%1".',
+		'202' => 'Ongeldige bestand.',
+		'203' => 'Ongeldige bestand. Het bestand is te groot.',
+		'204' => 'De geüploade file is kapot.',
+		'205' => 'Er is geen hoofdmap gevonden.',
+		'206' => 'Het uploaden van het bestand is om veiligheidsredenen afgebroken. Er is HTML code in het bestand aangetroffen.',
+		'207' => 'Het geüploade bestand is hernoemd naar: "%1".',
+		'300' => 'Bestand(en) verplaatsen is mislukt.',
+		'301' => 'Bestand(en) kopiëren is mislukt.',
+		'500' => 'Het uploaden van een bestand is momenteel niet mogelijk. Contacteer de beheerder en controleer het CKFinder configuratiebestand.',
+		'501' => 'De ondersteuning voor miniatuurafbeeldingen is uitgeschakeld.',
 	)
 );

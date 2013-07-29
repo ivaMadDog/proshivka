@@ -1,16 +1,16 @@
 <?php
 /*
-* ### CKFinder : Configuration File - Basic Instructions
-*
-* In a generic usage case, the following tasks must be done to configure
-* CKFinder:
-*     1. Check the $baseUrl and $baseDir variables;
-*     2. If available, paste your license key in the "LicenseKey" setting;
-*     3. Create the CheckAuthentication() function that enables CKFinder for authenticated users;
-*
-* Other settings may be left with their default values, or used to control
-* advanced features of CKFinder.
-*/
+ * ### CKFinder : Configuration File - Basic Instructions
+ *
+ * In a generic usage case, the following tasks must be done to configure
+ * CKFinder:
+ *     1. Check the $baseUrl and $baseDir variables;
+ *     2. If available, paste your license key in the "LicenseKey" setting;
+ *     3. Create the CheckAuthentication() function that enables CKFinder for authenticated users;
+ *
+ * Other settings may be left with their default values, or used to control
+ * advanced features of CKFinder.
+ */
 
 /**
  * This function must check the user session to be sure that he/she is
@@ -18,42 +18,56 @@
  *
  * @return boolean
  */
-$session=addslashes($_COOKIE['CAKEPHP']);
-@session_id($session);
-@session_start();
+
+
 function CheckAuthentication()
 {
+	// WARNING : DO NOT simply return "true". By doing so, you are allowing
+	// "anyone" to upload and list the files in your server. You must implement
+	// some kind of session validation here. Even something very simple as...
 
-    //WARNING : DO NOT simply return "true". By doing so, you are allowing
-    //"anyone" to upload and list the files in your server. You must implement
-    //some kind of session validation here. Even something very simple as...
+	// return isset($_SESSION['IsAuthorized']) && $_SESSION['IsAuthorized'];
 
-    // return isset($_SESSION['IsAuthorized']) && $_SESSION['IsAuthorized'];
+	// ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
+	// user logs in your system. To be able to use session variables don't
+	// forget to add session_start() at the top of this file.
 
-    //... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
-    //user logs in your system.
-    
-  //return true;
+//	$session=addslashes($_COOKIE['CAKEPHP']);
+//	session_id($session);
+//		session_start();
+		
+		
+		
+//	
+	return true;
+	if(isset($_COOKIE['CAKEPHP'])){
+		$session=addslashes($_COOKIE['CAKEPHP']);
+		session_id($session);
+		session_start();
 
-    if(isset($_COOKIE['CAKEPHP'])){
-        if(@isset($_SESSION['Admin']['admin_name'])){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    else{
-        return false;
-    }
-
-    
+		if(@isset($_SESSION['Admin']['admin_name'])){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	else{
+		return false;
+	}
 }
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be
 // fully functional, in demo mode.
 $config['LicenseName'] = '';
 $config['LicenseKey'] = '';
+
+/*
+ Uncomment lines below to enable PHP error reporting and displaying PHP errors.
+ Do not do this on a production server. Might be helpful when debugging why CKFinder does not work as expected.
+*/
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 
 /*
 To make it easy to configure CKFinder, the $baseUrl and $baseDir can be used.
@@ -65,19 +79,12 @@ $baseUrl : the base path used to build the final URL for the resources handled
 in CKFinder. If empty, the default value (/userfiles/) is used.
 
 Examples:
-$baseUrl = 'http://example.com/ckfinder/files/';
-$baseUrl = '/userfiles/';
+	$baseUrl = 'http://example.com/ckfinder/files/';
+	$baseUrl = '/userfiles/';
 
 ATTENTION: The trailing slash is required.
 */
-//$baseUrl = '/app/webroot/js/ckfinder/userfiles/';
-$baseUrl = '/files/userfiles/';
-
-// define basUrl where app/ lies
-$replace = array('<', '>', '*', '\'', '"');
-$base = str_replace($replace, '', dirname($_SERVER['PHP_SELF']));
-if($res = mb_split('/js/ckfinder/', $base))
-    $baseUrl = $res[0].$baseUrl;
+$baseUrl = '/app/webroot/files/userfiles/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
@@ -85,43 +92,45 @@ above $baseUrl URL. This is the path used by CKFinder to handle the files in
 the server. Full write permissions must be granted to this directory.
 
 Examples:
-// You may point it to a directory directly:
-$baseDir = '/home/login/public_html/ckfinder/files/';
-$baseDir = 'C:/SiteDir/CKFinder/userfiles/';
+	// You may point it to a directory directly:
+	$baseDir = '/home/login/public_html/ckfinder/files/';
+	$baseDir = 'C:/SiteDir/CKFinder/userfiles/';
 
-// Or you may let CKFinder discover the path, based on $baseUrl:
-$baseDir = resolveUrl($baseUrl);
+	// Or you may let CKFinder discover the path, based on $baseUrl.
+	// WARNING: resolveUrl() *will not work* if $baseUrl does not start with a slash ("/"),
+	// for example if $baseDir is set to  http://example.com/ckfinder/files/
+	$baseDir = resolveUrl($baseUrl);
 
 ATTENTION: The trailing slash is required.
 */
 $baseDir = resolveUrl($baseUrl);
 
 /*
-* ### Advanced Settings
-*/
+ * ### Advanced Settings
+ */
 
 /*
 Thumbnails : thumbnails settings. All thumbnails will end up in the same
 directory, no matter the resource type.
 */
 $config['Thumbnails'] = Array(
-'url' => $baseUrl . '_thumbs',
-'directory' => $baseDir . '_thumbs',
-'enabled' => true,
-'directAccess' => false,
-'maxWidth' => 100,
-'maxHeight' => 100,
-'bmpSupported' => false,
-'quality' => 80);
+		'url' => $baseUrl . '_thumbs',
+		'directory' => $baseDir . '_thumbs',
+		'enabled' => true,
+		'directAccess' => true,
+		'maxWidth' => 100,
+		'maxHeight' => 100,
+		'bmpSupported' => false,
+		'quality' => 80);
 
 /*
 Set the maximum size of uploaded images. If an uploaded image is larger, it
 gets scaled down proportionally. Set to 0 to disable this feature.
 */
 $config['Images'] = Array(
-'maxWidth' => 1600,
-'maxHeight' => 1200,
-'quality' => 80);
+		'maxWidth' => 1600,
+		'maxHeight' => 1200,
+		'quality' => 80);
 
 /*
 RoleSessionVar : the session variable name that CKFinder must use to retrieve
@@ -140,26 +149,26 @@ AccessControl : used to restrict access or features to specific folders.
 Many "AccessControl" entries can be added. All attributes are optional.
 Subfolders inherit their default settings from their parents' definitions.
 
-- The "role" attribute accepts the special '*' value, which means
-"everybody".
-- The "resourceType" attribute accepts the special value '*', which
-means "all resource types".
+	- The "role" attribute accepts the special '*' value, which means
+	  "everybody".
+	- The "resourceType" attribute accepts the special value '*', which
+	  means "all resource types".
 */
 
 $config['AccessControl'][] = Array(
-'role' => '*',
-'resourceType' => '*',
-'folder' => '/',
+		'role' => '*',
+		'resourceType' => '*',
+		'folder' => '/',
 
-'folderView' => true,
-'folderCreate' => true,
-'folderRename' => true,
-'folderDelete' => true,
+		'folderView' => true,
+		'folderCreate' => true,
+		'folderRename' => true,
+		'folderDelete' => true,
 
-'fileView' => true,
-'fileUpload' => true,
-'fileRename' => true,
-'fileDelete' => true);
+		'fileView' => true,
+		'fileUpload' => true,
+		'fileRename' => true,
+		'fileDelete' => true);
 
 /*
 For example, if you want to restrict the upload, rename or delete of files in
@@ -167,13 +176,19 @@ the "Logos" folder of the resource type "Images", you may uncomment the
 following definition, leaving the above one:
 
 $config['AccessControl'][] = Array(
-'role' => '*',
-'resourceType' => 'Images',
-'folder' => '/Logos',
+		'role' => '*',
+		'resourceType' => 'Images',
+		'folder' => '/Logos',
 
-'fileUpload' => false,
-'fileRename' => false,
-'fileDelete' => false);
+		'folderView' => true,
+		'folderCreate' => true,
+		'folderRename' => true,
+		'folderDelete' => true,
+
+		'fileView' => true,
+		'fileUpload' => false,
+		'fileRename' => false,
+		'fileDelete' => false);
 */
 
 /*
@@ -196,41 +211,41 @@ Example: 'maxSize' => "8M",
 $config['DefaultResourceTypes'] = '';
 
 $config['ResourceType'][] = Array(
-'name' => 'Files',              // Single quotes not allowed
-'url' => $baseUrl . 'files',
-'directory' => $baseDir . 'files',
-'maxSize' => 0,
-'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,zip',
-'deniedExtensions' => '');
+		'name' => 'Files',				// Single quotes not allowed
+		'url' => $baseUrl . 'files',
+		'directory' => $baseDir . 'files',
+		'maxSize' => 0,
+		'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
+		'deniedExtensions' => '');
 
 $config['ResourceType'][] = Array(
-'name' => 'Images',
-'url' => $baseUrl . 'images',
-'directory' => $baseDir . 'images',
-'maxSize' => 0,
-'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
-'deniedExtensions' => '');
+		'name' => 'Images',
+		'url' => $baseUrl . 'images',
+		'directory' => $baseDir . 'images',
+		'maxSize' => 0,
+		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
+		'deniedExtensions' => '');
 
 $config['ResourceType'][] = Array(
-'name' => 'Flash',
-'url' => $baseUrl . 'flash',
-'directory' => $baseDir . 'flash',
-'maxSize' => 0,
-'allowedExtensions' => 'swf,flv',
-'deniedExtensions' => '');
+		'name' => 'Flash',
+		'url' => $baseUrl . 'flash',
+		'directory' => $baseDir . 'flash',
+		'maxSize' => 0,
+		'allowedExtensions' => 'swf,flv',
+		'deniedExtensions' => '');
 
 /*
-Due to security issues with Apache modules, it is recommended to leave the
-following setting enabled.
+ Due to security issues with Apache modules, it is recommended to leave the
+ following setting enabled.
 
-How does it work? Suppose the following:
+ How does it work? Suppose the following:
 
-- If "php" is on the denied extensions list, a file named foo.php cannot be
-uploaded.
-- If "rar" (or any other) extension is allowed, one can upload a file named
-foo.rar.
-- The file foo.php.rar has "rar" extension so, in theory, it can be also
-uploaded.
+	- If "php" is on the denied extensions list, a file named foo.php cannot be
+	  uploaded.
+	- If "rar" (or any other) extension is allowed, one can upload a file named
+	  foo.rar.
+	- The file foo.php.rar has "rar" extension so, in theory, it can be also
+	  uploaded.
 
 In some conditions Apache can treat the foo.php.rar file just like any PHP
 script and execute it.
@@ -242,14 +257,21 @@ denied, because "php" is on the denied extensions list.
 $config['CheckDoubleExtension'] = true;
 
 /*
+Increases the security on an IIS web server.
+If enabled, CKFinder will disallow creating folders and uploading files whose names contain characters
+that are not safe under an IIS web server.
+*/
+$config['DisallowUnsafeCharacters'] = false;
+
+/*
 If you have iconv enabled (visit http://php.net/iconv for more information),
 you can use this directive to specify the encoding of file names in your
 system. Acceptable values can be found at:
-http://www.gnu.org/software/libiconv/
+	http://www.gnu.org/software/libiconv/
 
 Examples:
-$config['FilesystemEncoding'] = 'CP1250';
-$config['FilesystemEncoding'] = 'ISO-8859-2';
+	$config['FilesystemEncoding'] = 'CP1250';
+	$config['FilesystemEncoding'] = 'ISO-8859-2';
 */
 $config['FilesystemEncoding'] = 'UTF-8';
 
@@ -299,3 +321,32 @@ See comments above.
 Used when creating folders that does not exist.
 */
 $config['ChmodFolders'] = 0755 ;
+
+/*
+Force ASCII names for files and folders.
+If enabled, characters with diactric marks, like å, ä, ö, ć, �?, đ, š
+will be automatically converted to ASCII letters.
+*/
+$config['ForceAscii'] = false;
+
+/*
+Send files using X-Sendfile module
+Mod X-Sendfile (or similar) is avalible on Apache2, Nginx, Cherokee, Lighttpd
+
+Enabling X-Sendfile option can potentially cause security issue.
+ - server path to the file may be send to the browser with X-Sendfile header
+ - if server is not configured properly files will be send with 0 length
+
+For more complex configuration options visit our Developer's Guide
+  http://docs.cksource.com/CKFinder_2.x/Developers_Guide/PHP
+*/
+$config['XSendfile'] = false;
+
+
+include_once "plugins/imageresize/plugin.php";
+include_once "plugins/fileeditor/plugin.php";
+include_once "plugins/zip/plugin.php";
+
+$config['plugin_imageresize']['smallThumb'] = '90x90';
+$config['plugin_imageresize']['mediumThumb'] = '120x120';
+$config['plugin_imageresize']['largeThumb'] = '180x180';

@@ -3,7 +3,7 @@
  * CKFinder
  * ========
  * http://ckfinder.com
- * Copyright (C) 2007-2010, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (C) 2007-2012, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
@@ -31,25 +31,27 @@
 // This is a sample function which is called when a file is selected in CKFinder.
 function ShowFileInfo( fileUrl, data )
 {
-	alert( 'The selected file URL is "' + fileUrl + '"' ) ;
-
+	var msg = 'The selected URL is: ' + fileUrl + '\n\n';
 	// Display additional information available in the "data" object.
 	// For example, the size of a file (in KB) is available in the data["fileSize"] variable.
-	for ( _info in data )
-		alert( 'data["' + _info + '"]' + ' = ' + data[_info] ) ;
+	if ( fileUrl != data['fileUrl'] )
+		msg += 'File url: ' + data['fileUrl'] + '\n';
+	msg += 'File size: ' + data['fileSize'] + 'KB\n';
+	msg += 'Last modified: ' + data['fileDate'];
+
+	alert( msg );
 }
 
 	</script>
 </head>
 <body>
-	<h1>
+	<h1 class="samples">
 		CKFinder - Sample - Standalone
 	</h1>
-	<hr />
-	<p>
+	<div class="description">
 		CKFinder may be used in standalone mode inside any page, to create a repository
-		manager with easy. You may define a custom JavaScript function to be called when
-		an image is selected (double-clicked).</p>
+		manager with ease. You may define a custom JavaScript function to be called when
+		an image is selected (double-clicked).</div>
 	<p style="padding-left: 30px; padding-right: 30px;">
 <?php
 
@@ -59,6 +61,8 @@ require_once '../../ckfinder.php' ;
 $finder = new CKFinder() ;
 $finder->BasePath = '../../' ;	// The path for the installation of CKFinder (default = "/ckfinder/").
 $finder->SelectFunction = 'ShowFileInfo' ;
+// The default height is 400.
+$finder->Height = 600;
 $finder->Create() ;
 
 // It can also be done in a single line, calling the "static"
@@ -67,5 +71,14 @@ $finder->Create() ;
 
 ?>
 	</p>
+	<div id="footer">
+		<hr />
+		<p>
+			CKFinder - Ajax File Manager - <a class="samples" href="http://ckfinder.com/">http://ckfinder.com</a>
+		</p>
+		<p id="copy">
+			Copyright &copy; 2003-2012, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico Knabben. All rights reserved.
+		</p>
+	</div>
 </body>
 </html>

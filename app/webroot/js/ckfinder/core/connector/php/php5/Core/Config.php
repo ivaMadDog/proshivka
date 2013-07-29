@@ -3,13 +3,14 @@
  * CKFinder
  * ========
  * http://ckfinder.com
- * Copyright (C) 2007-2010, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (C) 2007-2012, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
  * modifying or distribute this file or part of its contents. The contents of
  * this file is part of the Source Code of CKFinder.
  */
+if (!defined('IN_CKFINDER')) exit;
 
 /**
  * @package CKFinder
@@ -123,6 +124,13 @@ class CKFinder_Connector_Core_Config
      */
     private $_checkDoubleExtension = true;
     /**
+     * Disallow unsafe characters in file and folder names
+     *
+     * @var boolean
+     * @access private
+     */
+    private $_disallowUnsafeCharacters = false;
+    /**
      * If set to true, validate image size
      *
      * @var boolean
@@ -170,6 +178,31 @@ class CKFinder_Connector_Core_Config
      * @access private
      */
     private $_hideFiles = array(".*");
+    /**
+     * If set to true, force ASCII names
+     *
+     * @var boolean
+     * @access private
+     */
+    private $_forceAscii = false;
+    /**
+     * Temporary directory
+     *
+     * @var string
+     * @access private
+     */
+    private $_tempDirectory = '';
+    /**
+     * If set to true send files using X-Sendfile server module
+     * @var	bool $_xsendfile
+     */
+    private $_xsendfile = false;
+    /**
+     * Additional Nginx X-Sendfile configuration
+     *
+     * @var	array	$_xsendfileNginx	Configuration for location => root
+     */
+    private $_xsendfileNginx = array();
 
     function __construct()
     {
@@ -218,6 +251,17 @@ class CKFinder_Connector_Core_Config
     public function getHtmlExtensions()
     {
         return $this->_htmlExtensions;
+    }
+
+    /**
+	 * Get "forceAscii" value
+	 *
+	 * @access public
+	 * @return array
+	 */
+    public function forceAscii()
+    {
+        return $this->_forceAscii;
     }
 
     /**
@@ -281,6 +325,17 @@ class CKFinder_Connector_Core_Config
     public function getCheckDoubleExtension()
     {
         return $this->_checkDoubleExtension;
+    }
+
+    /**
+	 * Get "Disallow unsafe characters" value
+	 *
+	 * @access public
+	 * @return boolean
+	 */
+    public function getDisallowUnsafeCharacters()
+    {
+        return $this->_disallowUnsafeCharacters;
     }
 
     /**
@@ -461,11 +516,17 @@ class CKFinder_Connector_Core_Config
         if (isset($GLOBALS['config']['CheckDoubleExtension'])) {
             $this->_checkDoubleExtension = CKFinder_Connector_Utils_Misc::booleanValue($GLOBALS['config']['CheckDoubleExtension']);
         }
+        if (isset($GLOBALS['config']['DisallowUnsafeCharacters'])) {
+            $this->_disallowUnsafeCharacters = CKFinder_Connector_Utils_Misc::booleanValue($GLOBALS['config']['DisallowUnsafeCharacters']);
+        }
         if (isset($GLOBALS['config']['SecureImageUploads'])) {
             $this->_secureImageUploads = CKFinder_Connector_Utils_Misc::booleanValue($GLOBALS['config']['SecureImageUploads']);
         }
         if (isset($GLOBALS['config']['CheckSizeAfterScaling'])) {
             $this->_checkSizeAfterScaling = CKFinder_Connector_Utils_Misc::booleanValue($GLOBALS['config']['CheckSizeAfterScaling']);
+        }
+        if (isset($GLOBALS['config']['ForceAscii'])) {
+            $this->_forceAscii = CKFinder_Connector_Utils_Misc::booleanValue($GLOBALS['config']['ForceAscii']);
         }
         if (isset($GLOBALS['config']['HtmlExtensions'])) {
             $this->_htmlExtensions = (array)$GLOBALS['config']['HtmlExtensions'];
@@ -487,6 +548,15 @@ class CKFinder_Connector_Core_Config
             if (strlen($_defaultResourceTypes)) {
                 $this->_defaultResourceTypes = explode(",", $_defaultResourceTypes);
             }
+        }
+        if (isset($GLOBALS['config']['TempDirectory'])) {
+          $this->_tempDirectory = $GLOBALS['config']['TempDirectory'];
+        }
+        if (isset($GLOBALS['config']['XSendfile'])) {
+          $this->_xsendfile = CKFinder_Connector_Utils_Misc::booleanValue($GLOBALS['config']['XSendfile']);
+        }
+        if (isset($GLOBALS['config']['XSendfileNginx'])) {
+          $this->_xsendfileNginx = (array)$GLOBALS['config']['XSendfileNginx'];
         }
     }
 
@@ -511,4 +581,40 @@ class CKFinder_Connector_Core_Config
 
         return $_names;
     }
+
+    /**
+     * Get temporary directory
+     * @access public
+     * @return string
+     */
+    public function getTempDirectory()
+    {
+      return $this->_tempDirectory;
+    }
+
+    /**
+     * Get X-Sendfile option
+     */
+    public function getXSendfile(){
+      return $this->_xsendfile;
+    }
+
+    /**
+     * Get the dditional Nginx X-Sendfile configuration (location => root)
+     */
+    public function getXSendfileNginx(){
+      $xsendfileNginx = array();
+      foreach ( $this->_xsendfileNginx as $location => $root ){
+        $root = (string)$root;
+        $location = rtrim((string)$location,'/').'/';
+        if ( substr($root,-1,1) != '/' && substr($root,-1,1) != '\\') {
+          // root and location paths are concatenated
+          // @see http://wiki.nginx.org/XSendfile
+          $root = CKFinder_Connector_Utils_FileSystem::combinePaths(rtrim($root,'/'),$location);
+        }
+        $xsendfileNginx[$location] = $root;
+      }
+      return $xsendfileNginx;
+    }
+
 }
