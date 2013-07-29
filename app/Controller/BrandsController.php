@@ -15,7 +15,9 @@ class BrandsController extends AppController {
          parent::beforeFilter();
          $this->set(array('cp_title'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
                           'controllerName'=>$this->controllerName,
-                          'modelName'=>$this->modelName));    }
+                          'modelName'=>$this->modelName));    
+         
+    }
 
     public function admin_index(){
        $controllerName= $this->controllerName;

@@ -190,12 +190,21 @@ class AppController extends Controller
 	}
 
 /*отправка нового пароля*/
-       public  function _sendNewPwdMail($data)
+    public  function _sendNewPwdMail($data)
     {
         $subject = __('New password', true);
         $template = 'new_pwd';
         return $this->sendEmail($data['email'], $subject, $template, $data);
     }
+    
+    protected function setSeoMetaTags($data){
+		$this->set(array('prepend_title'=> $data['prepend_title'],
+					 	 'append_title'=>$data['append_title'],
+					 	 'meta_title'=> $data['meta_title'],
+						 'meta_keywords'=> $data['meta_keywords'],
+						 'meta_description'=> $data['meta_description'],
+						 'page_title'=> $data['title']));
+	}
 
 
 }

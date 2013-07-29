@@ -32,4 +32,43 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+    
+    
+    
+    public function saveSeo($title=0, $description=0)
+        {
+            $modelName = $this->name;
+            
+            !empty($title) ? $slug=$title : $slug='title';
+            !empty($description) ? $descr=$description : $descr='description';
+
+            $slug = (!empty($this->data[$modelName]['slug'])) ? $this->data[$modelName]['slug'] : $this->data[$modelName]['title'];
+            $this->data[$modelName]['slug'] = Inflector::slug($slug, '-');
+
+            $this->data[$modelName]['meta_title'] = !empty($this->data[$modelName]['meta_title']) ? $this->data[$modelName]['meta_title'] : $this->data[$modelName][$slug];
+            $this->data[$modelName]['meta_description'] = !empty($this->data[$modelName]['meta_description']) ? $this->data[$modelName]['meta_description'] : $this->data[$modelName][$descr];
+        }
+        
+        
+        
+        
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

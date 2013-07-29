@@ -26,6 +26,14 @@
     </div>
     <div class="row">
         <div class="column grid_2 title-left">
+          <p>Позиция</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('position', array( 'type'=>'text','label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column grid_2 title-left">
           <p>Фото</p>
         </div>
         <div class="column grid_10 ">

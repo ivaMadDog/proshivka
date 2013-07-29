@@ -32,6 +32,12 @@ class Brand extends AppModel {
             ),
         ),
     );
+    
+    
+    function beforeSave(){
+        $modelName = $this->name;
+        $this->saveSeo('name', 'short_description');
+    }
 
 
 }
