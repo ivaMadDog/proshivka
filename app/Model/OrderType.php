@@ -1,15 +1,19 @@
 <?php
 
-class OrdersType extends AppModel {
+class OrderType extends AppModel {
     
-    public $name = 'OrdersType';
+    public $name = 'OrderType';
 
     public $hasMany = array(
         'Order' => array(
             'className'     => 'Order',
-            'foreignKey'    => 'orders_type_id',
+            'foreignKey'    => 'order_type_id',
             'dependent'     => true
         )
     );
+    
+    
+    
+    
 }
 ?>

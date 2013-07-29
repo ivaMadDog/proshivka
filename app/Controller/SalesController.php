@@ -1,19 +1,20 @@
 <?php
 
-class GroupsController extends AppController {
+class SalesController extends AppController {
     
-    public $name = 'Groups';
-    public $uses = array('Group');
+    public $name = 'Sales';
+    public $uses = array('Sale');
 
-    public $controllerName='groups';
-    public $modelName = 'Group';
-    public $cp_title='Группы пользователей';
+    public $controllerName='sales';
+    public $modelName = 'Sale';
+    public $cp_title='Скидки на услуги';
 
-    function beforeFilter(){
+   function beforeFilter(){
          parent::beforeFilter();
          $this->set(array('cp_title'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"), 
                           'controllerName'=>$this->controllerName,
-                          'modelName'=>$this->modelName));    }
+                          'modelName'=>$this->modelName));
+    }
     
     public function admin_index(){
        $controllerName= $this->controllerName;
@@ -23,6 +24,7 @@ class GroupsController extends AppController {
        
        $this->paginate=array(
            'limit'=>12,
+           'recrsive'=>-1,
            'order'=>array("position", "id"),
            'conditions'=>$cond,
        );
@@ -108,6 +110,27 @@ class GroupsController extends AppController {
                $this->Session->setFlash('Не удалось удалить данные','flash_msg_error',array('title'=>'Ошибка удаления')); 
                exit;
           }
+      }
+      
+     public function admin_active($id){
+          $modelName=$this->modelName;
+          $controllerName = $this->controllerName;
+          $folder_name=$this->folderName;
+          
+          if($this->RequestHandler->isAjax()){ $this->layout='';}
+          
+          if(empty($id) || !$this->RequestHandler->isAjax() || !is_numeric($id)){ echo 0; exit;}
+          
+          
+          $data=$this->$modelName->find('first', array('conditions'=>array('id'=>(int)$id), 'fields'=>array('id','is_active'),'recursive'=>-1));
+          $active=(int)($data[$modelName]['is_active']==1)?0:1;
+          $this->$modelName->id=(int)$id;
+          if($this->$modelName->saveField('is_active',$active)){
+              echo 1;
+          }else{
+              echo 0;
+          }
+          exit;
       }
     
     

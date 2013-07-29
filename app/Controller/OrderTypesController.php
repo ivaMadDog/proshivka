@@ -1,13 +1,13 @@
 <?php
 
-class GroupsController extends AppController {
+class OrderTypesController extends AppController {
     
-    public $name = 'Groups';
-    public $uses = array('Group');
+    public $name = 'OrderTypes';
+    public $uses = array('OrderType');
 
-    public $controllerName='groups';
-    public $modelName = 'Group';
-    public $cp_title='Группы пользователей';
+    public $controllerName='order_types';
+    public $modelName = 'OrderType';
+    public $cp_title='Статусы заказов';
 
     function beforeFilter(){
          parent::beforeFilter();
