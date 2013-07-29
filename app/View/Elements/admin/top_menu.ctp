@@ -5,7 +5,7 @@
     <li><a  class="sprite_cp_admin cp-comments" href="/admin/reviews" title="Отзывы"></a></li>
     <li><a  class="sprite_cp_admin cp-messages" href="/admin/messages" title="Сообщения"></a></li>
     <li><a  class="sprite_cp_admin cp-orders" href="/admin/orders" title="Заказы"></a></li>
-    <li><a  class="sprite_cp_admin cp-typeorders" href="/admin/type" title="Статусы заказов"></a></li>
+    <li><a  class="sprite_cp_admin cp-typeorders" href="/admin/order_types" title="Статусы заказов"></a></li>
     <li><a  class="sprite_cp_admin cp-printers" href="/admin/printers" title="Принтеры"></a></li>
     <li><a  class="sprite_cp_admin cp-brands" href="/admin/brands" title="Производители"></a></li>
     <li><a  class="sprite_cp_admin cp-fix" href="/admin/fixes" title="Прошивки"></a></li>

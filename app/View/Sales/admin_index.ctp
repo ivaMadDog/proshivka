@@ -3,20 +3,20 @@
 
 <div class="content_area">
      <div class="row">
-        <div class="column grid_3 title">
-          <p>Email / Логин</p>
-        </div>
         <div class="column grid_2 title">
-          <p>Компания</p>
-        </div>
-        <div class="column grid_2 title">
-          <p>Группа</p>
+          <p>Название</p>
         </div>
         <div class="column grid_1 title">
-          <p>Скидка</p>
+          <p>Скидка, %</p>
         </div>
         <div class="column grid_2 title">
-          <p>Общая сумма, грн.</p>
+          <p>По-умолчанию</p>
+        </div>
+        <div class="column grid_1 title">
+          <p>Позиция</p>
+        </div>
+        <div class="column grid_4 title">
+          <p>Описание</p>
         </div>
         <div class="column grid_2 title">
           <p>Управление</p>
@@ -24,32 +24,31 @@
     </div>
     <?php foreach($data as $key=>$item):  ?>
     <div id="row_<?=$item[$modelName]['id']?>" class="row">
-        <div class="column grid_3">
-          <p><?= $item[$modelName]['email']?></p>
-        </div>
-        <div class="column grid_2 center">
-          <p><?php if(empty($item['Company']['name'])) echo 'Не создана' ; else echo $item['Company']['name']; ?></p>
-        </div>
-        <div class="column grid_2 center">
-          <p><?= $item['Group']['name'] ?></p>
+        <div class="column grid_2">
+          <p><?= $item[$modelName]['name']?></p>
         </div>
         <div class="column grid_1 center">
-          <p><?= $item['Sale']['sale'] ?></p>
+          <p><?= $item[$modelName]['sale']?></p>
         </div>
         <div class="column grid_2 center">
-          <p><?= $item[$modelName]['money'] ?></p>
+          <p><?= $item[$modelName]['is_default']?></p>
         </div>
-<?php
-$link_view = "/$controllerName/view/";
-$link_add = "/admin/$controllerName/add/";
-$link_edit = "/admin/$controllerName/edit/";
-$link_delete = "/admin/$controllerName/delete/{$item[$modelName]['id']}";
-$link_active = "/admin/$controllerName/active/{$item[$modelName]['id']}";
-?>        
-        <div class="column grid_2">
+        <div class="column grid_1 center">
+          <p><?= $item[$modelName]['position']?></p>
+        </div>
+        <div class="column grid_4">
+          <p><?= $item[$modelName]['short_description']?></p>
+        </div>
+        <?php
+        $link_view = "/$controllerName/view/";
+        $link_add = "/admin/$controllerName/add/";
+        $link_edit = "/admin/$controllerName/edit/";
+        $link_delete = "/admin/$controllerName/delete/{$item[$modelName]['id']}";
+        $link_active = "/admin/$controllerName/active/{$item[$modelName]['id']}";
+        ?>        
+        <div class="column grid_2 ">
             <p>
                 <span><a class="controls control-add" href="<?=$link_add?>" title="Добавить запись"></a></span>
-                <span><a class="controls control-view" href="<?= $link_view.$item[$modelName]['id'] ?>" title="Просмотр записи" target="_blank" ></a></span>
                 <span><a class="controls control-edit" href="<?= $link_edit.$item[$modelName]['id'] ?>" title="Редактировать запись"></a></span>
                 <span id="del_span_<?=$item[$modelName]['id']?>">
                     <?=$this->html->link('', '#', array('id'=>"del_a_{$item[$modelName]['id']}",'class'=>'controls control-del',"escape"=>false,"onClick"=>"delete_entry('$link_delete','row_{$item[$modelName]['id']}', 'del_span_{$item[$modelName]['id']}', 'del_a_{$item[$modelName]['id']}');return false;"),null, false);?>

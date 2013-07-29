@@ -13,6 +13,25 @@ class Group extends AppModel {
         )
     );
     
+    public $validate=array(
+        'name' => array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Имя не должно быть пустым',
+                'required'=> true,
+                'on'=>'create'
+            ),
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' => 'Такая группа уже существует'
+            ),
+        ),
+    );
+    
+    
+    
+    
+    
 }    
     
 ?>

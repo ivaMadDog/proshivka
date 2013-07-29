@@ -5,6 +5,7 @@
 </head>
 
 <body>
+    <span class="loader_span" style="display: none"><img src="/img/admin/loader.gif" alt="" /></span>
 
     <header id="header">
         <div class="wrapper">
