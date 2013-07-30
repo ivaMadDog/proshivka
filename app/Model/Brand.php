@@ -5,7 +5,10 @@ class Brand extends AppModel {
     public $actsAs = array('Containable');
 
 	public $folderName = 'brands';
+	//имя каталога на сервере для хранения ориганального изображения
 	public $originalFolderName= "original";
+	//массив полей таблицы привязанных к изображениям
+	//width: новая ширина изображения, height: новая высота изображения, path: имя каталога для данного размера изображения
 	public $resizeSettings= array('image'=>array(
 											 'preview'=>array('width'=>200,'height'=>150,),
 											 'thumb'=>array('width'=>120,'height'=>90,),),
@@ -42,12 +45,35 @@ class Brand extends AppModel {
 //            ),
 //        ),
     );
-    function beforeSave()
-    {	//сохраняем картинки для полей, которые могут содержать имена изображений
+
+	private $currentItem;
+
+
+    function beforeSave() {
+		parent::beforeSave();
+		//сохраняем картинки для полей, которые могут содержать имена изображений
 		foreach($this->resizeSettings as $field=>$options) $this->saveFieldImage($field);
 
         $this->saveSeo('name', 'short_description');
     }
+
+	function beforeDelete($cascade = true) {
+		parent::beforeDelete($cascade);
+		$this->currentItem = $this->read(null, $this->id);
+	}
+
+	function afterDelete() {
+		parent::afterDelete();
+
+		foreach ($this->resizeSettings as $field=>$folders){
+			$folders[]=$this->originalFolderName;
+			foreach($folders as $folder=>$options){
+				!empty($options['path'])? $folder_name=$options['path']: $folder_name= $folder;
+				$file =WWW_ROOT."files".DS."images".DS.$folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
+				if(file_exists($file)) unlink($file, 0, true);
+			}
+		}
+	}
 
 /*
  * @method void saveImage(string $field)
@@ -103,6 +129,7 @@ class Brand extends AppModel {
         }
 
 	}
+
 
 
 }
