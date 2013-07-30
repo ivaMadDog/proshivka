@@ -22,18 +22,18 @@ class FileUploadComponent extends Component {
 	var $name='FileUpload';
 	var $imageMagick=IMAGEMAGICK;
 	var $ffmpeg=array(
-	'ffmpegPath'=>'/usr/bin',
-	'audioSamplingFrequency'=>'22050',
-	'audioBitRate'=>'56k',
-	'videoAspectRatio'=>'4:3',
-	'videoBitRate'=>'64k',
-	'fps'=>'24',
-	'videoDimensions'=>'800x600',
-	'audioChannels'=>'1',
-	'snapshotSeekPercentage'=>'50', //50%
-	'snapshotSeekTime'=>'',
-	'snapshotSize'=>'366x212',
-	);
+		'ffmpegPath'=>'/usr/bin',
+		'audioSamplingFrequency'=>'22050',
+		'audioBitRate'=>'56k',
+		'videoAspectRatio'=>'4:3',
+		'videoBitRate'=>'64k',
+		'fps'=>'24',
+		'videoDimensions'=>'800x600',
+		'audioChannels'=>'1',
+		'snapshotSeekPercentage'=>'50', //50%
+		'snapshotSeekTime'=>'',
+		'snapshotSize'=>'366x212',
+		);
 
 	function uploadFile($file=array(),$destination,$type='file',$options=array()){
 		umask(000);
@@ -132,7 +132,7 @@ class FileUploadComponent extends Component {
 				if($type=='image'){
 					if(is_array($options['dimensions'])){
 						$imageDim=getimagesize($file['tmp_name']);
-					
+
 						$withinWidth=true;
 						$withinHeight=true;
 
@@ -365,18 +365,18 @@ class FileUploadComponent extends Component {
 
 
 									foreach($options['snapshotFolder'] as $key=>$save_path){
-			
-										
+
+
 											$snapshotSave=$save_path."/$baseFileName.jpg";
 											$snapshotSize=$ffmpeg['snapshotSize']["$key"];
-											
+
 											if(file_exists($snapshotSave)){
-												
+
 											}else{
 												$imgCmd=$ffmpeg['ffmpegPath']."/ffmpeg -i $saveTo -an -ss $snapShotSeekTime -t 00:00:01 -r 1 -y -s $snapshotSize $snapshotSave";
 												passthru($imgCmd);
 											}
-									
+
 									}
 
 									// $snapshotSave=$options['snapshotFolder']."/$baseFileName.jpg";
@@ -407,7 +407,7 @@ class FileUploadComponent extends Component {
 												// $options['snapshotResizeOptions']['width']=100;
 												// $options['snapshotResizeOptions']['height']=100;
 											// }
-// 
+//
 											// if(!isset($options['snapshotResizeOptions']) || !$options['snapshotResizeOptions']['force']){
 												// $resizeOpStart='';
 												// $resizeOpEnd='>';
@@ -417,7 +417,7 @@ class FileUploadComponent extends Component {
 												// $resizeOpEnd='';
 											// }
 										// }
-// 
+//
 										// $resizeSave=$options['snapshotResizeOptions']['folder']."/{$baseFileName}.jpg";
 										// $command = $this->imageMagick."/convert -compress jpeg -quality 100 \"$snapshotSaveFile\" -scale '$resizeOpStart{$options['snapshotResizeOptions']['width']}x{$options['snapshotResizeOptions']['height']}$resizeOpEnd' \"$resizeSave\"";
 										// passthru($command);
@@ -577,15 +577,15 @@ class FileUploadComponent extends Component {
 		$ffmpeg=$videoArgs['ffmpeg'];
 		$file_name=$videoArgs['file_name'];
 		$reformat_extention=$options['reformat_extention'];
-		
+
 		$destination=$videoArgs['flvFolder'];
-		
+
 		$fileDestination=$destination."/".$file_name;//full url
-		
-		
+
+
 		if(file_exists($fileDestination)){
 			$duration=$this->_getVideoDuration($fileDestination);
-			
+
 			if(!isset($options['extensions']) || empty($options['extensions'])){
 				$options=array_merge(array('extensions'=>array('mpeg', 'wmv', 'flv', 'mpg','3gp','mov','avi','asf')),$options);
 			}
@@ -598,9 +598,9 @@ class FileUploadComponent extends Component {
 					$ffmpeg=array_merge($this->ffmpeg,$options['ffmpeg']);
 				}
 			}
-		
-		
-		
+
+
+
 		if(!isset($ffmpeg['snapshotSeekTime']) || empty($ffmpeg['snapshotSeekTime'])){
 			if(!isset($ffmpeg['snapshotSeekPercentage']) || empty($ffmpeg['snapshotSeekPercentage']) || !is_numeric($ffmpeg['snapshotSeekPercentage']) || $ffmpeg['snapshotSeekPercentage']>100 || $ffmpeg['snapshotSeekPercentage']<0){
 				$snapShotPercentage=50;
@@ -614,20 +614,20 @@ class FileUploadComponent extends Component {
 		else{
 			$snapShotSeekTime=$ffmpeg['snapshotSeekTime'];
 		}
-	
-		
+
+
 		foreach($options['snapshotFolder'] as $key=>$save_path){
-			
+
 			$baseFileName=explode(".",$file_name);
 			array_pop($baseFileName);
 			$baseFileName=$baseFileName[0].".jpg";
-			
-			
+
+
 			$snapshotSave=$save_path."/$baseFileName";
 			$snapshotSize=$ffmpeg['snapshotSize']["$key"];
-			
+
 			if(file_exists($snapshotSave)){
-				
+
 			}else{
 				$imgCmd=$ffmpeg['ffmpegPath']."/ffmpeg -i $fileDestination -an -ss $snapShotSeekTime -t 00:00:01 -r 1 -y -s $snapshotSize $snapshotSave";
 				passthru($imgCmd);
@@ -637,14 +637,14 @@ class FileUploadComponent extends Component {
 			//$snapshotSaveFile=$options['snapshotFolder']."/{$baseFileName}1.jpg";
 		}
 
-									
+
 		$snapshotProperties=getimagesize($snapshotSave);
 		$retArray['snapshotName']=$baseFileName;
 		$retArray['snapshotWidth']=$snapshotProperties[0];
 		$retArray['snapshotHeight']=$snapshotProperties[1];
-		
+
 		return $retArray;
-		
+
 	   }
 	}
 }

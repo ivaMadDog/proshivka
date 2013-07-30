@@ -3,7 +3,7 @@
  * CKFinder
  * ========
  * http://ckfinder.com
- * Copyright (C) 2007-2010, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (C) 2007-2012, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
@@ -20,10 +20,10 @@
  */
 
 /**
- * Protect against sending warnings to the browser (#186).
- * Comment out this line during debugging. 
+ * Protect against sending warnings to the browser.
+ * Comment out this line during debugging.
  */
-error_reporting(0);
+// error_reporting(0);
 
 /**
  * Protect against sending content before all HTTP headers are sent (#186).
@@ -50,7 +50,10 @@ require_once CKFINDER_CONNECTOR_LIB_DIR . "/Core/Factory.php";
  * utils class
  */
 require_once CKFINDER_CONNECTOR_LIB_DIR . "/Utils/Misc.php";
-
+/**
+ * hooks class
+ */
+require_once CKFINDER_CONNECTOR_LIB_DIR . "/Core/Hooks.php";
 /**
  * Simple function required by config.php - discover the server side path
  * to the directory relative to the "$baseUrl" attribute
@@ -62,6 +65,7 @@ require_once CKFINDER_CONNECTOR_LIB_DIR . "/Utils/Misc.php";
  */
 function resolveUrl($baseUrl) {
     $fileSystem =& CKFinder_Connector_Core_Factory::getInstance("Utils_FileSystem");
+    $baseUrl = preg_replace("|^http(s)?://[^/]+|i", "", $baseUrl);
     return $fileSystem->getDocumentRootPath() . $baseUrl;
 }
 
@@ -72,6 +76,19 @@ $utilsSecurity->getRidOfMagicQuotes();
  * $config must be initialised
  */
 $config = array();
+$config['Hooks'] = array();
+$config['Plugins'] = array();
+
+/**
+ * Fix cookies bug in Flash.
+ */
+if (!empty($_GET['command']) && $_GET['command'] == 'FileUpload' && !empty($_POST)) {
+	foreach ($_POST as $key => $val) {
+		if (strpos($key, "ckfcookie_") === 0)
+			$_COOKIE[str_replace("ckfcookie_", "", $key)] = $val;
+	}
+}
+
 /**
  * read config file
  */

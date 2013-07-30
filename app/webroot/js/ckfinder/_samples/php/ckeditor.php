@@ -3,7 +3,7 @@
  * CKFinder
  * ========
  * http://ckfinder.com
- * Copyright (C) 2007-2010, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (C) 2007-2012, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
@@ -18,13 +18,12 @@
 	<link href="../sample.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<h1>
+	<h1 class="samples">
 		CKFinder - Sample - CKEditor Integration
 	</h1>
-	<hr />
-	<p>
+	<div class="description">
 		CKFinder can be easily integrated with <a href="http://ckeditor.com">CKEditor</a>. Try it now, by clicking
-		the "Image" or "Link" icons and then the "<strong>Browse Server</strong>" button.</p>
+		the "Image" or "Link" icons and then the "<strong>Browse Server</strong>" button.</div>
 <?php
 
 // Helper function for this sample file.
@@ -35,7 +34,7 @@ function printNotFound( $ver )
 	if (!empty($warned))
 		return;
 
-	echo '<p><br><strong><span style="color: #ff0000">Error</span>: '.$ver.' not found</strong>. ' .
+	echo '<p><br><strong><span class="error">Error</span>: '.$ver.' not found</strong>. ' .
 		'This sample assumes that '.$ver.' (not included with CKFinder) is installed in ' .
 		'the "ckeditor" sibling folder of the CKFinder installation folder. If you have it installed in ' .
 		'a different place, just edit this file, changing the wrong paths in the include ' .
@@ -78,5 +77,14 @@ else
 }
 
 ?>
+	<div id="footer">
+		<hr />
+		<p>
+			CKFinder - Ajax File Manager - <a class="samples" href="http://ckfinder.com/">http://ckfinder.com</a>
+		</p>
+		<p id="copy">
+			Copyright &copy; 2003-2012, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico Knabben. All rights reserved.
+		</p>
+	</div>
 </body>
 </html>

@@ -139,7 +139,7 @@
  *
  */
 	Configure::write('Cache.check', true);
-        
+
         /**
  * Defines the default error type when using the log() function. Used for
  * differentiating error logging and debugging. Currently PHP supports LOG_DEBUG.
@@ -201,8 +201,8 @@
  * The level of CakePHP security.
  */
 	Configure::write('Security.level', 'medium');
-        
-        
+
+
 /**
  * A random string used in security hashing methods.
  */

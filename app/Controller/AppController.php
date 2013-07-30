@@ -40,10 +40,10 @@ class AppController extends Controller
 {
     public $uses = array();
     public $helpers = array('Form', 'Html', 'Js', 'Time', 'Ck', 'Text', 'Cache','Session');
-    public $components = array('Session','RequestHandler', 'Email', 
+    public $components = array('Session','RequestHandler', 'Email',
                              'Auth' => array(
-                                   'authenticate' => 
-                                            array('Form' => 
+                                   'authenticate' =>
+                                            array('Form' =>
                                                     array('fields' => array('username' => 'email'),
                                                           'scope'  => array('is_active' => 1),
                                                           'recursive'=>-1
@@ -59,22 +59,22 @@ class AppController extends Controller
         );
 
     protected $admin=FALSE, $logged_in=FALSE;
-        
+
 
     function beforeFilter(){
-          
+
           $this->Auth->allow('index', 'view');
-          
+
           if($this->Auth->User('role')==='admin' && !empty($this->request->params["admin"])) {
                     $this->layout='admin/default';
                 }
-        
+
           $this->admin=$this->_isAdmin();
           $this->logged_in=$this->_loggedIn();
 
           $this->set('admin', $this->admin);
           $this->set('logged_in', $this->logged_in);
-          
+
           $this->set('headerColor', 'header-lblue'); //дефолтный клас для фона хедера
           $this->set('headerBgImg', 'home.png');     //дефолтный клас для фонового изображения хедера
     }
@@ -117,19 +117,19 @@ class AppController extends Controller
         }
         return $admin;
     }
- 
+
 /* Метод проверяет авторизован ли пользователь на сайте
  * @return boolean
-*/      
+*/
       protected function  _loggedIn() {
            $logged_in=FALSE;
            if ($this->Auth->user()) {
                $logged_in=TRUE;
            }
            return $logged_in;
-       }  
+       }
 
-       
+
         public function isAuthorized($user = null) {
             // Any registered user can access public functions
             if (empty($this->request->params['admin'])) {
@@ -143,21 +143,21 @@ class AppController extends Controller
 
             // Default deny
             return false;
-        }       
-       
-/*редирект на главную страницу*/        
+        }
+
+/*редирект на главную страницу*/
        public function homePageRedirect () {
             $this->redirect(Router::url(array('controller'=>'home','action'=>'index')));
        }
-/**/       
+/**/
        public function setFlashError($msg, $json = false){
 		return $this->setFlashMessage($msg, $json, $status = 'error');
 	}
-/**/	
+/**/
        public function setFlashMessage($msg, $json = false, $status = 'message'){
 		if($status == 'message') $key = 'message';
 		if($status == 'error') $key = 'error';
-		
+
 		if($this->RequestHandler->isAjax()){
 			if($json){
 				$msg = '<div id="flashMessage" class="'.$key.'">'.$msg.'</div>';
@@ -179,7 +179,7 @@ class AppController extends Controller
 				if(empty($this->params['admin'])){
 					$this->Session->setFlash($msg, 'flash_failure');
 				}
-				else{ 
+				else{
 					$this->Session->setFlash($msg);
 				}
 			}
@@ -188,14 +188,23 @@ class AppController extends Controller
 			}
 		}
 	}
-       
-/*отправка нового пароля*/       
-       public  function _sendNewPwdMail($data)
+
+/*отправка нового пароля*/
+    public  function _sendNewPwdMail($data)
     {
         $subject = __('New password', true);
         $template = 'new_pwd';
         return $this->sendEmail($data['email'], $subject, $template, $data);
     }
-       
-       
+    
+    protected function setSeoMetaTags($data){
+		$this->set(array('prepend_title'=> $data['prepend_title'],
+					 	 'append_title'=>$data['append_title'],
+					 	 'meta_title'=> $data['meta_title'],
+						 'meta_keywords'=> $data['meta_keywords'],
+						 'meta_description'=> $data['meta_description'],
+						 'page_title'=> $data['title']));
+	}
+
+
 }

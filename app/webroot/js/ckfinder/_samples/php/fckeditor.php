@@ -3,7 +3,7 @@
  * CKFinder
  * ========
  * http://ckfinder.com
- * Copyright (C) 2007-2010, CKSource - Frederico Knabben. All rights reserved.
+ * Copyright (C) 2007-2012, CKSource - Frederico Knabben. All rights reserved.
  *
  * The software, this file and its contents are subject to the CKFinder
  * License. Please read the license.txt file before using, installing, copying,
@@ -18,13 +18,12 @@
 	<link href="../sample.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<h1>
+	<h1 class="samples">
 		CKFinder - Sample - FCKeditor Integration
 	</h1>
-	<hr />
-	<p>
+	<div class="description">
 		CKFinder can be easily integrated with FCKeditor. Try it now, by clicking
-		the "Image" or "Link" icons and then the "<strong>Browse Server</strong>" button.</p>
+		the "Image" or "Link" icons and then the "<strong>Browse Server</strong>" button.</div>
 	<p>
 <?php
 
@@ -35,7 +34,7 @@ require_once '../../ckfinder.php' ;
 if ( !class_exists( 'FCKeditor' ) )
 {
 	echo
-		'<br><strong><span style="color: #ff0000">Error</span>: FCKeditor not found</strong>. ' .
+		'<br><strong><span class="error">Error</span>: FCKeditor not found</strong>. ' .
 		'This sample assumes that FCKeditor (not included with CKFinder) is installed in ' .
 		'the "fckeditor" sibling folder of the CKFinder installation folder. If you have it installed in ' .
 		'a different place, just edit this file, changing the wrong paths in the include ' .
@@ -46,16 +45,25 @@ else
 	$fckeditor = new FCKeditor( 'FCKeditor1' ) ;
 	$fckeditor->BasePath	= '../../../fckeditor/' ;
 	$fckeditor->Value		= '<p>Just click the <b>Image</b> or <b>Link</b> button, and then <b>&quot;Browse Server&quot;</b>.</p>' ;
-	
+
 	// Just call CKFinder::SetupFCKeditor before calling Create() or CreateHtml()
 	// in FCKeditor. The second parameter (optional), is the path for the
 	// CKFinder installation (default = "/ckfinder/").
 	CKFinder::SetupFCKeditor( $fckeditor, '../../' ) ;
-	
+
 	$fckeditor->Create() ;
 }
 
 ?>
 	</p>
+	<div id="footer">
+		<hr />
+		<p>
+			CKFinder - Ajax File Manager - <a class="samples" href="http://ckfinder.com/">http://ckfinder.com</a>
+		</p>
+		<p id="copy">
+			Copyright &copy; 2003-2012, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico Knabben. All rights reserved.
+		</p>
+	</div>
 </body>
 </html>
