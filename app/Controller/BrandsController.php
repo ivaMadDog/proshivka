@@ -6,7 +6,6 @@ class BrandsController extends AppController {
 
 	public $components = array("FileUpload","RequestHandler");
 
-
     public $controllerName='brands';
     public $modelName = 'Brand';
     public $cp_title='Производители принтеров';
@@ -15,8 +14,8 @@ class BrandsController extends AppController {
          parent::beforeFilter();
          $this->set(array('cp_title'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
                           'controllerName'=>$this->controllerName,
-                          'modelName'=>$this->modelName));    
-         
+                          'modelName'=>$this->modelName));
+
     }
 
     public function admin_index(){
