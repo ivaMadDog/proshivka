@@ -12,9 +12,9 @@ class Brand extends AppModel {
 	public $resizeSettings= array('image'=>array(
 											 'preview'=>array('width'=>200,'height'=>150,),
 											 'thumb'=>array('width'=>120,'height'=>90,),),
-								  'video'=>array(
-											 'preview'=>array('width'=>200,'height'=>150,),
-											 'thumb'=>array('width'=>120,'height'=>90,),),
+//								  'video'=>array(
+//											 'preview'=>array('width'=>200,'height'=>150,),
+//											 'thumb'=>array('width'=>120,'height'=>90,),),
 							);
 
     public $hasMany = array(
@@ -66,11 +66,11 @@ class Brand extends AppModel {
 		parent::afterDelete();
 
 		foreach ($this->resizeSettings as $field=>$folders){
-			$folders[]=$this->originalFolderName;
+			$folders[$this->originalFolderName]=array('path'=>$this->originalFolderName);
 			foreach($folders as $folder=>$options){
 				!empty($options['path'])? $folder_name=$options['path']: $folder_name= $folder;
-				$file =WWW_ROOT."files".DS."images".DS.$folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
-				if(file_exists($file)) unlink($file, 0, true);
+				$file =WWW_ROOT."files".DS."images".DS.$this->folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
+				if(file_exists($file)) unlink($file);
 			}
 		}
 	}
