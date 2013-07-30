@@ -65,16 +65,32 @@ class Brand extends AppModel {
 	function afterDelete() {
 		parent::afterDelete();
 
-		foreach ($this->resizeSettings as $field=>$folders){
+		$this->deleteImageField();
+	}
+/*
+ * @method void deleteImageField(string $imageField)
+ * @param string $field by image
+ * @return true on success or array images files on failure
+ */
+    
+   public function deleteImageField($imageField=null){
+       $errorArr=array();
+       if(!empty($imageField)) $field=$imageField;
+       foreach ($this->resizeSettings as $field=>$folders){
 			$folders[$this->originalFolderName]=array('path'=>$this->originalFolderName);
 			foreach($folders as $folder=>$options){
 				!empty($options['path'])? $folder_name=$options['path']: $folder_name= $folder;
 				$file =WWW_ROOT."files".DS."images".DS.$this->folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
-				if(file_exists($file)) unlink($file);
+				if(file_exists($file)) 
+                    if(!unlink($file)) 
+                        $errorArr[]=$file;
 			}
 		}
-	}
-
+        
+        if(empty($errorArr)) return true;
+        else return $errorArr;
+        
+   } 
 /*
  * @method void saveImage(string $field)
  * @param string $field

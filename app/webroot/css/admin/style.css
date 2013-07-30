@@ -141,6 +141,14 @@
 	border-bottom: 1px solid #FA9B05 ;
 }
 .input_seo {width: 95%; border-color: #ABADB3;}
+.input_image {position: relative; float: left;}
+.input_image_delete{
+    position: absolute;
+    left: 0; bottom: 0;
+    background: #737373; color: #fff;
+    text-decoration: none;
+    padding: 3px;
+}
 /*==============================================================================
 иконки для кнопок управления
 ==============================================================================*/

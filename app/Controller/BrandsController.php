@@ -113,6 +113,33 @@ class BrandsController extends AppController {
           }
       }
 
+        public function admin_delete_image($id, $fieldImage){
+               if($this->RequestHandler->isAjax()){
+					$this->layout=false;
+				}
+
+                $modelName=$this->modelName;
+                $controllerName=$this->controllerName;
+
+                if($id==null || !is_numeric($id) || empty($fieldImage)){
+                    if(!$this->RequestHandler->isAjax()){
+                            $this->Session->setFlash("Неверный запрос");
+                            $this->redirect("/admin/$controllerName/index");
+                    }
+                    echo "Неверный id";
+                    exit;
+				}
+
+                $this->$modelName->id=(int)$id;
+                $ImageName= $this->$modelName->read($fieldImage);
+                    if($this->$modelName->saveField($fieldImage, '')){
+                        $this->$modelName->deleteImageField($fieldImage);
+                        echo 1;
+                    }else{
+                        echo "Изображение не удалено. Попробуйте позже.";
+                    }
+                exit;
+        }
 
 }
 ?>

@@ -1,5 +1,6 @@
 $(document).ready(function(){
-   
+ 
+ 
 
 
 //placeholder для кроссбраузерности
@@ -35,7 +36,27 @@ function delete_entry(link, row_id, del_span, del_a){
 		});
 	}
 }
-
+//удаление изображения записи
+function removeImg(id, controllerName, fieldImage, selector){
+        console.log(selector);
+    	$.ajax({
+            url:"/admin/"+controllerName+"/delete_image/"+id+"/"+fieldImage,
+            type: "post",
+            beforeSend: function(){
+              $(selector).append($('.loader_span').css({'position':'absolute', 'left':'50%','top':'50%'}).show());  
+            },
+            success: function(data){
+                if(data==1) {
+                    $(selectorHide).remove();
+                    $(selectorMsg).html("Image Deleted Successfully").fadeIn(300).delay(2000).slideUp(400);
+                }else{
+                    $(selectorMsg).html(data).fadeIn(300).delay(20000).slideUp(400);
+                }
+                $('.loader_span').hide(); 
+            }
+        });
+}
+//активация или блокировка записи
 function change_active (link, spanId, aId){
         var aClass=$('#'+aId).attr('class');
         $('#'+spanId).append($('.loader_span').show());
