@@ -64,8 +64,8 @@ class Brand extends AppModel {
 
 	function afterSave($created) {
 		parent::afterSave($created);
-
-	}
+        
+    }
 
 	function beforeDelete($cascade = true) {
 		parent::beforeDelete($cascade);
@@ -102,7 +102,8 @@ class Brand extends AppModel {
 
    }
   /*
- * @method void clearFieldImage(string $field)
+ * @method void clearFieldImage(int $id, string $field)
+ * @param int $id
  * @param string $field
  * @return
  */ 

@@ -71,10 +71,10 @@ class BrandsController extends AppController {
 
        if(!empty($this->request->data)){
           $this->$modelName->id=$id;
-          if($this->$modelName->save($this->request->data)){
-			  if($old_image[$modelName]['image']!=$this->request->data[$modelName]['image'])
+          if($old_image[$modelName]['image']!=$this->request->data[$modelName]['image'])
 				  $this->$modelName->deleteImageField($id,'image');
-
+          
+          if($this->$modelName->save($this->request->data)){
               $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Обновление данных'));
               $this->redirect("/admin/$this->controllerName/index");
 			  exit;
