@@ -51,11 +51,18 @@ class Brand extends AppModel {
 
     function beforeSave() {
 		parent::beforeSave();
+
 		//сохраняем картинки для полей, которые могут содержать имена изображений
-		foreach($this->resizeSettings as $field=>$options) $this->saveFieldImage($field);
+		foreach($this->resizeSettings as $field=>$options)
+			$this->saveFieldImage($field);
 
         $this->saveSeo('name', 'short_description');
     }
+
+	function afterSave($created) {
+		parent::afterSave($created);
+
+	}
 
 	function beforeDelete($cascade = true) {
 		parent::beforeDelete($cascade);
@@ -69,10 +76,10 @@ class Brand extends AppModel {
 	}
 /*
  * @method void deleteImageField(string $imageField)
- * @param string $field by image
+ * @param string $field by image, if $field==null then delete all images by field
  * @return true on success or array images files on failure
  */
-    
+
    public function deleteImageField($imageField=null){
        $errorArr=array();
        if(!empty($imageField)) $field=$imageField;
@@ -81,16 +88,16 @@ class Brand extends AppModel {
 			foreach($folders as $folder=>$options){
 				!empty($options['path'])? $folder_name=$options['path']: $folder_name= $folder;
 				$file =WWW_ROOT."files".DS."images".DS.$this->folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
-				if(file_exists($file)) 
-                    if(!unlink($file)) 
+				if(file_exists($file) && is_file($file))
+                    if(!unlink($file))
                         $errorArr[]=$file;
 			}
 		}
-        
+
         if(empty($errorArr)) return true;
         else return $errorArr;
-        
-   } 
+
+   }
 /*
  * @method void saveImage(string $field)
  * @param string $field

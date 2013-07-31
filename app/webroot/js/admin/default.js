@@ -1,21 +1,21 @@
 $(document).ready(function(){
- 
- 
+
+
 
 
 //placeholder для кроссбраузерности
-    jQuery('input[data-placeholder], textarea[data-placeholder]').placeholder();    
-    
-    
+    jQuery('input[data-placeholder], textarea[data-placeholder]').placeholder();
+
+
     $('#msg').delay(4000).hide('highlight', 1500);
     $('.msg_close').click(function(){
         $('#msg').hide();
         console.log('msg_close');
-    }) 
-    
-    
+    })
+
+
 });
-/* удаление записи */
+/* удаление записи в админпанели*/
 function delete_entry(link, row_id, del_span, del_a){
 	if(window.confirm("Вы действительно хотите удалить эту запись?")){
 		$('#'+del_span).append($('.loader_span').show());
@@ -30,9 +30,9 @@ function delete_entry(link, row_id, del_span, del_a){
                                     $('#'+del_span+' .loader_span').remove();
                                     $('#'+del_a).show();
                                 }
-                                    
+
 			}
-                        
+
 		});
 	}
 }
@@ -43,16 +43,16 @@ function removeImg(id, controllerName, fieldImage, selector){
             url:"/admin/"+controllerName+"/delete_image/"+id+"/"+fieldImage,
             type: "post",
             beforeSend: function(){
-              $(selector).append($('.loader_span').css({'position':'absolute', 'left':'50%','top':'50%'}).show());  
+              $(selector).append($('.loader_span').css({'position':'absolute', 'left':'50%','top':'50%'}).show());
             },
             success: function(data){
                 if(data==1) {
-                    $(selectorHide).remove();
-                    $(selectorMsg).html("Image Deleted Successfully").fadeIn(300).delay(2000).slideUp(400);
+                    $(selector).remove();
+                    $(selector).html("Image Deleted Successfully").fadeIn(300).delay(2000).slideUp(400);
                 }else{
-                    $(selectorMsg).html(data).fadeIn(300).delay(20000).slideUp(400);
+                    $(selector).html(data).fadeIn(300).delay(20000).slideUp(400);
                 }
-                $('.loader_span').hide(); 
+                $('.loader_span').hide();
             }
         });
 }

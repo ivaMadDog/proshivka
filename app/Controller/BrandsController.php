@@ -66,13 +66,18 @@ class BrandsController extends AppController {
        }
 
        $id=(int)$id;
-       $this->set(array('cp_subtitle'=> 'Редактирование группы', 'action'=>$actionName, 'id'=>$id));
+	   $old_image=$this->$modelName->read('image', $id);
+       $this->set(array('cp_subtitle'=> 'Редактирование бренда', 'action'=>$actionName, 'id'=>$id));
 
        if(!empty($this->request->data)){
           $this->$modelName->id=$id;
           if($this->$modelName->save($this->request->data)){
+			  if($old_image[$modelName]['image']!=$this->request->data[$modelName]['image'])
+				  $this->$modelName->deleteImageField('image');
+
               $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Обновление данных'));
               $this->redirect("/admin/$this->controllerName/index");
+			  exit;
           }else{
               $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка добавления данных'));
           }
@@ -81,8 +86,8 @@ class BrandsController extends AppController {
        }
 
        $this->render('admin_form');
-    }
 
+    }
 
     public function admin_delete($id) {
 
@@ -113,33 +118,34 @@ class BrandsController extends AppController {
           }
       }
 
-        public function admin_delete_image($id, $fieldImage){
-               if($this->RequestHandler->isAjax()){
-					$this->layout=false;
-				}
+	public function admin_delete_image($id, $fieldImage){
+	   if($this->RequestHandler->isAjax()){
+			$this->layout=false;
+		}
 
-                $modelName=$this->modelName;
-                $controllerName=$this->controllerName;
+		$modelName=$this->modelName;
+		$controllerName=$this->controllerName;
 
-                if($id==null || !is_numeric($id) || empty($fieldImage)){
-                    if(!$this->RequestHandler->isAjax()){
-                            $this->Session->setFlash("Неверный запрос");
-                            $this->redirect("/admin/$controllerName/index");
-                    }
-                    echo "Неверный id";
-                    exit;
-				}
-
-                $this->$modelName->id=(int)$id;
-                $ImageName= $this->$modelName->read($fieldImage);
-                    if($this->$modelName->saveField($fieldImage, '')){
-                        $this->$modelName->deleteImageField($fieldImage);
-                        echo 1;
-                    }else{
-                        echo "Изображение не удалено. Попробуйте позже.";
-                    }
-                exit;
-        }
+		if($id==null || !is_numeric($id) || empty($fieldImage)){
+			if(!$this->RequestHandler->isAjax()){
+					$this->Session->setFlash("Неверный запрос");
+					$this->redirect("/admin/$controllerName/index");
+			}
+			echo "Неверный id";
+			exit;
+		}
+		$this->$modelName->id=(int)$id;
+		$currentRecord= $this->$modelName->read(null, $id);
+		$currentRecord[$modelName][$fieldImage]='';
+		debug($currentRecord);
+			if($this->$modelName->save($currentRecord[$modelName])){
+				$this->$modelName->deleteImageField($fieldImage);
+				echo 1;
+			}else{
+				echo "Изображение не удалено. Попробуйте позже.";
+			}
+		exit;
+	}
 
 }
 ?>
