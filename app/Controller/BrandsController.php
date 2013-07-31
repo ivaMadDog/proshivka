@@ -73,7 +73,7 @@ class BrandsController extends AppController {
           $this->$modelName->id=$id;
           if($this->$modelName->save($this->request->data)){
 			  if($old_image[$modelName]['image']!=$this->request->data[$modelName]['image'])
-				  $this->$modelName->deleteImageField('image');
+				  $this->$modelName->deleteImageField($id,'image');
 
               $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Обновление данных'));
               $this->redirect("/admin/$this->controllerName/index");
@@ -120,7 +120,7 @@ class BrandsController extends AppController {
 
 	public function admin_delete_image($id, $fieldImage){
 	   if($this->RequestHandler->isAjax()){
-			$this->layout=false;
+			$this->layout='';
 		}
 
 		$modelName=$this->modelName;
@@ -134,17 +134,10 @@ class BrandsController extends AppController {
 			echo "Неверный id";
 			exit;
 		}
-		$this->$modelName->id=(int)$id;
-		$currentRecord= $this->$modelName->read(null, $id);
-		$currentRecord[$modelName][$fieldImage]='';
-		debug($currentRecord);
-			if($this->$modelName->save($currentRecord[$modelName])){
-				$this->$modelName->deleteImageField($fieldImage);
-				echo 1;
-			}else{
-				echo "Изображение не удалено. Попробуйте позже.";
-			}
-		exit;
+        
+		$this->$modelName->clearFieldImage((int)$id, $fieldImage);
+		
+        $this->autoRender=false;
 	}
 
 }

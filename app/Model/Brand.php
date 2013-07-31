@@ -48,6 +48,9 @@ class Brand extends AppModel {
 
 	private $currentItem;
 
+    private function setCurrentItem(){
+        $this->currentItem=$this->read(null,$this->id);
+    }
 
     function beforeSave() {
 		parent::beforeSave();
@@ -72,15 +75,15 @@ class Brand extends AppModel {
 	function afterDelete() {
 		parent::afterDelete();
 
-		$this->deleteImageField();
+		$this->deleteImageField($this->currentItem[$this->name]['id']);
 	}
 /*
- * @method void deleteImageField(string $imageField)
- * @param string $field by image, if $field==null then delete all images by field
+ * @method void deleteImageField(int $id,string $imageField)
+ * @param int $id - id current record
+ * @param  string $field by image, if $field==null then delete all images by field
  * @return true on success or array images files on failure
  */
-
-   public function deleteImageField($imageField=null){
+    public function deleteImageField($id=null,$imageField=null){
        $errorArr=array();
        if(!empty($imageField)) $field=$imageField;
        foreach ($this->resizeSettings as $field=>$folders){
@@ -97,6 +100,18 @@ class Brand extends AppModel {
         if(empty($errorArr)) return true;
         else return $errorArr;
 
+   }
+  /*
+ * @method void clearFieldImage(string $field)
+ * @param string $field
+ * @return
+ */ 
+   public function clearFieldImage($id=null,$imageField=null){
+       $this->id=$id;
+       $this->setCurrentItem();
+       $this->deleteImageField($id, $imageField);
+       $this->saveField($imageField, '', array('validate' => false, 'callbacks' => false));
+            
    }
 /*
  * @method void saveImage(string $field)
