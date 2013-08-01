@@ -66,11 +66,11 @@ class BrandsController extends AppController {
        }
 
        $id=(int)$id;
-	   $old_image=$this->$modelName->read('image', $id);
+//	   $old_image=$this->$modelName->read(null, $id);
        $this->set(array('cp_subtitle'=> 'Редактирование бренда', 'action'=>$actionName, 'id'=>$id));
 
        if(!empty($this->request->data)){
-          $this->$modelName->id=$id;
+		  $this->request->data["$modelName"]["id"] = $id;
           if($this->$modelName->save($this->request->data)){
               $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Обновление данных'));
               $this->redirect("/admin/$this->controllerName/index");
@@ -79,7 +79,6 @@ class BrandsController extends AppController {
               $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка добавления данных'));
           }
        }else{
-		   $this->modelName->id=$id;
            $this->request->data=$this->$modelName->find('first',array('conditions'=>array('id'=>$id)));
        }
 

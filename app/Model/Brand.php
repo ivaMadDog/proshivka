@@ -49,12 +49,14 @@ class Brand extends AppModel {
 	private $currentItem;
 
     private function setCurrentItem(){
-        $this->currentItem=$this->read(null,$this->id);
+		$this->recursive=-1;
+        $this->currentItem=$this->findById($this->id);
     }
 
     function beforeSave() {
 		parent::beforeSave();
 
+        $this->setCurrentItem();
 		//сохраняем картинки для полей, которые могут содержать имена изображений
 		foreach($this->resizeSettings as $field=>$options)
 			$this->saveFieldImage($field);
@@ -64,10 +66,11 @@ class Brand extends AppModel {
 
 	function afterSave($created) {
 		parent::afterSave($created);
-
-//		foreach($this->resizeSettings as $field=>$options)
-//			if($this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
-//				$this->deleteImageField($field);
+//		debug($this->data);
+//		debug($this->currentItem);die;
+		foreach($this->resizeSettings as $field=>$options)
+			if($this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
+				$this->deleteImageField($field);
 
     }
 
@@ -150,7 +153,6 @@ class Brand extends AppModel {
 
         App::import('Component', 'FileUpload');
         $FileUpload = new FileUploadComponent(new ComponentCollection());
-
 		//uploading cover image
         if (!empty($this->data[$modelName][$field]['name']) && $this->data[$modelName][$field]['error'] == 0) {
             $this->data[$modelName][$field]['name'] = preg_replace("/[^A-Za-z0-9_\.]/", "", $this->data[$modelName][$field]['name']);
