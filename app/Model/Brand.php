@@ -64,7 +64,11 @@ class Brand extends AppModel {
 
 	function afterSave($created) {
 		parent::afterSave($created);
-        
+
+//		foreach($this->resizeSettings as $field=>$options)
+//			if($this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
+//				$this->deleteImageField($field);
+
     }
 
 	function beforeDelete($cascade = true) {
@@ -75,22 +79,23 @@ class Brand extends AppModel {
 	function afterDelete() {
 		parent::afterDelete();
 
-		$this->deleteImageField($this->currentItem[$this->name]['id']);
+		$this->deleteImageField();
 	}
 /*
+ * удаление изображений связаных с полями таблицы
  * @method void deleteImageField(int $id,string $imageField)
  * @param int $id - id current record
  * @param  string $field by image, if $field==null then delete all images by field
  * @return true on success or array images files on failure
  */
-    public function deleteImageField($id=null,$imageField=null){
+    public function deleteImageField($imageField=null){
        $errorArr=array();
        if(!empty($imageField)) $field=$imageField;
        foreach ($this->resizeSettings as $field=>$folders){
 			$folders[$this->originalFolderName]=array('path'=>$this->originalFolderName);
 			foreach($folders as $folder=>$options){
 				!empty($options['path'])? $folder_name=$options['path']: $folder_name= $folder;
-				$file =WWW_ROOT."files".DS."images".DS.$this->folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
+				$file = WWW_ROOT."files".DS."images".DS.$this->folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
 				if(file_exists($file) && is_file($file))
                     if(!unlink($file))
                         $errorArr[]=$file;
@@ -101,18 +106,19 @@ class Brand extends AppModel {
         else return $errorArr;
 
    }
-  /*
+ /*
+ * очищает поле и удаляет изображение
  * @method void clearFieldImage(int $id, string $field)
  * @param int $id
  * @param string $field
  * @return
- */ 
+ */
    public function clearFieldImage($id=null,$imageField=null){
        $this->id=$id;
        $this->setCurrentItem();
-       $this->deleteImageField($id, $imageField);
+       $this->deleteImageField($imageField);
        $this->saveField($imageField, '', array('validate' => false, 'callbacks' => false));
-            
+
    }
 /*
  * @method void saveImage(string $field)

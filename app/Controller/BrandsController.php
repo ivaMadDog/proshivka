@@ -71,9 +71,6 @@ class BrandsController extends AppController {
 
        if(!empty($this->request->data)){
           $this->$modelName->id=$id;
-          if($old_image[$modelName]['image']!=$this->request->data[$modelName]['image'])
-				  $this->$modelName->deleteImageField($id,'image');
-          
           if($this->$modelName->save($this->request->data)){
               $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Обновление данных'));
               $this->redirect("/admin/$this->controllerName/index");
@@ -82,6 +79,7 @@ class BrandsController extends AppController {
               $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка добавления данных'));
           }
        }else{
+		   $this->modelName->id=$id;
            $this->request->data=$this->$modelName->find('first',array('conditions'=>array('id'=>$id)));
        }
 
@@ -134,9 +132,9 @@ class BrandsController extends AppController {
 			echo "Неверный id";
 			exit;
 		}
-        
+
 		$this->$modelName->clearFieldImage((int)$id, $fieldImage);
-		
+
         $this->autoRender=false;
 	}
 
