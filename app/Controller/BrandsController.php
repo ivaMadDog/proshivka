@@ -26,8 +26,9 @@ class BrandsController extends AppController {
 
        $this->paginate=array(
            'limit'=>12,
-           'order'=>array("position", "id"),
+           'order'=>array("$modelName.is_default DESC", "$modelName.name","$modelName.position", "$modelName.id"),
            'conditions'=>$cond,
+           'recursive'=>-1
        );
 
        $data=$this->paginate($modelName);

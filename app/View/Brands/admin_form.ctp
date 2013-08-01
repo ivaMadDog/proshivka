@@ -34,7 +34,7 @@
     </div>
     <div class="row">
         <div class="column grid_2 title-left">
-          <p>Фото</p>
+          <p>Фото <br />(200px*150px, 4:3)</p>
         </div>
         <div class="column grid_10 ">
             <?= $this->form->input('image', array( 'type'=>'file','label'=>false, 'div'=>false)) ;?>

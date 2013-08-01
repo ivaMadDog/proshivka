@@ -66,11 +66,11 @@ class Brand extends AppModel {
 
 	function afterSave($created) {
 		parent::afterSave($created);
-//		debug($this->data);
-//		debug($this->currentItem);die;
-		foreach($this->resizeSettings as $field=>$options)
-			if($this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
-				$this->deleteImageField($field);
+
+        if(!empty($this->currentItem)) 
+            foreach($this->resizeSettings as $field=>$options)
+                if($this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
+                    $this->deleteImageField($field);
 
     }
 
