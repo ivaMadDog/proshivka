@@ -1,22 +1,40 @@
 <?php
-class BrandsController extends AppController {
+class ArticlesController extends AppController {
 
-    public $name = 'Brands';
-    public $uses = array('Brand');
+    public $name = 'Articles';
+    public $uses = array('Article');
 
 	public $components = array("FileUpload","RequestHandler");
 
-    public $controllerName='brands';
-    public $modelName = 'Brand';
-    public $cp_title='Производители принтеров';
+    public $controllerName='articles';
+    public $modelName = 'Article';
+    public $cp_title='Статьи, новости, обзоры';
 
     function beforeFilter(){
          parent::beforeFilter();
          $this->set(array('cp_title'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
                           'controllerName'=>$this->controllerName,
                           'modelName'=>$this->modelName));
-
     }
+    
+      public function admin_active($id){
+          $modelName=$this->modelName;
+          $controllerName = $this->controllerName;
+
+          if($this->RequestHandler->isAjax()){ $this->layout='';}
+
+          if(empty($id) || !$this->RequestHandler->isAjax() || !is_numeric($id)){ echo 0; exit;}
+
+          $data=$this->$modelName->find('first', array('conditions'=>array('id'=>(int)$id), 'fields'=>array('id','is_active'),'recursive'=>-1));
+          $active=(int)($data[$modelName]['is_active']==1)?0:1;
+          $this->$modelName->id=(int)$id;
+          if($this->$modelName->saveField('is_active',$active)){
+              echo 1;
+          }else{
+              echo 0;
+          }
+          exit;
+      }
 
     public function admin_index(){
        $controllerName= $this->controllerName;
@@ -26,9 +44,9 @@ class BrandsController extends AppController {
 
        $this->paginate=array(
            'limit'=>12,
-           'order'=>array("$modelName.is_default DESC", "$modelName.name","$modelName.position", "$modelName.id"),
+           'order'=>array("$modelName.created DESC", "$modelName.name","$modelName.position", "$modelName.id"),
            'conditions'=>$cond,
-           'recursive'=>-1
+           'recursive'=>1
        );
 
        $data=$this->paginate($modelName);
@@ -40,7 +58,10 @@ class BrandsController extends AppController {
        $modelName=$this->modelName;
        $actionName='add';
 
-       $this->set(array('cp_subtitle'=> 'Добавление данных', 'action'=>$actionName));
+       $categories=$this->$modelName->Category->generateTreeList(null,null,null," - ");
+       $users=$this->$modelName->User->find('list');
+       $this->set(array('cp_subtitle'=> 'Добавление данных', 'action'=>$actionName,
+           'categories'=>$categories, 'users'=>$users));
 
        if(!empty($this->request->data) && $this->request->is('post')){
           $this->$modelName->create();
@@ -51,7 +72,7 @@ class BrandsController extends AppController {
               $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка добавления данных'));
           }
        }
-
+       
        $this->render('admin_form');
     }
 
@@ -67,9 +88,11 @@ class BrandsController extends AppController {
        }
 
        $id=(int)$id;
-//	   $old_image=$this->$modelName->read(null, $id);
-       $this->set(array('cp_subtitle'=> 'Редактирование бренда', 'action'=>$actionName, 'id'=>$id));
-
+       $users=$this->$modelName->User->find('list');
+       $categories=$this->$modelName->Category->generateTreeList(null,null,null," - ");
+       $this->set(array('cp_subtitle'=> 'Редактирование статьи', 'action'=>$actionName, 
+                        'id'=>$id, 'categories'=>$categories, 'users'=>$users));
+       
        if(!empty($this->request->data)){
 		  $this->request->data["$modelName"]["id"] = $id;
           if($this->$modelName->save($this->request->data)){
@@ -77,10 +100,10 @@ class BrandsController extends AppController {
               $this->redirect("/admin/$this->controllerName/index");
 			  exit;
           }else{
-              $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка обновления данных'));
+              $this->Session->setFlash('Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка обновления данных'));
           }
        }else{
-           $this->request->data=$this->$modelName->find('first',array('conditions'=>array('id'=>$id)));
+           $this->request->data=$this->$modelName->find('first',array('conditions'=>array('id'=>$id), 'recursive'=>-1));
        }
 
        $this->render('admin_form');

@@ -107,3 +107,12 @@ messages
   height: 16px;
   background: url(../img/msg_close.png) no-repeat center;
 }
+/*===========================================================================
+UI jQuery
+=============================================================================*/
+.ui-datepicker-trigger {
+    float: left;
+    margin-left: -34px;
+    margin-top: -3px;
+
+}
