@@ -6,13 +6,12 @@ class User extends AppModel {
     public $name = 'User';
     public $actsAs = array('Containable');
     
-    public $hasOne = array(
-        'Company' => array(
-            'className'    => 'Company',
-            'dependent'    => true
-        )   
-    );
-    
+//    public $hasOne = array(
+//            'Company' => array(
+//                'className'     => 'Company',
+//                'foreignKey'    => false,
+//                'conditions' => array('Company.user_id = User.id')  
+//            ));    
     public $belongsTo = array(
         'Group' => array(
             'className'    => 'Group',
