@@ -1,7 +1,7 @@
 <?php
 class Company extends AppModel {
     public $name = 'Company';
-    public $primaryKey = 'user_id';   
+    public $actsAs = array('Containable');    
     
 	public $folderName = 'companies';
 	public $originalFolderName= "original";

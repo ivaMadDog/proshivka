@@ -1,4 +1,4 @@
-<?//debug($data)?>
+<? //  debug($data)?>
 <div class="row">
     <div class="column ">
       <ul class="row-top-commands">
@@ -39,7 +39,13 @@
           <p><?= $item['City']['name']?></p>
         </div>    
         <div class="column grid_2 center">
-          <p><?= $item['User']['name']?></p>
+          <p>
+             <? if (!empty($item['User']['username']) && !empty($item['User']['secondname']))
+                 echo $this->html->link($item['User']['username'].' '.$item['User']['secondname'], "/admin/users/edit/{$item['User']['id']}");
+             else
+                 echo $this->html->link($item['User']['email'], "/admin/users/edit/{$item['User']['id']}");
+             ?>
+          </p>
         </div>  
         <div class="column grid_1 center">
           <p><?= $item[$modelName]['is_active']?></p>

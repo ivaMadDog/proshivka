@@ -28,6 +28,10 @@ class CompaniesController extends AppController {
            'limit'=>12,
            'order'=>array("$modelName.is_default DESC", "$modelName.name","$modelName.position", "$modelName.id"),
            'conditions'=>$cond, 
+           'contain'=>array(
+               "City"=>array("id", "name",),
+               "User"=>array("id", "name", "username","secondname","email")
+           )
             );
 
        $data=$this->paginate($modelName);
@@ -84,7 +88,7 @@ class CompaniesController extends AppController {
               $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка обновления данных'));
           }
        }else{
-           $this->request->data=$this->$modelName->find('first',array('conditions'=>array('id'=>$id)));
+           $this->request->data=$this->$modelName->find('first',array('conditions'=>array("$modelName.id"=>$id)));
        }
 
        $this->render('admin_form');

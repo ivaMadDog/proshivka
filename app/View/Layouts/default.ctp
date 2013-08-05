@@ -11,33 +11,27 @@
 </head>
 
 <body class="<?php echo $headerColor ?>">
-<?php echo $this->Session->flash(); ?>
-<div id="wrapper" >
-        <?php echo $this->element('header');?>
+    <?php echo $this->Session->flash(); ?>
+    <div id="wrapper" >
+            <?php echo $this->element('header');?>
 
-	<section id="middle">
-		<div id="container">
-                    
-			<div id="content">
-                             
-                             <?php echo $content_for_layout ?>
-                            
-                             <div class="clr"></div>
+        <section id="middle">
+            <div id="container">
+                <div id="content">
+                     <?php echo $content_for_layout ?>
+                     <div class="clr"></div>
+                     <?php echo $this->element('bottom');?>
+                </div><!-- #content-->
+            </div><!-- #container-->
+        </section><!-- #middle-->
 
-                             <?php echo $this->element('bottom');?>
-                            
-                        </div><!-- #content-->
-		</div><!-- #container-->
+            <?php echo $this->element('footer');?>
 
-	</section><!-- #middle-->
-
-        <?php echo $this->element('footer');?>
-
-</div><!-- #wrapper -->
-<div class="clear"></div>
+    </div><!-- #wrapper -->
+    <div class="clear"></div>
+    
     <pre>
     <?php echo $this->element('sql_dump'); ?> 
     </pre>
-<?php // if(Configure::read('debug')>=1) echo $this->element('sql_dump'); ?>
 </body>
 </html>

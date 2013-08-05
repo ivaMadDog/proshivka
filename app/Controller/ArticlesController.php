@@ -12,12 +12,18 @@ class ArticlesController extends AppController {
 
     function beforeFilter(){
          parent::beforeFilter();
+         $folderName=$this->{$this->modelName}->folderName;
          $this->set(array('cp_title'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
                           'controllerName'=>$this->controllerName,
-                          'modelName'=>$this->modelName));
+                          'modelName'=>$this->modelName, 'folderName'=>$folderName));
+         
+         if(empty($this->request->params["admin"])) {
+              $this->layout='default_aside';
+              $this->set(array('headerColor'=> 'header-orange','headerBgImg'=> 'blog.png'));
+         }
     }
-    
-      public function admin_active($id){
+
+    public function admin_active($id){
           $modelName=$this->modelName;
           $controllerName = $this->controllerName;
 
@@ -28,7 +34,7 @@ class ArticlesController extends AppController {
           $data=$this->$modelName->find('first', array('conditions'=>array('id'=>(int)$id), 'fields'=>array('id','is_active'),'recursive'=>-1));
           $active=(int)($data[$modelName]['is_active']==1)?0:1;
           $this->$modelName->id=(int)$id;
-          if($this->$modelName->saveField('is_active',$active)){
+          if($this->$modelName->saveField('is_active',$active, array('validate'=>false, 'callbacks'=>false))){
               echo 1;
           }else{
               echo 0;
@@ -161,5 +167,34 @@ class ArticlesController extends AppController {
         $this->autoRender=false;
 	}
 
+    public function index($category_id=0) {
+        
+       $controllerName= $this->controllerName;
+       $modelName=$this->modelName;
+       
+       $cond=array(
+           "$modelName.is_active"=>1,
+       );
+       if (!empty($category_id)){
+           $category_id=(int)$category_id;
+           $cond["$modelName.category_id"]=$category_id;
+       }
+       
+       $this->paginate=array(
+           'limit'=>12,
+           'order'=>array("$modelName.created DESC", "$modelName.name", "$modelName.position", "$modelName.id"),
+           'conditions'=>$cond,
+           'recursive'=>1
+       );
+       
+       $data=$this->paginate($modelName);
+       $this->set(array('data'=>$data));
+    }
+    
+    public function view(){
+        
+    }
+    
+    
 }
 ?>
