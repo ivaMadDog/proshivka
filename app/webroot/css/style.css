@@ -126,7 +126,27 @@
 .banner_center{
     text-align: center;
 }
-
+/* pagination
+-----------------------------------------------------------------------------*/
+.pagination {
+    width: 200px;
+    margin: 0 auto 10px;
+    height: 30px;
+}
+.pagination .current{background: #F34008;}
+.pagination span {
+    border: 1px solid #AE5C04;
+    width: 26px; 
+    height: 26px; 
+    line-height: 26px; 
+    margin: 0 5px; 
+    color: #fff; 
+    background: #F48B2E; 
+    float: left;
+    text-align: center;
+    font-weight: bold
+}
+.pagination a {text-decoration: none; color: #fff !important;width: 26px; height: 26px; float: left}
 /*===========================================================================
 Style for sprite
 =============================================================================*/

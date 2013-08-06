@@ -69,7 +69,7 @@ class Brand extends AppModel {
 
         if(!empty($this->currentItem)) 
             foreach($this->resizeSettings as $field=>$options)
-                if($this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
+                if(!empty($this->data[$this->name][$field]) && $this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
                     $this->deleteImageField($field);
 
     }

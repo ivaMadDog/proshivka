@@ -41,8 +41,12 @@
                     </footer>
                 </div>
             </article>
-        <? endforeach;
-      else :?>  
+        <? endforeach;?>
+        <div class="clear"></div>
+
+        <?=$this->element('pagin_ui')?>
+    
+      <?else :?>  
             <div>Данная категория пустая.</div>
       <?endif;?>  
 </section><!-- end blog post-->

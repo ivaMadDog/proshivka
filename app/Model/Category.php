@@ -36,8 +36,15 @@ class Category extends AppModel {
     public function getCategories(){
         return $this->find('all', array('recursive'=>-1)) ;
     }
+ /*
+  * метод возвращает активные категории категории
+  * @return array
+  */       
+    public function getCategoriesIsActive(){
+        return $this->find('all', array('recursive'=>-1, 'conditions'=>array('is_active'=>1))) ;
+    }    
   /** 
- * Метод читает из таблицы category все сточки, и  
+ * Метод читает из таблицы category все строчки, и  
  * возвращает двумерный массив, в котором первый ключ - id - родителя  
  * категории (parent_id) 
  * @return Array - упорядоченный массив  
@@ -53,7 +60,23 @@ class Category extends AppModel {
            } 
         return $return; 
     } 
-    
+   /** 
+ * Метод читает из таблицы category все активные строчки, и  
+ * возвращает двумерный массив, в котором первый ключ - id - родителя  
+ * категории (parent_id) 
+ * @return Array - упорядоченный массив  
+ */        
+   public function getArrayCategoriesActive() { 
+        //Читаем все строчки и записываем в переменную $result         
+        $result = $this->getCategoriesIsActive();
+        //Перелапачиваем массим (делаем из одномерного массива - двумерный, в котором  
+        //первый ключ - parent_id) 
+        $return = array(); 
+        foreach ($result as $value) { //Обходим массив            
+            $return[$value['Category']['parent_id']][] = $value['Category']; 
+           } 
+        return $return; 
+    }    
         
         
         

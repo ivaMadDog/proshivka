@@ -66,10 +66,10 @@
 		parent::afterSave($created);
 
         if(!empty($this->currentItem)) 
-            foreach($this->resizeSettings as $field=>$options)
-                if($this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
+            foreach($this->resizeSettings as $field=>$options){
+                if(!empty($this->data[$this->name][$field]) && $this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
                     $this->deleteImageField($field);
-
+            }
     }
 
 	function beforeDelete($cascade = true) {
@@ -175,7 +175,28 @@
 
 	}
 
+    public function getArticlesByField($field, $number=3){
+        if(empty($field)) return false;
+        else return $this->find('all', array('conditions'=>array('Article.is_active'=>1, 'Category.is_active'=>1),
+                                        'fields'=>array('id', 'category_id', 'name', 'image', 'slug', 
+                                                        'short_description', $field, 'is_active'),
+                                        'order'=>array("Article.$field DESC"),
+                                        'limit'=>$number,
+                                        'recursive'=>1,
+                                        'contain'=>array('Category'=>array('fields'=>array('is_active','id')))));
+    }
+    
+    public function getArticlesRecommend( $number=3){
+        return $this->find('all', array('conditions'=>array('Article.is_active'=>1, 'Article.is_recommend'=>1,'Category.is_active'=>1),
+                                        'fields'=>array('id', 'category_id', 'name', 'image', 'slug', 
+                                                        'short_description', 'is_recommend', 'is_active'),
+                                        'order'=>array("Article.date DESC"),
+                                        'limit'=>$number,
+                                        'recursive'=>1,
+                                        'contain'=>array('Category'=>array('fields'=>array('is_active','id')))));
+    }
 
+    
 
 }
 ?>

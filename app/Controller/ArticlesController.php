@@ -18,7 +18,7 @@ class ArticlesController extends AppController {
                           'modelName'=>$this->modelName, 'folderName'=>$folderName));
          
          if(empty($this->request->params["admin"])) {
-              $this->layout='default_aside';
+              $this->layout='default_blog';
               $this->set(array('headerColor'=> 'header-orange','headerBgImg'=> 'blog.png'));
          }
     }
@@ -71,6 +71,7 @@ class ArticlesController extends AppController {
 
        if(!empty($this->request->data) && $this->request->is('post')){
           $this->$modelName->create();
+          if(empty($this->request->data[$modelName]['date']))$this->request->data[$modelName]['date']=date('Y-m-d G:i:s');
           if($this->$modelName->save($this->request->data)){
               $this->Session->setFlash('Данные успешно были добавлены','flash_msg_success',array('title'=>'Добавление данных'));
               $this->redirect("/admin/$this->controllerName/index");
@@ -101,6 +102,7 @@ class ArticlesController extends AppController {
        
        if(!empty($this->request->data)){
 		  $this->request->data["$modelName"]["id"] = $id;
+          if(empty($this->request->data[$modelName]['date']))$this->request->data[$modelName]['date']=date('Y-m-d G:i:s');
           if($this->$modelName->save($this->request->data)){
               $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Обновление данных'));
               $this->redirect("/admin/$this->controllerName/index");
@@ -174,21 +176,27 @@ class ArticlesController extends AppController {
        
        $cond=array(
            "$modelName.is_active"=>1,
+           "$modelName.date <="=>date("Y-m-d G:i:s"),
        );
        if (!empty($category_id)){
            $category_id=(int)$category_id;
            $cond["$modelName.category_id"]=$category_id;
        }
        
+       $categories=$this->$modelName->Category->getArrayCategoriesActive();
+       $articles_recommend=$this->$modelName->getArticlesRecommend();
+       $articles_views=$this->$modelName->getArticlesByField("number_views");
+
        $this->paginate=array(
-           'limit'=>12,
-           'order'=>array("$modelName.created DESC", "$modelName.name", "$modelName.position", "$modelName.id"),
+           'limit'=>3,
+           'order'=>array("$modelName.date ", "$modelName.name", "$modelName.position", "$modelName.id"),
            'conditions'=>$cond,
            'recursive'=>1
        );
        
        $data=$this->paginate($modelName);
-       $this->set(array('data'=>$data));
+       $this->set(array('data'=>$data, 'categories'=>$categories[0],'articles_recommend'=>$articles_recommend,
+                        'articles_views'=>$articles_views ));
     }
     
     public function view(){
