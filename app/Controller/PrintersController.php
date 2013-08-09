@@ -1,14 +1,14 @@
 <?php
-class ArticlesController extends AppController {
+class PrintersController extends AppController {
 
-    public $name = 'Articles';
-    public $uses = array('Article');
+    public $name = 'Printers';
+    public $uses = array('Printer');
 
 	public $components = array("FileUpload","RequestHandler");
 
-    public $controllerName='articles';
-    public $modelName = 'Article';
-    public $cp_title='Статьи, новости, обзоры';
+    public $controllerName='printers';
+    public $modelName = 'Printer';
+    public $cp_title='Список моделей принтеров';
 
     function beforeFilter(){
          parent::beforeFilter();
@@ -18,8 +18,8 @@ class ArticlesController extends AppController {
                           'modelName'=>$this->modelName, 'folderName'=>$folderName));
 
          if(empty($this->request->params["admin"])) {
-              $this->layout='default_aside';
-              $this->set(array('headerColor'=> 'header-orange','headerBgImg'=> 'blog.png'));
+              $this->layout='default';
+              $this->set(array('headerColor'=> 'header-green','headerBgImg'=> 'models.png'));
          }
     }
 
@@ -64,10 +64,8 @@ class ArticlesController extends AppController {
        $modelName=$this->modelName;
        $actionName='add';
 
-       $categories=$this->$modelName->Category->generateTreeList(null,null,null," - ");
-       $users=$this->$modelName->User->find('list');
-       $this->set(array('cp_subtitle'=> 'Добавление данных', 'action'=>$actionName,
-           'categories'=>$categories, 'users'=>$users));
+       $brands=$this->Printer->Brand->find('list', array('order'=>array("Brand.position")));
+       $this->set(array('cp_subtitle'=> 'Добавление данных', 'action'=>$actionName, 'brands'=>$brands));
 
        if(!empty($this->request->data) && $this->request->is('post')){
           $this->$modelName->create();
@@ -94,11 +92,8 @@ class ArticlesController extends AppController {
              exit;
        }
 
-       $id=(int)$id;
-       $users=$this->$modelName->User->find('list');
-       $categories=$this->$modelName->Category->generateTreeList(null,null,null," - ");
-       $this->set(array('cp_subtitle'=> 'Редактирование статьи', 'action'=>$actionName,
-                        'id'=>$id, 'categories'=>$categories, 'users'=>$users));
+       $brands=$this->Printer->Brand->find('list', array('order'=>array("Brand.position")));
+       $this->set(array('cp_subtitle'=> 'Редактирование данных', 'action'=>$actionName, 'brands'=>$brands));
 
        if(!empty($this->request->data)){
 		  $this->request->data["$modelName"]["id"] = $id;
@@ -174,26 +169,17 @@ class ArticlesController extends AppController {
        $controllerName= $this->controllerName;
        $modelName=$this->modelName;
 
-       $cond=array(
-           "$modelName.is_active"=>1,
-           "$modelName.date <="=>date("Y-m-d G:i:s"),
-       );
+       $cond=array("$modelName.is_active"=>1,   );
        if (!empty($category_id))  $cond["$modelName.category_id"]=(int)$category_id;
 
-       $categories=$this->$modelName->Category->getArrayCategoriesActive();
-       $articles_recommend=$this->$modelName->getArticlesRecommend();
-       $articles_views=$this->$modelName->getArticlesByField("number_views");
-
        $this->paginate=array(
-           'limit'=>3,
+		   'fields'=>array('id','name','slug','price_fix'),
            'order'=>array("$modelName.date DESC", "$modelName.name", "$modelName.position", "$modelName.id"),
            'conditions'=>$cond,
-           'recursive'=>1
+           'recursive'=>-1
        );
 
-       $data=$this->paginate($modelName);
-       $this->set(array('data'=>$data, 'categories'=>$categories[0],'articles_recommend'=>$articles_recommend,
-                        'articles_views'=>$articles_views ));
+       $this->set(array('data'=>$this->paginate($modelName)));
     }
 
     public function view($id=null){

@@ -2,16 +2,17 @@
 App::uses('AuthComponent', 'Controller/Component');
 
 class User extends AppModel {
-    
+
     public $name = 'User';
     public $actsAs = array('Containable');
-    
+
     public $hasOne = array(
             'Company' => array(
                 'className'     => 'Company',
                 'foreignKey'    => false,
-                'conditions' => array('Company.user_id = User.id')  
-            ));    
+                'conditions' => array('Company.user_id = User.id')
+            )
+	);
     public $belongsTo = array(
         'Group' => array(
             'className'    => 'Group',
@@ -22,23 +23,24 @@ class User extends AppModel {
             'foreignKey'   => 'sale_id'
         ),
     );
-    
+
     public $hasMany = array(
-        'Review' => array('className'=> 'Review','foreignKey'=> 'user_id','order'=> 'Review.created DESC','dependent'=> true),
-        'Article'=> array('className'=> 'Article','foreignKey'=> 'user_id','dependent'=> true),
+		  'Order'=>array('className'=> 'Order','foreignKey'=> 'user_id','order'=> 'Order.created DESC','dependent'=> true),
+//        'Review' => array('className'=> 'Review','foreignKey'=> 'user_id','order'=> 'Review.created DESC','dependent'=> true),
+//        'Article'=> array('className'=> 'Article','foreignKey'=> 'user_id','dependent'=> true),
     );
-    
-     public $hasAndBelongsToMany = array(
-        'Printer' =>
-            array(
-                'className'              => 'Printer',
-                'joinTable'              => 'orders',
-                'foreignKey'             => 'user_id',
-                'associationForeignKey'  => 'printer_id',
-                'unique'                 => true,
-            ),
-    );     
-    
+
+//     public $hasAndBelongsToMany = array(
+//        'Printer' =>
+//            array(
+//                'className'              => 'Printer',
+//                'joinTable'              => 'orders',
+//                'foreignKey'             => 'user_id',
+//                'associationForeignKey'  => 'printer_id',
+//                'unique'                 => true,
+//            ),
+//    );
+
     public $validate = array(
         'email' => array(
             'required' => array(
@@ -88,9 +90,9 @@ class User extends AppModel {
 //            'valid' => array(
 //                'rule'=>"(\+?\d[- .]*){7,13}"
 //            )
-//        ),        
+//        ),
     );
-    
+
     public function validatePwdConfirm($check){
        return (strcmp($this->request->data[$this->alias]['password'], AuthComponent::password($check['confirm_password'])) === 0);
     }
@@ -101,8 +103,8 @@ class User extends AppModel {
         }
         return true;
     }
-    
-    public  function saveNewPwd($data, $new_pwd = null) {   
+
+    public  function saveNewPwd($data, $new_pwd = null) {
         if(empty($data['id'])) return;
         $this->id = $data['id'];
         if(!$new_pwd) $new_pwd = self::_generateNewPwd();
@@ -110,43 +112,43 @@ class User extends AppModel {
         $data = array_merge($data, array('password'=>$new_pwd));
         return $data;
     }
-    
+
     public  function _generateNewPwd()
     {
         $chars = "abcdefghijkmnopqrstuvwxyz023456789";
         $length = 7;
-        srand((double)microtime()*1000000);    
-        $i = 0;    
-        $pass = '' ;    
-        while ($i <= $length) {        
-            $num = rand() % 33;        
-            $tmp = substr($chars, $num, 1);        
-            $pass = $pass . $tmp;        
-            $i++;    
+        srand((double)microtime()*1000000);
+        $i = 0;
+        $pass = '' ;
+        while ($i <= $length) {
+            $num = rand() % 33;
+            $tmp = substr($chars, $num, 1);
+            $pass = $pass . $tmp;
+            $i++;
         }
         //$pass = 1;
         return $pass;
     }
-    
+
     public function password($password) {
             return AuthComponent::password($password);
         }
-    
+
     public function getUserEmail($email, $recursive) {
         if(empty($email)) return false;
-        
+
         $data= $this->find('first', array('condition'=>array('email'=>$email),
                                            'recursive'=>$recursive));
-        
+
         if (empty($data)) return false;
-        
+
         return $data;
     }
-    
+
     public function getAuthUser(){
         return $this->find('first', array('conditions'=>array('id'=>  AuthComponent::User('id')), 'recursive'=>-1));
     }
-    
+
 }
 
 

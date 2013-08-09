@@ -1,5 +1,5 @@
 <div class="admin_area" >
-     <?php echo $this->form->create($modelName, array('type'=>'file','url'=>array('controller'=>$controllerName, 'action'=>$action, !empty($id)?$id:'' ), 'id'=>'BrandForm'));?>
+     <?php echo $this->form->create($modelName, array('type'=>'file','url'=>array('controller'=>$controllerName, 'action'=>$action, !empty($id)?$id:'' ), 'id'=>'ArticleForm'));?>
      <div class="row">
         <div class="column grid_2 title-left">
           <p>Название статьи</p>
@@ -15,7 +15,7 @@
         <div class="column grid_10 ">
             <?= $this->form->input('category_id', array('label'=>false, 'div'=>false)) ;?>
         </div>
-    </div> 
+    </div>
      <div class="row">
         <div class="column grid_2 title-left">
           <p>Автор статьи</p>
@@ -23,7 +23,7 @@
         <div class="column grid_10 ">
             <?= $this->form->input('user_id', array('label'=>false, 'div'=>false)) ;?>
         </div>
-    </div>      
+    </div>
 	<div class="row">
         <div class="column grid_2 title-left">
           <p>Активная</p>
@@ -63,7 +63,7 @@
         <div class="column grid_10 ">
             <?= $this->form->input('image', array( 'type'=>'file','label'=>false, 'div'=>false)) ;?>
             <?if(!empty($this->request->data[$modelName]['image'])) : ?>
-                <div class="clear"></div>                
+                <div class="clear"></div>
                 <div id="thumb_<?=$this->request->data[$modelName]['id']?>" class="input_image">
                     <?= $this->html->image("/files/images/$controllerName/image/small/{$this->request->data[$modelName]['image']}",
                             array("alt"=>"{$this->request->data[$modelName]['name']}", "escape"=>false));?>
