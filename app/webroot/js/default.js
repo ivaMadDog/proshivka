@@ -1,6 +1,6 @@
 $(document).ready(function(){
-   
-//скрипт для окна контактов в верхнем меню         
+
+//скрипт для окна контактов в верхнем меню
     $('#top_contacts').mouseenter(function() {
         $('#top_all_contacts').show(100);
     });
@@ -16,5 +16,5 @@ $(document).ready(function(){
     }
     });
 
-   
+
 });
