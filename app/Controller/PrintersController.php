@@ -169,26 +169,17 @@ class PrintersController extends AppController {
        $controllerName= $this->controllerName;
        $modelName=$this->modelName;
 
-       $cond=array(
-           "$modelName.is_active"=>1,
-           "$modelName.date <="=>date("Y-m-d G:i:s"),
-       );
+       $cond=array("$modelName.is_active"=>1,   );
        if (!empty($category_id))  $cond["$modelName.category_id"]=(int)$category_id;
 
-       $categories=$this->$modelName->Category->getArrayCategoriesActive();
-       $articles_recommend=$this->$modelName->getArticlesRecommend();
-       $articles_views=$this->$modelName->getArticlesByField("number_views");
-
        $this->paginate=array(
-           'limit'=>3,
+		   'fields'=>array('id','name','slug','price_fix'),
            'order'=>array("$modelName.date DESC", "$modelName.name", "$modelName.position", "$modelName.id"),
            'conditions'=>$cond,
-           'recursive'=>1
+           'recursive'=>-1
        );
 
-       $data=$this->paginate($modelName);
-       $this->set(array('data'=>$data, 'categories'=>$categories[0],'articles_recommend'=>$articles_recommend,
-                        'articles_views'=>$articles_views ));
+       $this->set(array('data'=>$this->paginate($modelName)));
     }
 
     public function view($id=null){
