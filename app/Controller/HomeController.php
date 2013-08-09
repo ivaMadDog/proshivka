@@ -1,9 +1,9 @@
 <?php
 class HomeController extends AppController{
-	var $name='Home';
-	var $uses=array('User');
-        var $helpers = array('Form', 'Html', 'Js', 'Time', 'Ck', 'Text', 'Cache');
-	var $menuFlag = 'Home';
+	public $name='Home';
+	public $uses=array('User');
+    public $helpers = array('Form', 'Html', 'Js', 'Time', 'Ck', 'Text', 'Cache');
+	public $menuFlag = 'Home';
 
 	function beforeFilter(){
 	    parent::beforefilter();

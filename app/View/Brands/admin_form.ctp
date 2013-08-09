@@ -34,10 +34,18 @@
     </div>
     <div class="row">
         <div class="column grid_2 title-left">
-          <p>Фото</p>
+          <p>Фото <br />(200px*150px, 4:3)</p>
         </div>
         <div class="column grid_10 ">
             <?= $this->form->input('image', array( 'type'=>'file','label'=>false, 'div'=>false)) ;?>
+            <?if(!empty($this->request->data[$modelName]['image'])) : ?>
+                <div class="clear"></div>                
+                <div id="thumb_<?=$this->request->data[$modelName]['id']?>" class="input_image">
+                    <?= $this->html->image("/files/images/$controllerName/image/preview/{$this->request->data[$modelName]['image']}",
+                            array("alt"=>"{$this->request->data[$modelName]['name']}", "escape"=>false));?>
+                    <a class="input_image_delete" onclick="removeImg(<?=$this->request->data[$modelName]['id']?>,'<?=$controllerName?>','image', '#thumb_<?=$this->request->data[$modelName]['id']?>');return false;">Удалить Х</a>
+                </div>
+            <? endif; ?>
         </div>
     </div>
     <div class="row">

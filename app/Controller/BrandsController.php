@@ -26,8 +26,9 @@ class BrandsController extends AppController {
 
        $this->paginate=array(
            'limit'=>12,
-           'order'=>array("position", "id"),
+           'order'=>array("$modelName.is_default DESC", "$modelName.name","$modelName.position", "$modelName.id"),
            'conditions'=>$cond,
+           'recursive'=>-1
        );
 
        $data=$this->paginate($modelName);
@@ -60,29 +61,31 @@ class BrandsController extends AppController {
        $actionName='edit';
 
        if(empty($id)){
-             $this->Session->setFlash( 'Неверный запрос','flash_msg_error',array('title'=>'Страницы отсутствует'));
+             $this->Session->setFlash( 'Неверный запрос','flash_msg_error',array('title'=>'Страница отсутствует'));
              $this->redirect("/admin/$this->controllerName/index");
              exit;
        }
 
        $id=(int)$id;
-       $this->set(array('cp_subtitle'=> 'Редактирование группы', 'action'=>$actionName, 'id'=>$id));
+//	   $old_image=$this->$modelName->read(null, $id);
+       $this->set(array('cp_subtitle'=> 'Редактирование бренда', 'action'=>$actionName, 'id'=>$id));
 
        if(!empty($this->request->data)){
-          $this->$modelName->id=$id;
+		  $this->request->data["$modelName"]["id"] = $id;
           if($this->$modelName->save($this->request->data)){
               $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Обновление данных'));
               $this->redirect("/admin/$this->controllerName/index");
+			  exit;
           }else{
-              $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка добавления данных'));
+              $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка обновления данных'));
           }
        }else{
            $this->request->data=$this->$modelName->find('first',array('conditions'=>array('id'=>$id)));
        }
 
        $this->render('admin_form');
-    }
 
+    }
 
     public function admin_delete($id) {
 
@@ -113,6 +116,27 @@ class BrandsController extends AppController {
           }
       }
 
+	public function admin_delete_image($id, $fieldImage){
+	   if($this->RequestHandler->isAjax()){
+			$this->layout='';
+		}
+
+		$modelName=$this->modelName;
+		$controllerName=$this->controllerName;
+
+		if($id==null || !is_numeric($id) || empty($fieldImage)){
+			if(!$this->RequestHandler->isAjax()){
+					$this->Session->setFlash("Неверный запрос");
+					$this->redirect("/admin/$controllerName/index");
+			}
+			echo "Неверный id";
+			exit;
+		}
+
+		$this->$modelName->clearFieldImage((int)$id, $fieldImage);
+
+        $this->autoRender=false;
+	}
 
 }
 ?>

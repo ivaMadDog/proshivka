@@ -7,12 +7,11 @@ class User extends AppModel {
     public $actsAs = array('Containable');
     
     public $hasOne = array(
-        'Company' => array(
-            'className'    => 'Company',
-            'dependent'    => true
-        )   
-    );
-    
+            'Company' => array(
+                'className'     => 'Company',
+                'foreignKey'    => false,
+                'conditions' => array('Company.user_id = User.id')  
+            ));    
     public $belongsTo = array(
         'Group' => array(
             'className'    => 'Group',
@@ -25,12 +24,8 @@ class User extends AppModel {
     );
     
     public $hasMany = array(
-        'Review' => array(
-            'className'     => 'Review',
-            'foreignKey'    => 'user_id',
-            'order'         => 'Review.created DESC',
-            'dependent'     => true
-        )
+        'Review' => array('className'=> 'Review','foreignKey'=> 'user_id','order'=> 'Review.created DESC','dependent'=> true),
+        'Article'=> array('className'=> 'Article','foreignKey'=> 'user_id','dependent'=> true),
     );
     
      public $hasAndBelongsToMany = array(

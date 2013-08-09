@@ -1,6 +1,12 @@
-<?
-// debug($data) ?>
 
+ <div class="row">
+    <div class="column ">
+      <p>
+          <a class="controls control-add" href="<?="/admin/$controllerName/add/"?>" title="Добавить запись"></a>
+          <a href="<?="/admin/$controllerName/add/"?>" title="Добавить запись">Добавить брэнд</a>
+      </p>
+    </div>
+</div>
 <div class="content_area">
      <div class="row">
         <div class="column grid_2 title">

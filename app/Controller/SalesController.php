@@ -27,6 +27,7 @@ class SalesController extends AppController {
            'recrsive'=>-1,
            'order'=>array("position", "id"),
            'conditions'=>$cond,
+           'recursive'=>-1
        );
        
        $data=$this->paginate($modelName);

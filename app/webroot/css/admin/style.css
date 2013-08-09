@@ -7,7 +7,7 @@
 
     height: 50px;
     background: #5EE9FC;
-    position: fixed;
+   position: relative ;/* ;fixed;*/
     top:0; left:0 ;
     width: 100%;
     -webkit-box-shadow: 0px 1px 1px rgba(50, 50, 50, 1);
@@ -141,6 +141,14 @@
 	border-bottom: 1px solid #FA9B05 ;
 }
 .input_seo {width: 95%; border-color: #ABADB3;}
+.input_image {position: relative; float: left;}
+.input_image_delete{
+    position: absolute;
+    left: 0; bottom: 0;
+    background: #737373; color: #fff;
+    text-decoration: none;
+    padding: 3px;
+}
 /*==============================================================================
 иконки для кнопок управления
 ==============================================================================*/
@@ -167,6 +175,17 @@
     color: #000;
     font-weight: bold;
 }
+/*==============================================================================
+ дополнительные кнопки для команд управления
+==============================================================================*/
+.row-top-commands {
+    
+}
+.row-top-command{
+    float: left;
+    margin-right: 20px;
+}
+.row-top-command a:hover{text-decoration: underline; color: #FA9B05}
 /*==============================================================================
  пользователи
 ==============================================================================*/

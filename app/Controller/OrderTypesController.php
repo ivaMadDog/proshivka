@@ -25,6 +25,7 @@ class OrderTypesController extends AppController {
            'limit'=>12,
            'order'=>array("position", "id"),
            'conditions'=>$cond,
+           'recursive'=>-1
        );
        
        $data=$this->paginate($modelName);

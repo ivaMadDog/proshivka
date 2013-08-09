@@ -48,13 +48,30 @@ class Brand extends AppModel {
 
 	private $currentItem;
 
+    private function setCurrentItem(){
+		$this->recursive=-1;
+        $this->currentItem=$this->findById($this->id);
+    }
 
     function beforeSave() {
 		parent::beforeSave();
+
+        $this->setCurrentItem();
 		//сохраняем картинки для полей, которые могут содержать имена изображений
-		foreach($this->resizeSettings as $field=>$options) $this->saveFieldImage($field);
+		foreach($this->resizeSettings as $field=>$options)
+			$this->saveFieldImage($field);
 
         $this->saveSeo('name', 'short_description');
+    }
+
+	function afterSave($created) {
+		parent::afterSave($created);
+
+        if(!empty($this->currentItem)) 
+            foreach($this->resizeSettings as $field=>$options)
+                if(!empty($this->data[$this->name][$field]) && $this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
+                    $this->deleteImageField($field);
+
     }
 
 	function beforeDelete($cascade = true) {
@@ -65,16 +82,47 @@ class Brand extends AppModel {
 	function afterDelete() {
 		parent::afterDelete();
 
-		foreach ($this->resizeSettings as $field=>$folders){
+		$this->deleteImageField();
+	}
+/*
+ * удаление изображений связаных с полями таблицы
+ * @method void deleteImageField(int $id,string $imageField)
+ * @param int $id - id current record
+ * @param  string $field by image, if $field==null then delete all images by field
+ * @return true on success or array images files on failure
+ */
+    public function deleteImageField($imageField=null){
+       $errorArr=array();
+       if(!empty($imageField)) $field=$imageField;
+       foreach ($this->resizeSettings as $field=>$folders){
 			$folders[$this->originalFolderName]=array('path'=>$this->originalFolderName);
 			foreach($folders as $folder=>$options){
 				!empty($options['path'])? $folder_name=$options['path']: $folder_name= $folder;
-				$file =WWW_ROOT."files".DS."images".DS.$this->folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
-				if(file_exists($file)) unlink($file);
+				$file = WWW_ROOT."files".DS."images".DS.$this->folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
+				if(file_exists($file) && is_file($file))
+                    if(!unlink($file))
+                        $errorArr[]=$file;
 			}
 		}
-	}
 
+        if(empty($errorArr)) return true;
+        else return $errorArr;
+
+   }
+ /*
+ * очищает поле и удаляет изображение
+ * @method void clearFieldImage(int $id, string $field)
+ * @param int $id
+ * @param string $field
+ * @return
+ */
+   public function clearFieldImage($id=null,$imageField=null){
+       $this->id=$id;
+       $this->setCurrentItem();
+       $this->deleteImageField($imageField);
+       $this->saveField($imageField, '', array('validate' => false, 'callbacks' => false));
+
+   }
 /*
  * @method void saveImage(string $field)
  * @param string $field
@@ -105,7 +153,6 @@ class Brand extends AppModel {
 
         App::import('Component', 'FileUpload');
         $FileUpload = new FileUploadComponent(new ComponentCollection());
-
 		//uploading cover image
         if (!empty($this->data[$modelName][$field]['name']) && $this->data[$modelName][$field]['error'] == 0) {
             $this->data[$modelName][$field]['name'] = preg_replace("/[^A-Za-z0-9_\.]/", "", $this->data[$modelName][$field]['name']);

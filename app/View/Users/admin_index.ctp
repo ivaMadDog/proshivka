@@ -1,6 +1,17 @@
-<? 
-// debug($data) ?>
-
+ <div class="row">
+    <div class="column ">
+      <ul class="row-top-commands">
+          <li class="row-top-command">
+                <a class="controls control-add" href="<?="/admin/$controllerName/add/"?>" title="Добавить запись"></a>
+                <a href="<?="/admin/$controllerName/add/"?>" title="Добавить запись">Добавить пользователя</a>
+          </li>
+          <li class="row-top-command">
+                <a class="controls control-add" href="<?="/admin/companies/add/"?>" title="Добавить запись"></a>
+                <a href="<?="/admin/companies/add/"?>" title="Добавить запись">Добавить компанию</a>
+          </li>
+      </ul>
+    </div>
+</div>
 <div class="content_area">
      <div class="row">
         <div class="column grid_3 title">

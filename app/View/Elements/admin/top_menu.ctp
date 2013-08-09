@@ -9,7 +9,7 @@
     <li><a  class="sprite_cp_admin cp-printers" href="/admin/printers" title="Принтеры"></a></li>
     <li><a  class="sprite_cp_admin cp-brands" href="/admin/brands" title="Производители"></a></li>
     <li><a  class="sprite_cp_admin cp-fix" href="/admin/fixes" title="Прошивки"></a></li>
-    <li><a  class="sprite_cp_admin cp-categories" href="admin/categories" title="Категории блога"></a></li>
+    <li><a  class="sprite_cp_admin cp-categories" href="/admin/categories" title="Категории блога"></a></li>
     <li><a  class="sprite_cp_admin cp-articles" href="/admin/articles" title="Статьи блога"></a></li>
     <li><a  class="sprite_cp_admin cp-banners" href="/admin/banners" title="Баннеры"></a></li>
     <li><a  class="sprite_cp_admin cp-viewsite" href="/" title="Перейти на сайт" target="_blank"></a></li>
