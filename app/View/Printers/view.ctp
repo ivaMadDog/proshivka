@@ -11,7 +11,7 @@
 								<a  class="printer-photo-img fancybox" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>">
 									<img src="/files/images/<?=$controllerName?>/image/preview/<?=$item[$modelName]['image']?>" alt="Прошивка принтера Samsung CLP-320"/>
 								</a>
-								<a id="printer-photo-img" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>" 
+								<a id="printer-photo-img" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>"
                                    title="<?=$item[$modelName]['name']?>" class="printer-photo-scale">
                                     <span class="sprite-icons loupe"></span></a>
 							</div>
@@ -43,30 +43,24 @@
 							</section>
 							<div class="clr"></div>
 						</section>
-
+						<div class="clear"></div>
 						<section class="printer-body">
-							<h1 class="printer-title">Описание принтера Samsung CLP-320</h1>
+							<h1 class="printer-title">Описание принтера <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
 							<div>
-								<p>Лазерный принтер Samsung CLP-320 с удобной для пользователя системой управления выполнит работу быстро и без проблем.
-								Одним нажатием кнопки вы можете распечатать содержимое экрана монитора. Помимо прекрасной скорости принтер Samsung
-								CLP-320 демонстрирует высокое качество цветной печати с разрешением до 2400 x 600 тчк/дюйм. Эта модель отличается
-								лаконичным дизайном, ее стильный корпус выполнен в черных и кремово-серых тонах. Отличная производительность и
-								элегантный внешний вид делают принтер CLP-320 желанным гостем любого офиса или дома.</p>
-								<p>C экрана на бумагу. Одним нажатием кнопки
-								Кнопка Print Screen, удобно расположенная на панели управления CLP-320, позволяет легко и быстро распечатать изображение
-								с экрана монитора, даже если в данный момент вы находитесь далеко от своего компьютера. Технология предельно проста: всего
-								одно нажатие кнопки! Вам не понадобится редактировать документы или удалять ненужное содержимое с веб-страниц. Если стоит
-								задача распечатать всего одну страницу, более удобной функции не найти! Одно нажатие кнопки — и на печать будет выведено
-								все, что вы можете видеть на экране своего монитора. А если удерживать кнопку более двух секунд, принтер распечатает только
-								содержимое активного окна. Просто как никогда!</p>
+								<?=$item[$modelName]['full_description']?>
+							</div>
+							<div>
+								<?=$item[$modelName]['fix_description']?>
 							</div>
 						</section>
+						<div class="clear"></div>
 
 						<section class="printer-comments">
 							<div id="vk_comments"></div>
 						   <!-- <script type="text/javascript">VK.Widgets.Comments("vk_comments", {limit: 20, width: "1000", attach: false});</script> -->
 						</section>
 					</article>
+					<div class="clear"></div>
 
 					<section class="reason5 bg_blue">
 						<section>

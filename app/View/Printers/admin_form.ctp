@@ -141,12 +141,21 @@
         </div>
     </div>
 	<div class="row">
-    <div class="column grid_2 title-left">
+		<div class="column grid_2 title-left">
           <p>Полное описание</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('full_description', array('id'=>"TextField",'rows'=>5, 'cols'=>50 ,'label'=>false, 'div'=>false)) ;?>
-			<?= $this->ck->load("TextField");?>
+            <?= $this->form->input('full_description', array('id'=>"TextField1",'rows'=>5, 'cols'=>50 ,'label'=>false, 'div'=>false)) ;?>
+			<?= $this->ck->load("TextField1");?>
+        </div>
+    </div>
+	<div class="row">
+		<div class="column grid_2 title-left">
+          <p>Описание для прошивки</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('fix_description', array('id'=>"TextField2",'rows'=>5, 'cols'=>50 ,'label'=>false, 'div'=>false)) ;?>
+			<?= $this->ck->load("TextField2");?>
         </div>
     </div>
 
