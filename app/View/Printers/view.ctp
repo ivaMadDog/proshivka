@@ -8,10 +8,12 @@
 						<section class="printer-header">
 							<h1 class="printer-title">Прошивка для принтера : <?=$item[$modelName]['name']?></h1>
 							<div class="printer-photo">
-								<a  class="printer-photo-img" >
-									<img src="files/" alt="Прошивка принтера Samsung CLP-320"/>
+								<a  class="printer-photo-img fancybox" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>">
+									<img src="/files/images/<?=$controllerName?>/image/preview/<?=$item[$modelName]['image']?>" alt="Прошивка принтера Samsung CLP-320"/>
 								</a>
-								<a id="printer-photo-img" href="files/printer_01.png" title="Прошивка принтера Samsung CLP-320" class="printer-photo-scale"><span class="sprite-icons loupe"></span></a>
+								<a id="printer-photo-img" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>" 
+                                   title="<?=$item[$modelName]['name']?>" class="printer-photo-scale">
+                                    <span class="sprite-icons loupe"></span></a>
 							</div>
 							<ul class="printer-descr">
 								<li>
@@ -31,7 +33,7 @@
 									<p class="printer-descr-value">~ <?=$item[$modelName]['life_photobaraban']?> заправки</p>
 								</li>
 								<li>
-									<p class="printer-descr-title">Инструкция прошивки</p>
+									<p class="printer-descr-title">�?нструкция прошивки</p>
 									<p class="printer-descr-value"><a href="#">Как прошить Samsung CLP-320?</a></p>
 								</li>
 							</ul>
@@ -92,7 +94,7 @@
 								</li>
 								<li class="reason5-block">
 									<a  class="btn_blue btn_blue-support"  href="#"></a>
-									<h3 class="reason5-block-title"><a href="">Интернет поддержка</a></h3>
+									<h3 class="reason5-block-title"><a href="">�?нтернет поддержка</a></h3>
 									<p class="reason5-block-text">Обратная связь, чат, skype, соцсети, инструкции.</p>
 								</li>
 							</ul>

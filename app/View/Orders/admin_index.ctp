@@ -2,34 +2,25 @@
 // debug($data) ?>
  <div class="row">
     <div class="column ">
-          <ul class="row-top-commands">
-            <li class="row-top-command">
-                  <a class="controls control-add" href="<?="/admin/$controllerName/add/"?>" title="Добавить запись"></a>
-                  <a href="<?="/admin/$controllerName/add/"?>" title="Добавить запись">Добавить статью</a>
-            </li>
-            <li class="row-top-command">
-                  <a class="controls control-add" href="<?="/admin/categories/add/"?>" title="Добавить запись"></a>
-                  <a href="<?="/admin/categories/add/"?>" title="Добавить запись">Добавить категорию</a>
-            </li>
-          </ul>
+      <p>
+          <a class="controls control-add" href="<?="/admin/$controllerName/add/"?>" title="Добавить запись"></a>
+          <a href="<?="/admin/$controllerName/add/"?>" title="Добавить запись">Добавить новый заказ</a>
+      </p>
     </div>
 </div>
 <div class="content_area">
      <div class="row">
-        <div class="column grid_2 title">
-          <p>Название</p>
-        </div>
-         <div class="column grid_3 title">
-          <p>Категория</p>
-        </div>
-        <div class="column grid_1 title">
-          <p>Позиция</p>
+        <div class="column grid_3 title">
+          <p>Дата заказа</p>
         </div>
          <div class="column grid_2 title">
-          <p>Дата</p>
+          <p>Статус</p>
+        </div>         
+         <div class="column grid_2 title">
+          <p>Пользователь</p>
         </div>
          <div class="column grid_2 title">
-          <p>Блок</p>
+          <p>Цена fix</p>
         </div>
         <div class="column grid_2 title">
           <p>Управление</p>
@@ -37,21 +28,19 @@
     </div>
     <?php foreach($data as $key=>$item):  ?>
     <div id="row_<?=$item[$modelName]['id']?>" class="row">
-        <div class="column grid_2">
-          <p><?= $item[$modelName]['name']?></p>
+        <div class="column grid_3">
+          <p><a href="/admin/<?=$controllerName?>/edit/<?=$item[$modelName]['id']?>"><?= $item['Brand']['name'].' '.$item[$modelName]['name']?></a></p>
         </div>
-        <div class="column grid_3 center">
-          <p><?= $item['Category']['name']?></p>
+        <div class="column grid_2 center">
+          <p><?= $item[$modelName]['price_printer']?></p>
         </div>        
-        <div class="column grid_1 center">
-          <p><?= $item[$modelName]['position']?></p>
-        </div>
         <div class="column grid_2 center">
-          <p><?= $item[$modelName]['date']?></p>
+          <p><?= $item[$modelName]['price_printer']?></p>
         </div>
-        <div class="column grid_2 center">
-          <p><?= $item[$modelName]['block_footer']?></p>
+		<div class="column grid_2 center">
+          <p><?= $item[$modelName]['price_fix']?></p>
         </div>
+
         <?php
         $link_view = "/$controllerName/view/";
         $link_add = "/admin/$controllerName/add/";
@@ -70,6 +59,7 @@
                     <? $activeClass='controls '.($item[$modelName]['is_active']? 'control-unlocked': 'control-locked')?>
                     <?=$this->html->link('', '#', array('id'=>"active_a_{$item[$modelName]['id']}",'class'=>"$activeClass",'title'=>"Блокировать/Заблокировать запись", "escape"=>false,"onClick"=>"change_active('$link_active','is_active_{$item[$modelName]['id']}', 'active_a_{$item[$modelName]['id']}');return false;"),null, false);?>
                 </span>
+				<span><a class="controls control-view" href="<?=$link_view?><?=$item[$modelName]['id']?>" title="Смотреть на сайте" target="_blank"></a></span>
             </p>
         </div>
     </div><!-- end .row-->

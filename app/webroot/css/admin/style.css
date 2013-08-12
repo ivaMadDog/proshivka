@@ -163,6 +163,7 @@
 .control-view{background-position: -160px -96px;}
 .control-edit{background-position: -128px -32px;}
 .control-del{background-position: -256px -96px;}
+.control-list{background-position: -192px -32px;}
 .control-locked{background-position: 0 -32px;}
 .control-unlocked{background-position: -32px -32px;}
 

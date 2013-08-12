@@ -206,7 +206,10 @@ class Company extends AppModel {
 
 	}
 
-   
+    public function isCompanyUser($user_id){
+       $company = $this->find('first', array('conditions'=>array("user_id"=>$user_id))); 
+       return !empty($company)?true:false ;
+    }
     
     
 }

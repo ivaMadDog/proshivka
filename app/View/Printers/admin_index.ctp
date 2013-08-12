@@ -10,11 +10,8 @@
 </div>
 <div class="content_area">
      <div class="row">
-        <div class="column grid_3 title">
+        <div class="column grid_5 title">
           <p>Название</p>
-        </div>
-         <div class="column grid_3 title">
-          <p>Производитель</p>
         </div>
          <div class="column grid_2 title">
           <p>Цена принтера</p>
@@ -28,11 +25,8 @@
     </div>
     <?php foreach($data as $key=>$item):  ?>
     <div id="row_<?=$item[$modelName]['id']?>" class="row">
-        <div class="column grid_3">
-          <p><?= $item[$modelName]['name']?></p>
-        </div>
-        <div class="column grid_3 center">
-          <p><?= $item['Brand']['name']?></p>
+        <div class="column grid_5">
+          <p><a href="/admin/<?=$controllerName?>/edit/<?=$item[$modelName]['id']?>"><?= $item['Brand']['name'].' '.$item[$modelName]['name']?></a></p>
         </div>
         <div class="column grid_2 center">
           <p><?= $item[$modelName]['price_printer']?></p>
@@ -59,7 +53,7 @@
                     <? $activeClass='controls '.($item[$modelName]['is_active']? 'control-unlocked': 'control-locked')?>
                     <?=$this->html->link('', '#', array('id'=>"active_a_{$item[$modelName]['id']}",'class'=>"$activeClass",'title'=>"Блокировать/Заблокировать запись", "escape"=>false,"onClick"=>"change_active('$link_active','is_active_{$item[$modelName]['id']}', 'active_a_{$item[$modelName]['id']}');return false;"),null, false);?>
                 </span>
-				<span><a class="controls control-view" href="<?=$link_view?>" title="Смотреть на сайте"></a></span>
+				<span><a class="controls control-view" href="<?=$link_view?><?=$item[$modelName]['id']?>" title="Смотреть на сайте" target="_blank"></a></span>
             </p>
         </div>
     </div><!-- end .row-->

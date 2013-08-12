@@ -511,19 +511,19 @@ li a {text-decoration: none;}
 =============================================================================*/
 .printer-article {margin-top: 10px; }
 .printer-header {border: 1px solid #e1e1e1;background: #F2F2F2}
-.printer-title {text-align: center; margin: 20px 0;}
-.printer-photo {float: left;width: 300px;height: 350px; position: relative;overflow: hidden;margin-right: 20px;}
-.printer-photo-img {display: block; width: 250px; margin: 50px auto;}
+.printer-title {text-align: center; margin: 20px 0 0;}
+.printer-photo {float: left;width: 300px;height: 250px; position: relative;overflow: hidden;margin-right: 20px;}
+.printer-photo-img {display: block; width: 250px; margin: 30px auto;}
 .printer-photo-scale {
     width: 300px; 
-    height: 350px; 
+    height: 300px; 
     top:0; left:0; 
     position: absolute; 
     z-index: 2;
 }
 .printer-photo-scale span {position: absolute; z-index: 3; top: 50%; left: 50%; margin: -30px 0 0 -30px;}
 
-.printer-descr {margin-top: 80px;}
+.printer-descr {margin-top: 30px;}
 .printer-descr li {margin: 10px 0;}
 .printer-descr-title {
     float: left;

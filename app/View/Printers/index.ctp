@@ -23,10 +23,10 @@
 						   </a>
 					   </div>
 					   <div class="lft col4 center">
-						   <a href="/orders/create/<?=$controllerName?>/view/<?=$ptinter[$modelName]['id']?>/<?=$ptinter[$modelName]['slug']?>"><?=$ptinter[$modelName]['price_fix']?></a>
+						   <a href="/orders/order_fix/<?=$controllerName?>/view/<?=$ptinter[$modelName]['id']?>/<?=$ptinter[$modelName]['slug']?>"><?=$ptinter[$modelName]['price_fix']?></a>
 					   </div>
 					   <div class="lft col4 center">
-						   <a href="/orders/create/<?=$controllerName?>/view/<?=$ptinter[$modelName]['id']?>/<?=$ptinter[$modelName]['slug']?>" class="btn_order_model">
+						   <a href="/orders/order_fix/<?=$ptinter[$modelName]['id']?>/<?=$ptinter[$modelName]['slug']?>" class="btn_order_model">
 						   </a>
 					   </div>
 					   <div class="clr"></div>

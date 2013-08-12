@@ -2,10 +2,16 @@
     
      <div class="row">
         <div class="column ">
-          <p>
-              <a class="controls control-add" href="<?="/admin/$controllerName/add/"?>" title="Добавить запись"></a>
-              <a href="<?="/admin/$controllerName/add/"?>" title="Добавить запись">Добавить категорию</a>
-          </p>
+          <ul class="row-top-commands">
+            <li class="row-top-command">
+                  <a class="controls control-add" href="<?="/admin/$controllerName/add/"?>" title="Добавить запись"></a>
+                  <a href="<?="/admin/$controllerName/add/"?>" title="Добавить запись">Добавить категорию</a>
+            </li>
+            <li class="row-top-command">
+                  <a class="controls control-add" href="<?="/admin/articles/add/"?>" title="Добавить запись"></a>
+                  <a href="<?="/admin/articles/add/"?>" title="Добавить запись">Добавить статью</a>
+            </li>
+          </ul>
         </div>
     </div>
      <div class="row">
