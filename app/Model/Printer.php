@@ -170,7 +170,14 @@ class Printer extends AppModel {
 
 	}
 
-
+    public function getPriceFix($id){
+        if(empty($id)) return false;
+        
+        $printer=$this->find('first', array('conditions'=>array('id'=>(int)$id), 
+                                            'fields'=>array('id', 'price_fix'),
+                                            'recursive'=>-1));
+        return $printer[$this->alias]['price_fix'];
+    }
 
 
 }

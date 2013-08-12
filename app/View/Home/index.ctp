@@ -20,38 +20,38 @@
 <div class="clr"></div>
 
 <div class="bg_grey OrderFix"> 
-    <form action="">
+    <?= $this->form->create('Order', array('url'=>array('controller'=>'orders', 'action'=>'order_fix')));?>
         <h2 class="BottomLightLine">Шаг 1: Заказать прошивку</h2>
         <div class="OrderFix-col">
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Email:</div>
-                <input type="text" name="" value=""/>
+                <?= $this->form->input('email', array('label'=>false, 'div'=>false));?>
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Номер телефона:</div>
-                <input type="text" name="" value=""/>
+                <?= $this->form->input('phone', array('label'=>false, 'div'=>false));?>
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Модель принтера:</div>
-                <input type="text" name="" value=""/>
+                <?= $this->form->input('printer_id', array('label'=>false, 'div'=>false));?>
             </div>
         </div> 
         <div class="OrderFix-col">
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Серийный номер:</div>
-                <input type="text" name="" value=""/>
+                <?= $this->form->input('serial_number', array('label'=>false, 'div'=>false));?>
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Версия прошивки:</div>
-                <input type="text" name="" value=""/>
+                <?= $this->form->input('version_fix', array('label'=>false, 'div'=>false));?>
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Crum номер:</div>
-                <input type="text" name="" value=""/>
+                <?= $this->form->input('crum', array('label'=>false, 'div'=>false));?>
             </div>
         </div> 
         <div class="clr"></div>
-        <input class="btn big_orange" type="submit" value="Заказать прошивку"/>
-    </form>
+        <?=$this->form->submit('Заказать прошивку', array('class'=>"btn big_orange"));?>
+    <?=$this->form->end();?>
 </div>
 

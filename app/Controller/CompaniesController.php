@@ -47,16 +47,21 @@ class CompaniesController extends AppController {
        $users=$this->$modelName->User->find('list');
        $this->set(array('cp_subtitle'=> 'Добавление данных', 'action'=>$actionName,
                         'users'=>$users, 'cities'=>$cities));
-       
-       if(!empty($this->request->data) && $this->request->is('post')){
-          $this->$modelName->create();
-          if($this->$modelName->save($this->request->data)){
-              $this->Session->setFlash('Данные успешно были добавлены','flash_msg_success',array('title'=>'Добавление данных'));
-              $this->redirect("/admin/$this->controllerName/index");
-          }else{
-              $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка добавления данных'));
-          }
-       }
+        debug($this->request->data);   
+        if(!empty($this->request->data) && $this->request->is('post')){
+           if(!$this->$modelName->isCompanyUser($this->request->data[$modelName]['user_id'])) {  
+                $this->$modelName->create();
+                if($this->$modelName->save($this->request->data)){
+                    $this->Session->setFlash('Данные успешно были добавлены','flash_msg_success',array('title'=>'Добавление данных'));
+                    $this->redirect("/admin/$this->controllerName/index");
+                }else{
+                    $this->Session->setFlash( 'Не удалось добавить данные','flash_msg_error',array('title'=>'Ошибка добавления данных'));
+                }
+           }else{
+               $this->Session->setFlash( 'У данного пользователя уже существует компания','flash_msg_error',array('title'=>'Ошибка создания компании'));
+           }
+        }
+        
 
        $this->render('admin_form');
     }

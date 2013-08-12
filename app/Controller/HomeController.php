@@ -11,6 +11,11 @@ class HomeController extends AppController{
 	}
 	
 	function index(){
+        $this->loadmodel('Printer');
+        $printers=$this->Printer->find('list', array('order'=>'name'));
+        
+        
+        $this->set(compact('printers'));
 	}
 	
 }

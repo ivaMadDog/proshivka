@@ -386,7 +386,7 @@ Configure::write('NOT_USER_TURN','Warning, It is not your turn in the chain !');
 
 // libs pathes
 if(preg_match('/^windows/i', php_uname('s'))){
-      define('IMAGEMAGICK','"C:\\Program Files\\ImageMagick-6.8.5-Q16\\convert.exe" '); // windows
+      define('IMAGEMAGICK','"C:\\Program Files\\ImageMagick-6.8.2-Q16\\convert.exe" '); // windows
 //    define('FFMPEG','"D:\ffmpeg\bin\ffmpeg.exe" '); // Windows
 //    define('IMAGEMAGICK', 'convert.exe'); // Windows
 //    define('FFMPEG', 'D:/Work/Projects/video_convert/ffmpeg/bin'); // Windows

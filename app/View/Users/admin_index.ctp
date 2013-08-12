@@ -9,6 +9,10 @@
                 <a class="controls control-add" href="<?="/admin/companies/add/"?>" title="Добавить запись"></a>
                 <a href="<?="/admin/companies/add/"?>" title="Добавить запись">Добавить компанию</a>
           </li>
+          <li class="row-top-command">
+                <a class="controls control-list" href="<?="/admin/companies/"?>" title="Список компаний"></a>
+                <a href="<?="/admin/companies"?>" title="Добавить запись">Список компаний</a>
+          </li>
       </ul>
     </div>
 </div>
