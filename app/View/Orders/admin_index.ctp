@@ -2,10 +2,20 @@
 // debug($data) ?>
  <div class="row">
     <div class="column ">
-      <p>
-          <a class="controls control-add" href="<?="/admin/$controllerName/add/"?>" title="Добавить запись"></a>
-          <a href="<?="/admin/$controllerName/add/"?>" title="Добавить запись">Добавить новый заказ</a>
-      </p>
+		<ul class="row-top-commands">
+			 <li class="row-top-command">
+				<a class="controls control-add" href="<?="/admin/$controllerName/add/"?>" title="Добавить запись"></a>
+				<a href="<?="/admin/$controllerName/add/"?>" title="Добавить запись">Добавить новый заказ</a>
+			 </li>
+			 <li class="row-top-command">
+				<a class="controls control-list" href="<?="/admin/$controllerName/add/"?>" ></a>
+				<a href="<?="/admin/order_types"?>" title="Добавить тип">Список типов заказа</a>
+			 </li>
+			 <li class="row-top-command">
+				<a class="controls control-list" href="<?="/admin/$controllerName/add/"?>" ></a>
+				<a href="<?="/admin/payments"?>" >Способы оплаты заказа</a>
+			 </li>
+		 </ul>
     </div>
 </div>
 <div class="content_area">
@@ -15,7 +25,7 @@
         </div>
          <div class="column grid_2 title">
           <p>Статус</p>
-        </div>         
+        </div>
          <div class="column grid_2 title">
           <p>Пользователь</p>
         </div>
@@ -33,7 +43,7 @@
         </div>
         <div class="column grid_2 center">
           <p><?= $item[$modelName]['price_printer']?></p>
-        </div>        
+        </div>
         <div class="column grid_2 center">
           <p><?= $item[$modelName]['price_printer']?></p>
         </div>
