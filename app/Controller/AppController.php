@@ -69,6 +69,8 @@ class AppController extends Controller
                     $this->layout='admin/default';
                 }
 
+		  $this->Init();
+
           $this->admin=$this->_isAdmin();
           $this->logged_in=$this->_loggedIn();
 
@@ -79,6 +81,12 @@ class AppController extends Controller
           $this->set('headerBgImg', 'home.png');     //дефолтный клас для фонового изображения хедера
     }
 
+	private function Init(){
+		  $this->loadModel('Contact');
+		  $contacts=$this->Contact->getContactMenus();
+
+		  $this->set(compact('contacts'));
+	}
 
     function sendEmail($to, $subject, $template, $data, $reply_to = "", $from_email = "")
     {
@@ -196,7 +204,7 @@ class AppController extends Controller
         $template = 'new_pwd';
         return $this->sendEmail($data['email'], $subject, $template, $data);
     }
-    
+
     protected function setSeoMetaTags($data){
 		$this->set(array('prepend_title'=> $data['prepend_title'],
 					 	 'append_title'=>$data['append_title'],

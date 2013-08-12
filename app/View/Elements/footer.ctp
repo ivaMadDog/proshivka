@@ -67,10 +67,13 @@
     </div>
     <div class="footer-phones">
         <ul>
-            <li>+3 8 097 187 84 85</li> 
-            <li>+3 8 097 187 84 85</li>
+            <li><?=($contacts['Default']['Contact']['name'])?></li>
+            <li>
+				<?if(!empty($contacts['Others'][0]))?>
+				<?=($contacts['Others'][0]['Contact']['name'])?>
+			</li>
         </ul>
-        <div><a href="#">Все контакты</a></div>
+        <div><a href="/about_us">Все контакты</a></div>
     </div>
 
 </footer><!-- #footer -->

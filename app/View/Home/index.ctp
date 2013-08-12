@@ -19,7 +19,7 @@
 </ul>
 <div class="clr"></div>
 
-<div class="bg_grey OrderFix"> 
+<div class="bg_grey OrderFix">
     <?= $this->form->create('Order', array('url'=>array('controller'=>'orders', 'action'=>'order_fix')));?>
         <h2 class="BottomLightLine">Шаг 1: Заказать прошивку</h2>
         <div class="OrderFix-col">
@@ -35,8 +35,17 @@
                 <div class="OrderFix-label">Модель принтера:</div>
                 <?= $this->form->input('printer_id', array('label'=>false, 'div'=>false));?>
             </div>
-        </div> 
+            <div class="OrderFix-row">
+                <div class="OrderFix-label">Цена прошивки:</div>
+                <?= $this->form->input('price', array('type'=>'text', 'style'=>'background: #fff','label'=>false, 'div'=>false,  "disabled"=>"disabled"));?>
+            </div>
+        </div>
         <div class="OrderFix-col">
+			<div class="OrderFix-row">
+                <div class="OrderFix-label">Способ оплаты:</div>
+                <?= $this->form->input('payment_id', array('label'=>false, 'div'=>false));?>
+				<img src="/files/images/payments/image/thumb/privatbank.png" style="display: none"/>
+            </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Серийный номер:</div>
                 <?= $this->form->input('serial_number', array('label'=>false, 'div'=>false));?>
@@ -49,7 +58,7 @@
                 <div class="OrderFix-label">Crum номер:</div>
                 <?= $this->form->input('crum', array('label'=>false, 'div'=>false));?>
             </div>
-        </div> 
+        </div>
         <div class="clr"></div>
         <?=$this->form->submit('Заказать прошивку', array('class'=>"btn big_orange"));?>
     <?=$this->form->end();?>

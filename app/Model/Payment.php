@@ -3,7 +3,6 @@
 class Payment extends AppModel {
 
     public $name = 'Payment';
-
 	public $folderName = 'payments';
 	//имя каталога на сервере для хранения ориганального изображения
 	public $originalFolderName= "original";
@@ -26,7 +25,7 @@ class Payment extends AppModel {
     );
 
 	public $validate = array(
-        'title' => array(
+        'name' => array(
             'required' => array(
                 'rule' => array('notEmpty'),
                 'message' => 'Укажите название типа оплаты',
@@ -56,7 +55,7 @@ class Payment extends AppModel {
 		foreach($this->resizeSettings as $field=>$options)
 			$this->saveFieldImage($field);
 
-        $this->saveSeo('name', 'short_description');
+        $this->saveSeo('title', 'short_description');
     }
 
 	function afterSave($created) {

@@ -2,7 +2,7 @@
     <div id="content">
         <h1 class="hpage txt_blue">Заказать прошивку</h1>
 
-        <div class="OrderFix"> 
+        <div class="OrderFix">
             <?= $this->form->create('Order', array('url'=>array('controller'=>'orders', 'action'=>'order_fix')));?>
                 <div style="width: 320px; margin: 20px auto">
                     <div class="OrderFix-row">
@@ -18,6 +18,10 @@
                         <?= $this->form->input('printer_id', array('label'=>false, 'div'=>false));?>
                     </div>
                     <div class="OrderFix-row">
+                        <div class="OrderFix-label">Способ оплаты:</div>
+                        <?= $this->form->input('payment_id', array('label'=>false, 'div'=>false));?>
+                    </div>
+                    <div class="OrderFix-row">
                         <div class="OrderFix-label">Серийный номер:</div>
                         <?= $this->form->input('serial_number', array('label'=>false, 'div'=>false));?>
                     </div>
@@ -29,7 +33,7 @@
                         <div class="OrderFix-label">Crum номер:</div>
                         <?= $this->form->input('crum', array('label'=>false, 'div'=>false));?>
                     </div>
-                </div> 
+                </div>
                 <div class="clr"></div>
                 <?=$this->form->submit('Заказать прошивку', array('class'=>"btn big_orange"));?>
             <?=$this->form->end();?>

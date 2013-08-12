@@ -18,6 +18,25 @@ class PaymentsController extends AppController {
 
     }
 
+    public function admin_active($id){
+          $modelName=$this->modelName;
+          $controllerName = $this->controllerName;
+
+          if($this->RequestHandler->isAjax()){ $this->layout='';}
+
+          if(empty($id) || !$this->RequestHandler->isAjax() || !is_numeric($id)){ echo 0; exit;}
+
+          $data=$this->$modelName->find('first', array('conditions'=>array('id'=>(int)$id), 'fields'=>array('id','is_active'),'recursive'=>-1));
+          $active=(int)($data[$modelName]['is_active']==1)?0:1;
+          $this->$modelName->id=(int)$id;
+          if($this->$modelName->saveField('is_active',$active)){
+              echo 1;
+          }else{
+              echo 0;
+          }
+          exit;
+      }
+
     public function admin_index(){
        $controllerName= $this->controllerName;
        $modelName=$this->modelName;
@@ -67,8 +86,7 @@ class PaymentsController extends AppController {
        }
 
        $id=(int)$id;
-//	   $old_image=$this->$modelName->read(null, $id);
-       $this->set(array('cp_subtitle'=> 'Редактирование бренда', 'action'=>$actionName, 'id'=>$id));
+       $this->set(array('cp_subtitle'=> 'Редактирование типа', 'action'=>$actionName, 'id'=>$id));
 
        if(!empty($this->request->data)){
 		  $this->request->data["$modelName"]["id"] = $id;

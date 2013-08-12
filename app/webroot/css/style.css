@@ -14,8 +14,8 @@
 
 
 .title_page{
-    color: #fff; 
-    font-size: 3em; 
+    color: #fff;
+    font-size: 3em;
     text-align: center;
     font-weight: bold;
 }
@@ -38,7 +38,7 @@
     padding: 0 20px;
     background: no-repeat left center;
     height:39px;
-    line-height: 39px;  
+    line-height: 39px;
     color: #fff;
     font-weight: bold;
     font-size: 1.1em;
@@ -49,13 +49,13 @@
     position: absolute;
     padding: 10px;
     width: 200px;
-    
+
 }
 .top_bg_green {
-    background: #94B800; 
-    color: #fff; 
-    font-weight: bold; 
-    border-radius: 5px; 
+    background: #94B800;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
     padding: 5px;
     -webkit-box-shadow: 0px 1px 1px rgba(50, 50, 50, 1);
     -moz-box-shadow:    0px 1px 1px rgba(50, 50, 50, 1);
@@ -71,11 +71,11 @@
     margin: 30px auto;
     padding: 0 10px;
     background: transparent url(../img/sprite_bg_2px.png) repeat-x 0 -78px;
-    -moz-border-radius: 5px;  
-    -webkit-border-radius: 5px;  
-    -khtml-border-radius: 5px;  
-    border-radius: 5px;  
-    behavior: url(border-radius.htc);  
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    behavior: url(border-radius.htc);
     line-height: 55px;
     font-size: 1.2em;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.75);
@@ -136,12 +136,12 @@
 .pagination .current{background: #F34008;}
 .pagination span {
     border: 1px solid #AE5C04;
-    width: 26px; 
-    height: 26px; 
-    line-height: 26px; 
-    margin: 0 5px; 
-    color: #fff; 
-    background: #F48B2E; 
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+    margin: 0 5px;
+    color: #fff;
+    background: #F48B2E;
     float: left;
     text-align: center;
     font-weight: bold
@@ -156,7 +156,7 @@ Style for sprite
     text-align: center;
     margin: 10px;
     padding: 20px 0;
-    background: url(../img/bg_light_line.png) no-repeat center bottom; 
+    background: url(../img/bg_light_line.png) no-repeat center bottom;
 }
 
 .bg_grey {background: url(../img/bg_grey.jpeg) repeat}
@@ -248,7 +248,7 @@ Style for sprite
     color: #fff !important;
     padding-left: 10px;
     font-size: .6em;
-    margin: -10px 0 0 0 ; 
+    margin: -10px 0 0 0 ;
 }
 
 
@@ -272,7 +272,7 @@ styles li
 =============================================================================*/
 .list {margin: 15px 0 30px;}
 .list_title{
-    font-size: 1.3em; 
+    font-size: 1.3em;
     color: #333333;
     text-transform: uppercase;
     padding: 10px 0 5px;
@@ -316,7 +316,7 @@ li a {text-decoration: none;}
     color: #e68d39;
 }
 .list-popular-descr a{
-   color: #6e6e6e; 
+   color: #6e6e6e;
 }
 
 /* circle-step */
@@ -341,7 +341,7 @@ li a {text-decoration: none;}
 .OrderFix-col {width: 325px; padding: 10px; float: left;}
 .OrderFix-label{width: 150px; float: left; height: 28px; line-height: 28px;}
 .OrderFix-row{margin: 10px 0;}
-
+.OrderFix-row select{border-radius: 5px; height: 28px;width: 160px;}
 
 /* 5 причин прошиться у нас */
 .reason5{border-top: 1px solid #fff; padding: 0 15px;}
@@ -380,13 +380,13 @@ li a {text-decoration: none;}
 .anons-form{width: 80%; margin: 0 auto;}
 .anons-label {font-weight: bold; font-size: 1.1em; font-style: italic}
 .anons-email {
-    background: #F9F9F9; 
+    background: #F9F9F9;
     width: 200px;
     border-radius: 20px;
-    -moz-border-radius: 20px; 
-  -webkit-border-radius: 20px; 
-  -khtml-border-radius: 20px; 
-  behavior: url(border-radius.htc); 
+    -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -khtml-border-radius: 20px;
+  behavior: url(border-radius.htc);
     padding: 8px}
 .form-btn-blue {
     background: url(../img/bg_form_btn.png) no-repeat;
@@ -456,10 +456,10 @@ li a {text-decoration: none;}
 .blog-post-info li{float: left; padding: 0 10px;}
 .blog-post-info li+li {border-left: 1px solid #4c4b4b}
 .blog-post-date {
-    background: url(../img/bg_blog_date.png) no-repeat center; 
+    background: url(../img/bg_blog_date.png) no-repeat center;
     position: absolute;
     left: -33px; bottom: -33px;
-    width: 66px; 
+    width: 66px;
     height: 66px;
     text-align: center;
     color: #fff;
@@ -515,10 +515,10 @@ li a {text-decoration: none;}
 .printer-photo {float: left;width: 300px;height: 250px; position: relative;overflow: hidden;margin-right: 20px;}
 .printer-photo-img {display: block; width: 250px; margin: 30px auto;}
 .printer-photo-scale {
-    width: 300px; 
-    height: 300px; 
-    top:0; left:0; 
-    position: absolute; 
+    width: 300px;
+    height: 300px;
+    top:0; left:0;
+    position: absolute;
     z-index: 2;
 }
 .printer-photo-scale span {position: absolute; z-index: 3; top: 50%; left: 50%; margin: -30px 0 0 -30px;}
@@ -574,11 +574,11 @@ li a {text-decoration: none;}
     font-size: 1.4em;
     height: 60px;
     background: url(../img/bg_top_purple.png);
-    -moz-border-radius: 5px; 
-    -webkit-border-radius: 5px; 
-    -khtml-border-radius: 5px; 
-    border-radius: 5px;  
-    behavior: url(border-radius.htc); 
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    behavior: url(border-radius.htc);
 }
 .user-page-nav li+li {margin: 10px 0;}
 .user-page-nav li:hover{
@@ -595,7 +595,7 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
 .form-row-label {float: left; margin-right: 10px; width: 160px; font-weight: bold;}
 /* список заказов пользователя */
 .user-orders-list{
-    width: 100%; 
+    width: 100%;
     border-collapse:collapse;
     text-align: center;
 }

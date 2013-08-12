@@ -9,13 +9,13 @@ class HomeController extends AppController{
 	    parent::beforefilter();
             $this->layout = 'default';
 	}
-	
+
 	function index(){
-        $this->loadmodel('Printer');
+        $this->loadModel('Printer'); $this->loadModel('Payment');
         $printers=$this->Printer->find('list', array('order'=>'name'));
-        
-        
-        $this->set(compact('printers'));
+        $payments=$this->Payment->find('list', array('conditions'=>array('Payment.is_active'=>1)));
+
+        $this->set(compact('printers', 'payments'));
 	}
-	
+
 }
