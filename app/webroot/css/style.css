@@ -623,3 +623,29 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
 .user-orders-list-footer .pagin a{color: #000; text-decoration: none;}
 .user-orders-list-footer .current {color: #660099;}
 .user-orders-fix-link {color: #6C1D93 !important; text-decoration: underline !important;font-weight: bold;}
+
+/* список брэндов */
+.brands-list-container{
+	padding: 20px;
+}
+.brands-list-item{
+	float: left;
+	width: 300px;
+	padding: 10px;
+}
+.brands-list-item-wrap{
+	background: url(/img/feat-box-shadow-bottom.png)  bottom no-repeat;
+	position: relative;
+	padding-bottom: 16px;
+
+}
+.brands-list-item-body{
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	text-align:  center;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.11)
+}
+.brands-list-item-body a{text-decoration: none;}
+.brands-list-item-body-logo {}
+.brands-list-item-body-title {}
+

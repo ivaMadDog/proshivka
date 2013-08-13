@@ -138,5 +138,34 @@ class BrandsController extends AppController {
         $this->autoRender=false;
 	}
 
+	public function index(){
+	   $controllerName= $this->controllerName;
+       $modelName=$this->modelName;
+
+       $cond=array();
+
+       $this->paginate=array(
+           'limit'=>12,
+           'order'=>array("$modelName.is_default DESC", "$modelName.name","$modelName.position", "$modelName.id"),
+           'conditions'=>$cond,
+           'recursive'=>-1
+       );
+
+       $data=$this->paginate($modelName);
+       $this->set(array('data'=>$data));
+	}
+
+	public function brand($id){
+	   $controllerName= $this->controllerName;
+       $modelName=$this->modelName;
+
+       if(empty($id)){
+             $this->Session->setFlash( 'Неверный запрос','flash_msg_error',array('title'=>'Страница отсутствует'));
+             $this->redirect("/admin/$this->controllerName/index");
+             exit;
+       }
+
+       $this->set('data',$this->$modelName->find('first',array('conditions'=>array('id'=>(int)$id))));
+	}
 }
 ?>
