@@ -1,4 +1,4 @@
-<? //    debug($data)?>
+<?  //  debug($data)?>
 <div id="container">
 
 	<div id="content">
@@ -9,24 +9,30 @@
 		<?if(!empty($data)) {?>
 		<section class="table">
 			<div class="table-row-title">
-				<div class="lft col2">Модель (производитель, модель, версия)</div>
-				<div class="lft col4">Цена необновляемой прошивки</div>
+				<div class="lft col4">Брэнд</div>
+				<div class="lft col4">Модель (модель, версия)</div>
+				<div class="lft col4">Цена</div>
 				<div class="lft col4">Заказать</div>
 				<div class="clr"></div>
 			</div>
 			<ul class="live_filter">
-				<? foreach($data as $ptinter) { ?>
+				<? foreach($data as $printer) { ?>
 				   <li class="table-row">
-					   <div class="lft col2">
-						   <a href="/<?=$controllerName?>/view/<?=$ptinter[$modelName]['id']?>/<?=$ptinter[$modelName]['slug']?>">
-							   <?=$ptinter[$modelName]['name']?>
+					   <div class="lft col4">
+						   <a href="/brands/view/<?=$printer['Brand']['id']?>/<?=$printer['Brand']['slug']?>">
+							   <?=$printer['Brand']['name']?>
+						   </a>
+					   </div>
+					   <div class="lft col4">
+						   <a href="/<?=$controllerName?>/view/<?=$printer[$modelName]['id']?>/<?=$printer[$modelName]['slug']?>">
+							   <?=$printer[$modelName]['name']?>
 						   </a>
 					   </div>
 					   <div class="lft col4 center">
-						   <a href="/orders/order_fix/<?=$controllerName?>/view/<?=$ptinter[$modelName]['id']?>/<?=$ptinter[$modelName]['slug']?>"><?=$ptinter[$modelName]['price_fix']?></a>
+						   <a href="/orders/order_fix/<?=$controllerName?>/view/<?=$printer[$modelName]['id']?>/<?=$printer[$modelName]['slug']?>"><?=$printer[$modelName]['price_fix']?></a>
 					   </div>
 					   <div class="lft col4 center">
-						   <a href="/orders/order_fix/<?=$ptinter[$modelName]['id']?>/<?=$ptinter[$modelName]['slug']?>" class="btn_order_model">
+						   <a href="/orders/order_fix/<?=$printer[$modelName]['id']?>/<?=$printer[$modelName]['slug']?>" class="btn_order_model">
 						   </a>
 					   </div>
 					   <div class="clr"></div>

@@ -1,156 +1,107 @@
-<?  //		debug($brands)?>
+<?  //		debug($this->request->data)?>
 <div class="admin_area" >
-     <?php echo $this->form->create($modelName, array('type'=>'file','url'=>array('controller'=>$controllerName, 'action'=>$action, !empty($id)?$id:'' ), 'id'=>'PrinterForm'));?>
+     <?php echo $this->form->create($modelName, array('type'=>'file','url'=>array('controller'=>$controllerName, 'action'=>$action, !empty($id)?$id:'' ), 'id'=>'OrderForm'));?>
      <div class="row">
         <div class="column grid_2 title-left">
-          <p>Название принтера</p>
+          <p>Дата заказа</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('name', array('style'=>'width: 400px','label'=>false, 'div'=>false)) ;?>
+            <?= date('d-m-Y', strtotime($this->request->data[$modelName]['created'])) ;?>
         </div>
     </div>
      <div class="row">
         <div class="column grid_2 title-left">
-          <p>Производитель</p>
+          <p>Тип заказа</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('brand_id', array('label'=>false, 'div'=>false)) ;?>
+            <?= $this->form->input('order_type_id', array('options'=>$order_types,'label'=>false, 'div'=>false)) ;?>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('order_description', array('placeholder'=>"описание к изменению статуса",
+															  'data-placeholder'=>"описание к изменению статуса",
+															  'cols'=>40, 'rows'=>5,'label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
      <div class="row">
         <div class="column grid_2 title-left">
-          <p>URL оф. сайта</p>
+          <p>Тип оплаты</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('url', array('style'=>'width: 300px','label'=>false, 'div'=>false)) ;?>
+            <?= $this->form->input('payment_id', array('options'=>$payments, 'label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
      <div class="row">
         <div class="column grid_2 title-left">
-          <p>URL оф.прошивки</p>
+          <p>Пользователь</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('url_firmware', array('style'=>'width: 300px','label'=>false, 'div'=>false)) ;?>
+            <?  if(!empty($this->request->data[$modelName]['user_id']))
+					echo $this->form->input('User.email', array('label'=>false, 'div'=>false));
+				else
+					$this->request->data[$modelName]['email'];
+			?>
         </div>
     </div>
      <div class="row">
         <div class="column grid_2 title-left">
-          <p>URL оф. документации</p>
+          <p>Принтер</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('url_guide', array('style'=>'width: 300px','label'=>false, 'div'=>false)) ;?>
+            <?= $this->form->input('printer_id', array('style'=>'width: 300px','label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
      <div class="row">
         <div class="column grid_2 title-left">
-          <p>URL-youtube обзор</p>
+          <p>Цена прошивки</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('video', array('style'=>'width: 300px','label'=>false, 'div'=>false)) ;?>
+            <?= $this->form->input('price', array('type'=>'text','style'=>'width: 40px','label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>
+     <div class="row">
+        <div class="column grid_2 title-left">
+          <p>Телефон</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('phone', array('style'=>'width: 400px','label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>
+     <div class="row">
+        <div class="column grid_2 title-left">
+          <p>Серийный номер</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('serial_number', array('style'=>'width: 400px','label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
 	<div class="row">
         <div class="column grid_2 title-left">
-          <p>Активная</p>
+          <p>Crum номер</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('is_active', array('label'=>false, 'div'=>false)) ;?>
+            <?= $this->form->input('crum', array('style'=>'width: 400px', 'label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
     <div class="row">
         <div class="column grid_2 title-left">
-          <p>Позиция</p>
+          <p>Версия прошивки</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('position', array( 'type'=>'text','style'=>'width: 40px','label'=>false, 'div'=>false)) ;?>
+            <?= $this->form->input('version_fix', array( 'type'=>'text','style'=>'width: 400px','label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
     <div class="row">
         <div class="column grid_2 title-left">
-          <p>Фото <br />(400px*400px, 1:1)</p>
+          <p>Загрузить прошивку</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('image', array( 'type'=>'file','label'=>false, 'div'=>false)) ;?>
-            <?if(!empty($this->request->data[$modelName]['image'])) : ?>
-                <div class="clear"></div>
-                <div id="thumb_<?=$this->request->data[$modelName]['id']?>" class="input_image">
-					<a class="fancybox" href="/files/images/<?=$controllerName?>/image/original/<?=$this->request->data[$modelName]['image']?>" title="<?=$this->request->data[$modelName]['name']?>">
-                    <?= $this->html->image("/files/images/$controllerName/image/small/{$this->request->data[$modelName]['image']}",
-                            array("alt"=>"{$this->request->data[$modelName]['name']}", "escape"=>false));?>
-					<a>
-                    <a class="input_image_delete" onclick="removeImg(<?=$this->request->data[$modelName]['id']?>,'<?=$controllerName?>','image', '#thumb_<?=$this->request->data[$modelName]['id']?>');return false;">Удалить Х</a>
-                </div>
-            <? endif; ?>
+			<?if(!empty($this->request->data[$modelName]['fix_link'])) {?>
+				<a href="/files/fixes/<?=$this->request->data[$modelName]['fix_link']?>">Скачать прошивку</a>
+				<div class="clear"></div>
+			<?}?>
+            <?= $this->form->input('fix_link', array( 'type'=>'file','label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
-	<div class="row">
-        <div class="column grid_2 title-left">
-          <p>Цена принтера</p>
-        </div>
-        <div class="column grid_10 ">
-            <?= $this->form->input('price_printer', array('label'=>false, 'div'=>false)) ;?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="column grid_2 title-left">
-          <p>Цена фикса</p>
-        </div>
-        <div class="column grid_10 ">
-            <?= $this->form->input('price_fix', array('label'=>false, 'div'=>false)) ;?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="column grid_2 title-left">
-          <p>Цена обновляемого фикса</p>
-        </div>
-        <div class="column grid_10 ">
-            <?= $this->form->input('price_update_fix', array('label'=>false, 'div'=>false)) ;?>
-        </div>
-    </div>
-	<div class="row">
-        <div class="column grid_2 title-left">
-          <p>Ресурс картриджа</p>
-        </div>
-        <div class="column grid_10 ">
-            <?= $this->form->input('life_cartridge', array('label'=>false, 'div'=>false)) ;?>
-        </div>
-    </div>
-	<div class="row">
-        <div class="column grid_2 title-left">
-          <p>Ресурс фотобарабана</p>
-        </div>
-        <div class="column grid_10 ">
-            <?= $this->form->input('life_photobaraban', array('label'=>false, 'div'=>false)) ;?>
-        </div>
-    </div>
-	<div class="row">
-        <div class="column grid_2 title-left">
-          <p>Картридж</p>
-        </div>
-        <div class="column grid_10 ">
-            <?= $this->form->input('cartridge', array('label'=>false, 'div'=>false)) ;?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="column grid_2 title-left">
-          <p>Краткое описание</p>
-        </div>
-        <div class="column grid_10 ">
-            <?= $this->form->input('short_description', array('placeholder'=>"Краткое описание", 'data-placeholder'=>"Краткое описание ",'rows'=>5, 'cols'=>50 ,'label'=>false, 'div'=>false)) ;?>
-        </div>
-    </div>
-	<div class="row">
-    <div class="column grid_2 title-left">
-          <p>Полное описание</p>
-        </div>
-        <div class="column grid_10 ">
-            <?= $this->form->input('full_description', array('id'=>"TextField",'rows'=>5, 'cols'=>50 ,'label'=>false, 'div'=>false)) ;?>
-			<?= $this->ck->load("TextField");?>
-        </div>
-    </div>
-
-	<?= $this->element('admin/seo');?>
 
     <div class="row">
         <div class="column grid_2"><p></p></div>

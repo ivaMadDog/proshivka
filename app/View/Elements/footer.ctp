@@ -1,10 +1,14 @@
 <footer id="footer">
     <section class="anons">
-            <form class="anons-form" action="#">
+			<?= $this->form->create('Subscribe', array('url'=>'/subscribes/subscribe', "id"=>"SubscribeForm", 'class'=>'anons-form'));?>
                 <div class="lft anons-label">Анонсы, статьи и бонусы от «Proshivka.biz»:</div>
-                <div class="lft"><input class="anons-email" type="text" name="" value="" placeholder="ваш email..."/></div>
-                <div class="lft"><input class="form-btn-blue" type="submit" name="" value="Подписаться"/></div>
-            </form>
+                <div class="lft">
+					<?= $this->form->input('email', array('type'=>'text', 'class'=>'anons-email','placeholder'=>"ваш email...", 'data-placeholder'=>"ваш email...", 'label'=>false, 'div'=>false));?>
+				</div>
+                <div class="lft">
+					<?= $this->form->submit("Подписаться", array('class'=>'form-btn-blue','label'=>false, 'div'=>false));?>
+				</div>
+			<?=$this->form->end();?>
     </section>
     <section class="footer_menu">
         <section class="footer_menu-block">
@@ -67,10 +71,13 @@
     </div>
     <div class="footer-phones">
         <ul>
-            <li>+3 8 097 187 84 85</li> 
-            <li>+3 8 097 187 84 85</li>
+            <li><?=($contacts['Default']['Contact']['name'])?></li>
+            <li>
+				<?if(!empty($contacts['Others'][0]))?>
+				<?=($contacts['Others'][0]['Contact']['name'])?>
+			</li>
         </ul>
-        <div><a href="#">Все контакты</a></div>
+        <div><a href="/about_us">Все контакты</a></div>
     </div>
 
 </footer><!-- #footer -->

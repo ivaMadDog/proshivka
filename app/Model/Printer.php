@@ -2,6 +2,8 @@
 class Printer extends AppModel {
 
     public $name = 'Printer';
+	public $actsAs = array('Containable');
+
 	public $folderName = 'printers';
 	//имя каталога на сервере для хранения ориганального изображения
 	public $originalFolderName= "original";
@@ -46,7 +48,7 @@ class Printer extends AppModel {
     }
 
 
- function beforeSave() {
+   function beforeSave() {
 		parent::beforeSave();
 
         $this->setCurrentItem();
@@ -172,8 +174,8 @@ class Printer extends AppModel {
 
     public function getPriceFix($id){
         if(empty($id)) return false;
-        
-        $printer=$this->find('first', array('conditions'=>array('id'=>(int)$id), 
+
+        $printer=$this->find('first', array('conditions'=>array('id'=>(int)$id),
                                             'fields'=>array('id', 'price_fix'),
                                             'recursive'=>-1));
         return $printer[$this->alias]['price_fix'];

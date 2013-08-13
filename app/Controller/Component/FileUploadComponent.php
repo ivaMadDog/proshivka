@@ -73,7 +73,7 @@ class FileUploadComponent extends Component {
 		}
 		else{
 			if(!isset($options['extensions']) || empty($options['extensions'])){
-				$options=array_merge(array('extensions'=>array('doc','docx','pdf','ppt','pptx','xls','xlsx','txt','rtf')),$options);
+				$options=array_merge(array('extensions'=>array('doc','docx','pdf','ppt','pptx','xls','xlsx','txt','rtf', 'zip', '7z', 'rar')),$options);
 			}
 		}
 		if(isset($options['extensions']) && !is_array($options['extensions'])){

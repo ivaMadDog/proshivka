@@ -4,17 +4,21 @@ class Order extends AppModel {
     public $name = 'Order';
     public $actsAs = array('Containable');
 
-	public $hasOne = array(
-            'Fix' => array(
-                'className'     => 'Fix',
-                'foreignKey'    => false,
-                'conditions' => array('Order.fix_id = Fix.id')
-            )
-	);
+//	public $hasOne = array(
+//            'Fix' => array(
+//                'className'     => 'Fix',
+//                'foreignKey'    => false,
+//                'conditions' => array('Order.id = Fix.order_id')
+//            )
+//	);
     public $belongsTo = array(
         'OrderType' => array(
             'className'    => 'OrderType',
             'foreignKey'   => 'order_type_id'
+        ),
+		'Payment' => array(
+            'className'    => 'Payment',
+            'foreignKey'   => 'payment_id'
         ),
 		'User'=>array(
             'className'    => 'User',
@@ -25,7 +29,7 @@ class Order extends AppModel {
             'foreignKey'   => 'printer_id'
 		)
     );
-    
+
     public $validate= array(
         'printer_id'=>array(
             'required' => array(
@@ -79,7 +83,18 @@ class Order extends AppModel {
         ),
     );
 
+	public function getUserSummary($id){
+		if(empty($id) || !is_numeric($id)) return 0;
 
+		$summary=$this->find('first', array(
+										'conditions'=>array("Order.user_id"=>(int)$id),
+										'fields'=>array("(SUM(Order.price)) as summary_price",
+														"(COUNT(*)) as summary_qty"),
+
+		));
+
+		return $summary;
+	}
 
 
 }
