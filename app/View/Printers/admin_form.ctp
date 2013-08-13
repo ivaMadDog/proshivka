@@ -57,6 +57,22 @@
             <?= $this->form->input('is_active', array('label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
+	<div class="row">
+        <div class="column grid_2 title-left">
+          <p>Популярный?</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('popular', array('label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>
+	<div class="row">
+        <div class="column grid_2 title-left">
+          <p>Рекоммендуемый?</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('recommend', array('label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>    
     <div class="row">
         <div class="column grid_2 title-left">
           <p>Позиция</p>

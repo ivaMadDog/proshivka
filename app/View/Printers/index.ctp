@@ -4,7 +4,8 @@
 	<div id="content">
 		<h1 class="hpage txt_green">прайс прошивок для принтера <a href="#" class="download_green">Скачать</a></h1>
 		<section class="models-filter">
-				<input id="input_filter" class="models-filter-value filter" name="livefilter" type="text" style="width: 250px" value="" />
+				<input id="search_input" class="models-filter-value filter" placeholder="фильтр по значению" 
+                       data-placeholder="фильтр по значению" name="livefilter" type="text" style="width: 250px" value="" />
 		</section>
 		<?if(!empty($data)) {?>
 		<section class="table">
@@ -15,7 +16,7 @@
 				<div class="lft col4">Заказать</div>
 				<div class="clr"></div>
 			</div>
-			<ul class="live_filter">
+			<ul id="search_list" class="live_filter">
 				<? foreach($data as $printer) { ?>
 				   <li class="table-row">
 					   <div class="lft col4">

@@ -15,6 +15,10 @@ class BrandsController extends AppController {
          $this->set(array('cp_title'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
                           'controllerName'=>$this->controllerName,
                           'modelName'=>$this->modelName));
+        if(empty($this->request->params["admin"])) {
+              $this->layout='default_aside';
+              $this->set(array('headerColor'=> 'header-green','headerBgImg'=> 'model.png'));
+         }
 
     }
 
@@ -142,7 +146,7 @@ class BrandsController extends AppController {
 	   $controllerName= $this->controllerName;
        $modelName=$this->modelName;
 
-       $cond=array();
+       $cond=array("$modelName.is_list"=>1);
 
        $this->paginate=array(
            'limit'=>12,
@@ -164,8 +168,16 @@ class BrandsController extends AppController {
              $this->redirect("/admin/$this->controllerName/index");
              exit;
        }
+       
+       $printers=$this->Brand->Printer->find('all', array('conditions'=>array("Printer.brand_id"=>(int)$id,
+                                                                              "OR"=>array(
+                                                                              "Printer.popular"=>1,
+                                                                              "Printer.recommend"=>1)),
+                                                           'limit'=>6,
+                                                           'order'=>"Printer.created"));
 
-       $this->set('data',$this->$modelName->find('first',array('conditions'=>array('id'=>(int)$id))));
+       $this->set('item',$this->$modelName->find('first',array('conditions'=>array('id'=>(int)$id))));
+       $this->set(compact('printers'));
 	}
 }
 ?>

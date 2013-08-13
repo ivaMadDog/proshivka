@@ -49,3 +49,6 @@ function onChangePayment() {
 	});
 }
 
+$(function() {
+    $('#search_input').fastLiveFilter('#search_list');
+});

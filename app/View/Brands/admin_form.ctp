@@ -26,12 +26,52 @@
     </div>
     <div class="row">
         <div class="column grid_2 title-left">
+          <p>В списке брендов?</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('is_list', array( 'label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="column grid_2 title-left">
           <p>Позиция</p>
         </div>
         <div class="column grid_10 ">
             <?= $this->form->input('position', array( 'type'=>'text','label'=>false, 'div'=>false)) ;?>
         </div>
     </div>
+    <div class="row">
+        <div class="column grid_2 title-left">
+          <p>Год основания</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('foundation', array( 'type'=>'text','label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column grid_2 title-left">
+          <p>Канал YouTube</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('youtube', array( 'type'=>'text','label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="column grid_2 title-left">
+          <p>Facebook</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('fb', array( 'type'=>'text','label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="column grid_2 title-left">
+          <p>Twitter</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('twitter', array( 'type'=>'text','label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>     
     <div class="row">
         <div class="column grid_2 title-left">
           <p>Фото <br />(200px*150px, 4:3)</p>
@@ -48,6 +88,14 @@
             <? endif; ?>
         </div>
     </div>
+    <div class="row">
+        <div class="column grid_2 title-left">
+          <p>Главные офисы</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('offices', array('label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>    
     <div class="row">
         <div class="column grid_2 title-left">
           <p>Краткое описание</p>
