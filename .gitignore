@@ -1,3 +1,4 @@
+/nbproject
 /nbproject/private/
 /app/Config/database.php
 /app/Config/core.php
@@ -9,3 +10,4 @@ Thumbs.db
 .idea
 /lib/
 /layouts/
+/db_dump
