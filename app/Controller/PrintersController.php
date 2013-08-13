@@ -189,10 +189,11 @@ class PrintersController extends AppController {
        if (!empty($category_id))  $cond["$modelName.category_id"]=(int)$category_id;
 
        $this->paginate=array(
-		   'fields'=>array('id','name','slug','price_fix'),
+		   'fields'=>array('Printer.id','Printer.name','Printer.slug','Printer.price_fix', 'Brand.id', 'Brand.name', 'Brand.slug'),
            'order'=>array("$modelName.date DESC", "$modelName.name", "$modelName.position", "$modelName.id"),
            'conditions'=>$cond,
-           'recursive'=>-1
+           'recursive'=>2,
+		   'contain'=>array('Brand')
        );
 
        $this->set(array('data'=>$this->paginate($modelName)));

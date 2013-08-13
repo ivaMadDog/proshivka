@@ -83,7 +83,18 @@ class Order extends AppModel {
         ),
     );
 
+	public function getUserSummary($id){
+		if(empty($id) || !is_numeric($id)) return 0;
 
+		$summary=$this->find('first', array(
+										'conditions'=>array("Order.user_id"=>(int)$id),
+										'fields'=>array("(SUM(Order.price)) as summary_price",
+														"(COUNT(*)) as summary_qty"),
+
+		));
+
+		return $summary;
+	}
 
 
 }

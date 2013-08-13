@@ -95,6 +95,10 @@
           <p>Загрузить прошивку</p>
         </div>
         <div class="column grid_10 ">
+			<?if(!empty($this->request->data[$modelName]['fix_link'])) {?>
+				<a href="/files/fixes/<?=$this->request->data[$modelName]['fix_link']?>">Скачать прошивку</a>
+				<div class="clear"></div>
+			<?}?>
             <?= $this->form->input('fix_link', array( 'type'=>'file','label'=>false, 'div'=>false)) ;?>
         </div>
     </div>

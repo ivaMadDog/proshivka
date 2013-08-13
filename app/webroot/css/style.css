@@ -616,8 +616,10 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
 }
 .user-orders-list-title td {padding: 10px 0;}
 .user-orders-list-data div {padding: 7px 2px;}
+.user-orders-list-data a{color: #333; text-decoration: none;}
 .user-orders-list-footer {background: #F7F7F7; color: #000; padding: 10px}
 .user-orders-list-footer .pagin {font-weight: bold;}
 .user-orders-list-footer .pagin span {margin: 0 5px;}
 .user-orders-list-footer .pagin a{color: #000; text-decoration: none;}
 .user-orders-list-footer .current {color: #660099;}
+.user-orders-fix-link {color: #6C1D93 !important; text-decoration: underline !important;font-weight: bold;}

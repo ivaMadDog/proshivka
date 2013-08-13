@@ -58,6 +58,19 @@ class OrdersController extends AppController {
 	   $this->set(compact('printers','order_types','payments'));
 
        if(!empty($this->request->data)){
+
+			if (isset($this->request->data[$modelName]['fix_link']['name']) && !empty($this->request->data[$modelName]['fix_link']['name'])){
+			   $retArray = $this->FileUpload->uploadFile($this->request->data[$modelName]["fix_link"], WWW_ROOT . 'files/fixes', 'file', array('randomName' => true, "extensions" => "rar,zip,7z"));
+			   if (!$retArray['error']) {
+				   $this->request->data[$modelName]['fix_link'] = $retArray['fileName'];
+			   } else {
+				   $this->request->data[$modelName]['fix_link'] = "";
+				   $fileError = $retArray['errorMsg'];
+				   $this->Session->setFlash($fileError,'flash_msg_error',array('title'=>'Ошибка загрузки файла'));
+			   }
+			}else {
+				unset($this->request->data[$modelName]['fix_link']);
+			}
           $this->$modelName->id=$id;
           if($this->$modelName->save($this->request->data)){
               $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Обновление данных'));
@@ -102,7 +115,33 @@ class OrdersController extends AppController {
 
     }
 
-    public function index(){
+    public function user_index(){
+		$modelName=$this->modelName;
+		$controllerName=$this->controllerName;
+
+		if(!$this->Auth->user()){
+                $this->Session->setFlash('Пройдите авторизацию на сайте','flash_msg_error',array('title'=>'Ошибка просмотра заказов'));
+				$this->redirect("/");
+				exit;
+		}
+		//статистика по заказам
+		$summary=$this->$modelName->getUserSummary($this->Auth->user('id'));
+		if(!empty($summary[0])) $this->set('summary',$summary[0]);
+		//список заказов
+		$cond=array();
+
+		$this->paginate= array(
+			'conditions'=>array("$modelName.user_id"=>$this->Auth->user('id')),
+			'order'=>array("$modelName.created"),
+			'limit'=>5,
+			'fields'=>array("$modelName.user_id","$modelName.printer_id","$modelName.order_type_id","$modelName.price",
+							"$modelName.created", "$modelName.modified" ,"$modelName.fix_link"),
+			'contain'=>array('OrderType'=>array('fields'=>array("OrderType.id", "OrderType.name",)),
+							 'Printer'=>array('fields'=>array("Printer.id", "Printer.name","Printer.brand_id", "Printer.slug"), ),
+							),
+		);
+
+		$this->set('data',$this->paginate($modelName));
 
     }
 
