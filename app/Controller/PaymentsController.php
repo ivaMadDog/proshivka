@@ -156,5 +156,17 @@ class PaymentsController extends AppController {
         $this->autoRender=false;
 	}
 
+	public function get_payment_logo($id){
+		if($this->request->is('ajax')){$this->layout='';}
+		if(empty($id) || !is_numeric($id)){echo 0; exit;}
+
+		$logo=$this->{$this->modelName}->find('first', array('conditions'=>array('id'=>(int)$id), 'recursive'=>-1));
+		if(!empty($logo[$this->modelName]['image']))
+			echo $logo[$this->modelName]['image'];
+		else
+			echo 0;
+		exit;
+	}
+
 }
 ?>

@@ -164,7 +164,23 @@ class PrintersController extends AppController {
         $this->autoRender=false;
 	}
 
-    public function index($category_id=0) {
+	public function get_printer_price($id){
+		$modelName=$this->modelName;
+		if($this->request->is('ajax')){$this->layout='';}
+
+		if(empty($id) || !is_numeric($id)){echo 0;	exit;}
+
+		$price=$this->$modelName->find('first',array('recursive'=>-1, 'fields'=>array("$modelName.price_fix"),
+													 'conditions'=>array("$modelName.id"=>(int)$id)));
+		if(!empty($price[$modelName]['price_fix']))
+			echo $price[$modelName]['price_fix'];
+		else
+			echo 0;
+		exit();
+
+	}
+
+	public function index($category_id=0) {
 
        $controllerName= $this->controllerName;
        $modelName=$this->modelName;

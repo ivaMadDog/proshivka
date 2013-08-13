@@ -342,6 +342,7 @@ li a {text-decoration: none;}
 .OrderFix-label{width: 150px; float: left; height: 28px; line-height: 28px;}
 .OrderFix-row{margin: 10px 0;}
 .OrderFix-row select{border-radius: 5px; height: 28px;width: 160px;}
+#payment_logo {vertical-align: middle}
 
 /* 5 причин прошиться у нас */
 .reason5{border-top: 1px solid #fff; padding: 0 15px;}

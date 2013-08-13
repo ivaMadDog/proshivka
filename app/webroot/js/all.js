@@ -18,4 +18,34 @@ $(document).ready(function(){
         }
     }
     });
+
+
 });
+
+function onChangePrinter() {
+	var printer = $("#printer_id").val();
+	$.ajax({
+            url: "/printers/get_printer_price/"+printer,
+            type: "post",
+			success: function (data) {
+					if(data!=0)	$('#order_price').val(data);
+				}
+	});
+}
+
+function onChangePayment() {
+	var payment = $("#payment_id").val();
+	$('#payment_logo').hide();
+	$.ajax({
+            url: "/payments/get_payment_logo/"+payment,
+            type: "post",
+			success: function (data) {
+					if(data!=0)	{
+					var src="/files/images/payments/image/thumb/"+data;
+					$('#payment_logo').attr('src', src);
+					$('#payment_logo').fadeIn('300');
+					}
+				}
+	});
+}
+

@@ -33,18 +33,18 @@
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Модель принтера:</div>
-                <?= $this->form->input('printer_id', array('label'=>false, 'div'=>false));?>
+                <?= $this->form->input('printer_id', array('id'=>'printer_id','label'=>false, 'div'=>false, 'onchange'=>'onChangePrinter()'));?>
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Цена прошивки:</div>
-                <?= $this->form->input('price', array('type'=>'text', 'style'=>'background: #fff','label'=>false, 'div'=>false,  "disabled"=>"disabled"));?>
+                <?= $this->form->input('price', array("id"=>"order_price",'type'=>'text', 'style'=>'background: #fff','label'=>false, 'div'=>false,  "disabled"=>"disabled"));?>
             </div>
         </div>
         <div class="OrderFix-col">
 			<div class="OrderFix-row">
                 <div class="OrderFix-label">Способ оплаты:</div>
-                <?= $this->form->input('payment_id', array('label'=>false, 'div'=>false));?>
-				<img src="/files/images/payments/image/thumb/privatbank.png" style="display: none"/>
+                <?= $this->form->input('payment_id', array('id'=>'payment_id','onchange'=>'onChangePayment()','label'=>false, 'div'=>false));?>
+				<img id="payment_logo" src="/files/images/payments/image/thumb/privatbank.png" />
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Серийный номер:</div>
