@@ -15,6 +15,8 @@
  // echo $this->html->script('jquery/jquery.cycle.all.js');
   echo $this->html->script('jquery/jquery.placeholder');
   echo $this->html->script('jquery/validate');
+  echo $this->html->script('jquery/jquery.scrollTo');
+  echo $this->html->script('jquery/jquery.localscroll');
   echo $this->html->script('all');
   echo $this->html->script('default');
 ?>

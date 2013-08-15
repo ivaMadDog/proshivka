@@ -53,11 +53,13 @@
     <div class="footer-money">
         <h4>Принимаем к оплате:</h4>
         <ul class="footer-money-list">
-            <li><a class="sprites-money mc-money-ico" href="#"></a></li>
-            <li><a class="sprites-money visa-money-ico" href="#"></a></li>
-            <li><a class="sprites-money wb-money-ico" href="#"></a></li>
-            <li><a class="sprites-money ym-money-ico" href="#"></a></li>
-            <li><a class="sprites-money qw-money-ico" href="#"></a></li>
+            <?foreach($footer_payments as $payment) {?>
+                <li>
+                    <a href="#" title="<?=$payment['Payment']['short_description']?>">
+                        <img src="/files/images/payments/image/small/<?=$payment['Payment']['image']?>" alt="<?=$payment['Payment']['short_description']?>"/>
+                    </a>
+                </li>
+            <?}?>
         </ul>
     </div>
      <div class="footer-stat-counter">

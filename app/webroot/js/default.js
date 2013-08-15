@@ -16,5 +16,10 @@ $(document).ready(function(){
     }
     });
 
+    $.localScroll({
+        onAfter: function(target){
+            location = '#' + ( target.id || target.name );
+        }
+    });
 
 });

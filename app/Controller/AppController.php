@@ -84,8 +84,11 @@ class AppController extends Controller
 	private function Init(){
 		  $this->loadModel('Contact');
 		  $contacts=$this->Contact->getContactMenus();
+          
+          $this->loadModel('Payment');
+          $footer_payments=$this->Payment->getPaymentIcons();
 
-		  $this->set(compact('contacts'));
+		  $this->set(compact('contacts','footer_payments'));
 	}
 
     function sendEmail($to, $subject, $template, $data, $reply_to = "", $from_email = "")

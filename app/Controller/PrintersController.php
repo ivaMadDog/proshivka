@@ -198,7 +198,7 @@ class PrintersController extends AppController {
 
        $this->set(array('data'=>$this->paginate($modelName)));
     }
-
+    
     public function view($id=null){
 	   $controllerName= $this->controllerName;
        $modelName=$this->modelName;

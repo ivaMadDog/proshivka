@@ -106,7 +106,7 @@
 #content_aside {
 	padding: 0 270px 0 0;
 }
-
+#content {position: relative;}
 
 /* Sidebar Right
 -----------------------------------------------------------------------------*/
@@ -411,7 +411,7 @@ li a {text-decoration: none;}
 .mini-socials a{padding-left: 20px;}
 
 .footer-money{float: right; margin-right: 20px;}
-.footer-money-list li{float: left;}
+.footer-money-list li{float: left; margin-right: 8px;}
 
 .footer-stat-counter {
     float: left;
@@ -511,7 +511,7 @@ li a {text-decoration: none;}
 Принтер, страница одной модели
 =============================================================================*/
 .printer-article {margin-top: 10px; }
-.printer-header {border: 1px solid #e1e1e1;background: #F2F2F2}
+.printer-header {border: 1px solid #e1e1e1;background: #F2F2F2; margin: 10px 0;}
 .printer-title {text-align: center; margin: 20px 0 0;}
 .printer-photo {float: left;width: 300px;height: 250px; position: relative;overflow: hidden;margin-right: 20px;}
 .printer-photo-img {display: block; width: 250px; margin: 30px auto;}
@@ -523,7 +523,6 @@ li a {text-decoration: none;}
     z-index: 2;
 }
 .printer-photo-scale span {position: absolute; z-index: 3; top: 50%; left: 50%; margin: -30px 0 0 -30px;}
-
 .printer-descr {margin-top: 30px;}
 .printer-descr li {margin: 10px 0;}
 .printer-descr-title {
@@ -559,7 +558,7 @@ li a {text-decoration: none;}
     color: #8d8d8d;
 }
 .printer-order-value {color: #d2b12e;}
-
+.printer-body {padding: 0 25px 10px}
 /*===========================================================================
 Регистрация пользователя
 =============================================================================*/
@@ -737,7 +736,12 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
     cursor: pointer;
 }
 
-
-
+/*===========================================================================
+О нас
+=============================================================================*/
+.aboutus {
+    border: 1px solid #fff;
+    border-radius: 10px;
+}
 
 

@@ -32,7 +32,7 @@ Formated styles
     behavior: url(border-radius.htc); 
 }
 
-
+.relative {position: relative;}
 .border_none {border: none;}
 .border_grey {border: 1px solid #EBE9E9;}
 

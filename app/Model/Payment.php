@@ -10,6 +10,7 @@ class Payment extends AppModel {
 	//width: новая ширина изображения, height: новая высота изображения, path: имя каталога для данного размера изображения
 	public $resizeSettings= array('image'=>array(
 											 'preview'=>array('width'=>40,'height'=>40,),
+                                             'small'  =>array('width'=>24,'height'=>24,),
 											 'thumb'=>array('width'=>16,'height'=>16,),),
 //								  'video'=>array(
 //											 'preview'=>array('width'=>200,'height'=>150,),
@@ -55,7 +56,7 @@ class Payment extends AppModel {
 		foreach($this->resizeSettings as $field=>$options)
 			$this->saveFieldImage($field);
 
-        $this->saveSeo('title', 'short_description');
+        $this->saveSeo('name', 'short_description');
     }
 
 	function afterSave($created) {
@@ -170,6 +171,13 @@ class Payment extends AppModel {
         }
 
 	}
+    
+    public function getPaymentIcons(){
+        return $this->find('all', array('conditions'=>array('Payment.is_active'=>1,  ),
+                                        'recursive'=>-1,
+                                        'order'=>array('Payment.position'),
+                                        'fields'=>array('Payment.image','Payment.short_description')));
+    }
 
 
 
