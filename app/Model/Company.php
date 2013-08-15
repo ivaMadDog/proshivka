@@ -98,7 +98,7 @@ class Company extends AppModel {
 
         if(!empty($this->currentItem)) 
             foreach($this->resizeSettings as $field=>$options)
-                if($this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
+                if(!empty($this->data[$this->name][$field]) && $this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
                     $this->deleteImageField($field);
 
     }
@@ -185,7 +185,6 @@ class Company extends AppModel {
 		//uploading cover image
         if (!empty($this->data[$modelName][$field]['name']) && $this->data[$modelName][$field]['error'] == 0) {
             $this->data[$modelName][$field]['name'] = preg_replace("/[^A-Za-z0-9_\.]/", "", $this->data[$modelName][$field]['name']);
-
             $retArray = $FileUpload->uploadFile(
                 $this->data[$modelName][$field],
                 $original,
@@ -193,10 +192,9 @@ class Company extends AppModel {
                 array(
                     'resize' => true,
                     'resizeOptions' => $resizeOptions,
-                    'randomName' => false
+                    'randomName' => false,
                 )
             );
-
             if (!$retArray['error']) {
                 $this->data["$modelName"][$field] = $retArray['fileName'];
             }
@@ -206,11 +204,7 @@ class Company extends AppModel {
 
 	}
 
-    public function isCompanyUser($user_id){
-       $company = $this->find('first', array('conditions'=>array("user_id"=>$user_id))); 
-       return !empty($company)?true:false ;
-    }
-    
-    
+
+
 }
 ?>

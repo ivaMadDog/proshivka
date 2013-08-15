@@ -19,7 +19,7 @@ class CategoriesController extends AppController
                           'modelName'=>$this->modelName));
     }
     
-     public function admin_index(){
+    public function admin_index(){
          $this->Category->recursive=-1;
          //$categories=$this->Category->find('threaded');
          $Categorylist=$this->Category->generateTreeList(null, null, null, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");

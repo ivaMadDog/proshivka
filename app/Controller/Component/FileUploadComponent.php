@@ -45,7 +45,7 @@ class FileUploadComponent extends Component {
 
 		if($type=='image'){
 			if(!isset($options['extensions']) || empty($options['extensions'])){
-				$options=array_merge(array('extensions'=>array('jpg','jpeg','gif','png')),$options);
+				$options=array_merge(array('extensions'=>array('jpg','jpeg','gif','png','ico')),$options);
 			}
 			if(!isset($options['resize']) || empty($options['resize'])){
 				$options['resize']=false;

@@ -1,6 +1,4 @@
-<?  //  debug($data)?>
 <div id="container">
-
 	<div id="content">
 		<h1 class="hpage txt_green">прайс прошивок для принтера <a href="#" class="download_green">Скачать</a></h1>
 		<section class="models-filter">

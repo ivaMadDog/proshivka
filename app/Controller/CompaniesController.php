@@ -47,7 +47,6 @@ class CompaniesController extends AppController {
        $users=$this->$modelName->User->find('list');
        $this->set(array('cp_subtitle'=> 'Добавление данных', 'action'=>$actionName,
                         'users'=>$users, 'cities'=>$cities));
-        debug($this->request->data);   
         if(!empty($this->request->data) && $this->request->is('post')){
            if(!$this->$modelName->isCompanyUser($this->request->data[$modelName]['user_id'])) {  
                 $this->$modelName->create();
@@ -150,6 +149,20 @@ class CompaniesController extends AppController {
 
         $this->autoRender=false;
 	}
+    
+    public function index(){
+        $modelName = $this->modelName;
+        $controllerName=$this->controllerName;
+        
+        $data=$this->$modelName->find('all', array('recursive'=>1, 
+                                                   'conditions'=>array("$modelName.is_active"=>1, 
+                                                                       "$modelName.is_checked"=>1,
+                                                                   //    'expiration_date>='=>date('Y-m-d G:i:s')
+                                                    ),
+                                                    'limit'=>12,
+                                                    ));
+        $this->set(compact('data'));
+    }
 
 }
 ?>

@@ -199,7 +199,7 @@ Style for sprite
 .yt-mini-ico {background-position: 0 -48px}
 .rss-mini-ico {background-position: 0 -64px}
 
-/* спрайт для иконок*/
+/* спрайт для иконок меню пользователя*/
 .sprite-icons {background: url(../img/sprite-icons.png) no-repeat; display: block; width: 60px; height: 60px;}
 .sprite-icons.loupe {background-position: -240px -480px;}
 .sprite-icons.trademark {background-position: -300px -300px;}
@@ -662,3 +662,82 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
 .brand-short-description-article{
     padding: 20px;
 }
+
+/*===========================================================================
+Список компаний
+=============================================================================*/
+.list-companies {
+    padding: 0 15px;
+}
+.list-companies-wrap {
+    float: left;
+    position: relative;
+    height: 300px;
+    border: 1px solid #4EA9C4;
+    border-radius: 4px;
+    margin: 20px;
+}
+.list-companies-image {
+   position: relative;
+   width: 200px;
+   height: 150px;
+}
+.list-companies-bg {
+    background: #67C6E2;
+    position: absolute;
+    width: 200px;
+    height: 150px;
+    opacity: .85;
+}
+.list-companies-bg:hover{
+    opacity: 0;cursor: pointer;
+}
+.list-companies-name {
+    color: #01202F;
+    font-weight: bold;
+    position: absolute;
+    opacity: 1 !important;
+    width: 180px;
+    padding: 40px 10px;
+    text-align: center;
+    text-shadow: 1px 1px 2px #fff;
+}
+.list-companies-body {
+   position: relative;
+   width: 160px;
+   height: 120px;  
+   padding: 15px 20px;
+   background: #CCEEF8;
+   border-top: 1px solid #fff;
+   border-bottom: 1px solid #4EA9C4;
+   border-bottom-left-radius: 4px;
+   border-bottom-right-radius: 4px;
+}
+.list-companies-body li {margin: 7px 0; }
+.list-companies-city,.list-companies-email,.list-companies-address,.list-companies-phone {
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #fff;
+}
+.list-companies-city {}
+.list-companies-address {}
+.list-companies-phone {}
+.list-companies-price {
+    position: absolute;
+    top:0;left:0;
+    height: 150px;
+    width: 200px;
+    background: #67C6E2;
+}
+.list-companies-price-link {
+    display: block;
+    height: 26px;
+    padding-left: 50px;
+    line-height: 26px;
+    margin: 50px 30px 0 40px;
+    cursor: pointer;
+}
+
+
+
+
+

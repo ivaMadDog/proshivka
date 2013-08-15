@@ -1,5 +1,5 @@
 <div class="admin_area" >
-     <?php echo $this->form->create($modelName, array('url'=>array('controller'=>$controllerName, 'action'=>$action, !empty($id)?$id:'' ), 'id'=>'GroupForm'));?>
+     <?php echo $this->form->create($modelName, array('type'=>'file','url'=>array('controller'=>$controllerName, 'action'=>$action, !empty($id)?$id:'' ), 'id'=>'GroupForm'));?>
      <div class="row">
         <div class="column grid_2 title-left">
           <p>Дата блокировки</p>
@@ -90,18 +90,26 @@
     </div>
     <div class="row">
         <div class="column grid_2 title-left">
-          <p>Изображение</p>
+          <p>Изображение<br />(400x300 px)</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('image', array('type'=>'file','label'=>false, 'div'=>false)) ;?>
+            <?= $this->form->input('image', array( 'type'=>'file','label'=>false, 'div'=>false)) ;?>
+            <?if(!empty($this->request->data[$modelName]['image'])) : ?>
+                <div class="clear"></div>                
+                <div id="thumb_<?=$this->request->data[$modelName]['id']?>" class="input_image">
+                    <?= $this->html->image("/files/images/$controllerName/image/preview/{$this->request->data[$modelName]['image']}",
+                            array("alt"=>"{$this->request->data[$modelName]['name']}", "escape"=>false));?>
+                    <a class="input_image_delete" onclick="removeImg(<?=$this->request->data[$modelName]['id']?>,'<?=$controllerName?>','image', '#thumb_<?=$this->request->data[$modelName]['id']?>');return false;">Удалить Х</a>
+                </div>
+            <? endif; ?>
         </div>
     </div>
     <div class="row">
         <div class="column grid_2 title-left">
-          <p>Прайс-услуг и товаров</p>
+          <p>Прайс-услуг и товаров<br /> (xls, csv, docx)</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('xls', array('type'=>'file','label'=>false, 'div'=>false)) ;?>
+            <?//= $this->form->input('xls', array('type'=>'file','label'=>false, 'div'=>false)) ;?>
         </div>
     </div>    
     <div class="row">
