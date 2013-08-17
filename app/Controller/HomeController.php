@@ -7,7 +7,8 @@ class HomeController extends AppController{
 
 	function beforeFilter(){
 	    parent::beforefilter();
-            $this->layout = 'default';
+
+        $this->layout = 'default';
 	}
 
 	public function index(){

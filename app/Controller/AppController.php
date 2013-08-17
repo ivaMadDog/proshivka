@@ -82,6 +82,8 @@ class AppController extends Controller
     }
 
 	private function Init(){
+          $this->setSeoMetaTags();
+        
 		  $this->loadModel('Contact');
 		  $contacts=$this->Contact->getContactMenus();
           
@@ -90,7 +92,7 @@ class AppController extends Controller
 
 		  $this->set(compact('contacts','footer_payments'));
 	}
-
+    
     function sendEmail($to, $subject, $template, $data, $reply_to = "", $from_email = "")
     {
         $no_reply = Configure::read("BASE_NOREPLY_EMAIL");
@@ -207,14 +209,21 @@ class AppController extends Controller
         $template = 'new_pwd';
         return $this->sendEmail($data['email'], $subject, $template, $data);
     }
-
-    protected function setSeoMetaTags($data){
-		$this->set(array('prepend_title'=> $data['prepend_title'],
+    
+    protected function setSeoMetaTags($data=null){
+        if(!empty($data)) 
+            $this->set(array('prepend_title'=> $data['prepend_title'],
 					 	 'append_title'=>$data['append_title'],
 					 	 'meta_title'=> $data['meta_title'],
 						 'meta_keywords'=> $data['meta_keywords'],
 						 'meta_description'=> $data['meta_description'],
 						 'page_title'=> $data['title']));
+        else {
+             $this->set(array(
+                        'meta_title'=> Configure::read("meta_title"),
+                        'meta_keywords'=> Configure::read("meta_keywords"),
+                        'meta_description'=> Configure::read("meta_description")));
+        }
 	}
 
 

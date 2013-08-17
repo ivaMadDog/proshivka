@@ -5,7 +5,7 @@
         <li><a href="/printers" title="Модели принтеров">Как прошить</a></li>
         <li><a href="/articles" title="Новости в мире принтеров">Новости</a></li>
         <li><a href="/companies" title="Список партнеров">Партнерам</a></li>
-        <li><a href="/home/aboutus" title="proshivki.biz">О нас</a></li>
+        <!--<li><a href="/home/aboutus" title="proshivki.biz">О нас</a></li>-->
     </ul>
 </nav>
 <div class="clr"></div>
