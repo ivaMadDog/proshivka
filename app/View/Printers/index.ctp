@@ -18,7 +18,7 @@
 				<? foreach($data as $printer) { ?>
 				   <li class="table-row">
 					   <div class="lft col4">
-						   <a href="/brands/view/<?=$printer['Brand']['id']?>/<?=$printer['Brand']['slug']?>">
+						   <a href="/brands/brand/<?=$printer['Brand']['id']?>/<?=$printer['Brand']['slug']?>">
 							   <?=$printer['Brand']['name']?>
 						   </a>
 					   </div>

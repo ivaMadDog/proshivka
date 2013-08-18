@@ -13,7 +13,10 @@ class SubscribesController extends AppController {
          parent::beforeFilter();
          $this->set(array('cp_title'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
                           'controllerName'=>$this->controllerName,
-                          'modelName'=>$this->modelName));    }
+                          'modelName'=>$this->modelName)); 
+         
+         $this->Auth->allow('subscribe');
+    }
 
     public function admin_index(){
        $controllerName= $this->controllerName;
@@ -80,7 +83,6 @@ class SubscribesController extends AppController {
        $this->render('admin_form');
     }
 
-
     public function admin_delete($id) {
 
           $modelName=$this->modelName;
@@ -110,7 +112,7 @@ class SubscribesController extends AppController {
           }
       }
 
-	 public function subscribe(){
+	public function subscribe(){
        $controllerName= $this->controllerName;
        $modelName=$this->modelName;
 

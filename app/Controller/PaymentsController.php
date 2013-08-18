@@ -15,7 +15,7 @@ class PaymentsController extends AppController {
          $this->set(array('cp_title'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
                           'controllerName'=>$this->controllerName,
                           'modelName'=>$this->modelName));
-
+         $this->Auth->allow('get_payment_logo');
     }
 
     public function admin_active($id){

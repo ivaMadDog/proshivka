@@ -17,6 +17,8 @@ class PrintersController extends AppController {
                           'controllerName'=>$this->controllerName,
                           'modelName'=>$this->modelName, 'folderName'=>$folderName));
 
+         $this->Auth->allow('get_printer_price');
+         
          if(empty($this->request->params["admin"])) {
               $this->layout='default';
               $this->set(array('headerColor'=> 'header-green','headerBgImg'=> 'models.png'));
