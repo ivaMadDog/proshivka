@@ -89,8 +89,15 @@ class AppController extends Controller
           
           $this->loadModel('Payment');
           $footer_payments=$this->Payment->getPaymentIcons();
+          
+          $this->loadModel('Article');
+          $footer_block1=$this->Article->getArticlesByBlock(1); 
+          $footer_block2=$this->Article->getArticlesByBlock(2); 
+          $footer_block3=$this->Article->getArticlesByBlock(3); 
+          
 
-		  $this->set(compact('contacts','footer_payments'));
+		  $this->set(compact('contacts','footer_payments',
+                  'footer_block1', 'footer_block2', 'footer_block3'));
 	}
     
     function sendEmail($to, $subject, $template, $data, $reply_to = "", $from_email = "")

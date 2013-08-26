@@ -4,7 +4,9 @@
         <ul>
             <?  foreach ($articles_recommend as $article) {
                 $articleLink="/$controllerName/view/{$article[$modelName]['id']}/{$article[$modelName]['slug']}";
-                $articleImage="/files/images/$controllerName/image/thumb/{$article[$modelName]['image']}"; ?>            
+                $articleImage=(!empty($article[$modelName]['image']))?"/files/images/$controllerName/image/thumb/{$article[$modelName]['image']}":
+                    "/img/bg_blog_mini_img.png"; 
+            ?>    
                 <li>
                     <p class="list-popular-shadow">
                         <a class="list-popular-img" style="background: #fff url(<?=$articleImage?>) no-repeat center" href="<?=$articleLink?>"></a>
