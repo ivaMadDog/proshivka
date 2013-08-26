@@ -15,7 +15,7 @@
   echo $this->html->script('jquery/jquery-1.9.1.min');
   echo $this->html->script('jquery/jquery-ui-1.10.2.custom.min');
   echo $this->html->script('fancybox/jquery.fancybox.pack');
-  echo $this->html->script('jquery/jquery.liveFilter');
+  echo $this->html->script('jquery/jquery.fastLiveFilter');
   echo $this->html->script('jquery/jquery.cycle.all.js');
   echo $this->html->script('jquery/jquery.placeholder');
   echo $this->html->script('jquery/validate');

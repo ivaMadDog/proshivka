@@ -16,12 +16,14 @@
 								<li class="blog-post-category"><?= date("d.m.Y", strtotime($item[$modelName]['date']));?></li>
 							</ul>
 							<div class="clear"></div>
+                            <? if(!empty($item[$modelName]['image'])) {?>
 							<a class="blog-post-photo fancybox"
 								   href="/files/images/<?=$folderName?>/image/original/<?=$item[$modelName]['image']?>"
 								   style="background: url(/files/images/<?=$folderName?>/image/preview/<?=$item[$modelName]['image']?> ) no-repeat center"></a>
+                            <?}?>       
 						</header>
 						<div class="blog-post-article">
-						   <?=$item[$modelName]['short_description']?>
+						   <?=$item[$modelName]['full_description']?>
 						</div>
 
 						<footer class="blog-post-footer">

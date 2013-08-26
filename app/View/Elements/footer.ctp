@@ -14,16 +14,19 @@
         <section class="footer_menu-block">
             <h3><a href="#">О прошивке</a></h3>
             <ul>
-                <li><a href="#">Что такое прошивка?</a></li>
-                <li><a href="#">Как заполнить форму?</a></li>
-                <li><a href="#">Как оплатить заказ?</a></li>
-                <li><a href="#">Как получить прошивку?</a></li>
-                <li><a href="#">Как прошить принтер?</a></li>
+                <?if(!empty($footer_block1)) 
+                    foreach($footer_block1 as $item) { ?> 
+                        <li><a href="/articles/view/<?=$item['Article']['id']?>/<?=$item['Article']['slug']?>" title="<?=$item['Article']['name']?>"><?=$item['Article']['name']?></a></li>
+                    <?}?>
             </ul>
         </section>
         <section class="footer_menu-block">
             <h3><a href="#">Сотрудничество</a></h3>
             <ul>
+                <?if(!empty($footer_block2)) 
+                    foreach($footer_block2 as $item) { ?> 
+                        <li><a href="/articles/view/<?=$item['Article']['id']?>/<?=$item['Article']['slug']?>" title="<?=$item['Article']['name']?>"><?=$item['Article']['name']?></a></li>
+                    <?}?>
                 <li><a href="#">Как стать партнером?</a></li>
                 <li><a href="#">Для партнеров?</a></li>
                 <li><a href="#">Вакансии?</a></li>
@@ -32,6 +35,10 @@
         <section class="footer_menu-block">
             <h3><a href="#">Полезное</a></h3>
             <ul>
+                <?if(!empty($footer_block3)) 
+                    foreach($footer_block3 as $item) { ?> 
+                        <li><a href="/articles/view/<?=$item['Article']['id']?>/<?=$item['Article']['slug']?>" title="<?=$item['Article']['name']?>"><?=$item['Article']['name']?></a></li>
+                    <?}?>                
                 <li><a href="#">Новости от PROSHIVKA.BIZ</a></li>
                 <li><a href="#">Бесплатные прошивки!</a></li>
                 <li><a href="#">Все модели принтеров</a></li>
