@@ -9,6 +9,8 @@
   echo $this->html->css('admin/style');
 ?>
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <script type="text/javascript" src="/js/ckfinder/ckfinder.js"></script>
+    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
 <?php
   echo $this->html->script('jquery/jquery-1.9.1.min');
   echo $this->html->script('jquery/jquery-ui-1.10.2.custom.min');
@@ -21,5 +23,3 @@
   echo $this->html->script('admin/default');
 ?>
 
-    <script type="text/javascript" src="/js/ckfinder/ckfinder.js"></script>
-    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>

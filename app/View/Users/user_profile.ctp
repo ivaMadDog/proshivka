@@ -36,7 +36,7 @@
                         <?= $this->form->input('phone2', array('placeholder'=>"phone2", 'data-placeholder'=>"phone2", 'label'=>false,'div'=>false)) ;?>
                     </div>
                 </div> 
-                <div class="form-row">
+<!--                <div class="form-row">
                     <div class="form-row-label">
                         Реферальные балы
                     </div>
@@ -59,7 +59,7 @@
                     <div class="form-row-value">
                         <?=$this->data['User']['money'];?>                                               
                     </div>
-                </div> 
+                </div> -->
                 <div class="form-row">
                     <div class="form-row-value">
                         <?php echo $this->form->submit('Сохранить', array('class'=>"btn_form btn_orange")); ?>

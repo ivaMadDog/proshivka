@@ -95,11 +95,19 @@ class OrdersController extends AppController {
         if(!empty($this->request->data)){
             if($this->Auth->user()) $this->request->data[$modelName]['user_id']=$this->Auth->user('id'); //получаем ID авторизованного юзера
             $this->request->data[$modelName]['order_type_id']= $this->$modelName->OrderType->getNewStatus(); //получаем статус нового заказа
-            $this->request->data[$modelName]['price']=$this->$modelName->Printer->getPriceFix($this->request->data[$modelName]['printer_id']);
+            $selectedPrinter=$this->$modelName->Printer->find('first', array('conditions'=>array('Printer.id'=>$this->request->data[$modelName]['printer_id']),
+                                                                              'recursive'=>-1));
+            $this->request->data['Printer_info']=$selectedPrinter['Printer'];
+            
             if($this->$modelName->save($this->request->data)){
-
-                $this->sendEmail($this->request->data[$modelName]['email'], "Заказ на прошивку принят", "fix/create_fix", $this->request->data[$modelName], $reply_to = "", $from_email = "");
-                $this->sendEmail(Configure::read("BASE_ADMIN_EMAIL"), "Новый заказ на прошивку", "fix/admin_create_fix", $this->request->data[$modelName], $reply_to = "", $from_email = "");
+                
+                $this->request->data['Payment']=$this->Order->Payment->find('first', array('conditions'=>array(
+                                                            'Payment.id'=>$this->request->data[$modelName]['payment_id']),
+                                                            'fields'=>array('Payment.name'),
+                                                            'recursive'=>-1,
+                                                            ));
+                $this->sendEmail($this->request->data[$modelName]['email'], "Заказ на прошивку принят", "fix/create_fix", $this->request->data, $reply_to = "", $from_email = "");
+                $this->sendEmail(Configure::read("BASE_ADMIN_EMAIL"), "Новый заказ на прошивку", "fix/admin_create_fix", $this->request->data, $reply_to = "", $from_email = "");
 
                 $this->Session->setFlash('Дополнительная информация была выслана на указанный email','flash_msg_success',array('title'=>'Заказ добавлен'));
                 $this->redirect("/");

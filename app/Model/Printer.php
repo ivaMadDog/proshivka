@@ -180,6 +180,8 @@ class Printer extends AppModel {
                                             'recursive'=>-1));
         return $printer[$this->alias]['price_fix'];
     }
+    
+    
 
 
 }

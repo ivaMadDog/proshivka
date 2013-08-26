@@ -47,6 +47,7 @@ class UsersController extends AppController {
                                         ),
                     'recursive'=>-1
                 ));
+            
             if (!empty($data) && $this->Auth->login($data['User'])) {
                 $this->Session->setFlash(__('Спасибо, что Вы снова с нами.'),'flash_msg_success', array('title'=>'Авторизация прошла успешно'));
                 $this->redirect($this->Auth->redirect());
