@@ -194,6 +194,7 @@ class PrintersController extends AppController {
 		   'fields'=>array('Printer.id','Printer.name','Printer.slug','Printer.price_fix', 'Brand.id', 'Brand.name', 'Brand.slug'),
            'order'=>array("$modelName.date DESC", "$modelName.name", "$modelName.position", "$modelName.id"),
            'conditions'=>$cond,
+           'limit'=>1000,
            'recursive'=>2,
 		   'contain'=>array('Brand')
        );

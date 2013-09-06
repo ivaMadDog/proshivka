@@ -1,7 +1,7 @@
 <footer id="footer">
     <section class="anons">
 			<?= $this->form->create('Subscribe', array('url'=>'/subscribes/subscribe', "id"=>"SubscribeForm", 'class'=>'anons-form'));?>
-                <div class="lft anons-label">Анонсы, статьи и бонусы от «Proshivka.biz»:</div>
+                <div class="lft anons-label">Анонсы, статьи и бонусы от «Proshivki.biz»:</div>
                 <div class="lft">
 					<?= $this->form->input('email', array('type'=>'text', 'class'=>'anons-email','placeholder'=>"ваш email...", 'data-placeholder'=>"ваш email...", 'label'=>false, 'div'=>false));?>
 				</div>

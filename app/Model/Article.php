@@ -198,8 +198,8 @@
     
     public function getArticlesByBlock($block){
         if(empty($block)) return false;
-        else return $this->find('all', array('conditions'=>array('Article.is_active'=>1,'Article.block_footer'=>$block ,'Category.is_active'=>1),
-                                        'fields'=>array('id', 'category_id', 'name', 'slug', 'is_active'),
+        else return $this->find('all', array('conditions'=>array('Article.is_active'=>1,'Article.block_footer'=>(int)$block ,'Category.is_active'=>1),
+                                        'fields'=>array('id', 'category_id', 'name', 'slug', 'is_active', 'block_footer'),
                                         'order'=>array("Article.position "),
                                         'recursive'=>1,
                                         'contain'=>array('Category'=>array('fields'=>array('is_active','id')))));
