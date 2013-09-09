@@ -128,7 +128,12 @@
           <p>Ресурс картриджа</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('life_cartridge', array('label'=>false, 'div'=>false)) ;?>
+            <?
+            if ($action=='edit') 
+                echo $this->form->input('life_cartridge', array('label'=>false, 'div'=>false, 'value'=>'1500')) ;
+            else 
+                echo $this->form->input('life_cartridge', array('label'=>false, 'div'=>false)) ;        
+            ?>
         </div>
     </div>
 	<div class="row">
@@ -136,7 +141,12 @@
           <p>Ресурс фотобарабана</p>
         </div>
         <div class="column grid_10 ">
-            <?= $this->form->input('life_photobaraban', array('label'=>false, 'div'=>false)) ;?>
+            <? 
+            if ($action=='edit') 
+                echo $this->form->input('life_photobaraban', array('label'=>false, 'div'=>false, 'value'=>'3')) ;
+            else 
+                echo $this->form->input('life_photobaraban', array('label'=>false, 'div'=>false)) ;        
+            ?>            
         </div>
     </div>
 	<div class="row">

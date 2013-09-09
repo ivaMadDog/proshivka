@@ -5,21 +5,21 @@
                     <ul class="circle-step">
                         <li class="col4">
                             <div class="sprite-circle circle-purple" >
-                                <a class="sprite-big-btn big-btn-printer" href="#printer_description" title="Кратко о <?=$item[$modelName]['name']?>"></a>
+                                <a class="sprite-big-btn big-btn-printer" href="#printer_description" title="Кратко о <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?>"></a>
                             </div>
                             <a href="#printer_description" title="Характеристики <?=$item[$modelName]['name']?>">Описание принтера</a>
                         </li>
                         <li class="col4">
                             <div class="sprite-circle circle-blue" >
-                                <a class="sprite-big-btn big-btn-forms" href="#how_flash_printer" title="Инструкция прошивки принтера <?=$item[$modelName]['name']?>"></a>
+                                <a class="sprite-big-btn big-btn-forms" href="#how_flash_printer" title="Инструкция прошивки принтера <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?>"></a>
                             </div>
-                            <a href="#how_flash_printer" title="Как прошить <?=$item[$modelName]['name']?>">Как прошить принтер</a>
+                            <a href="#how_flash_printer" title="Как прошить <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?>">Как прошить принтер</a>
                         </li>
                         <li  class="col4">
                             <div class="sprite-circle circle-yellow"  >
-                                <a class="sprite-big-btn big-btn-card" href="#vk_comments" title="Отзывы по принтеру <?=$item[$modelName]['name']?>"></a>
+                                <a class="sprite-big-btn big-btn-card" href="#vk_comments" title="Отзывы по принтеру <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?>"></a>
                             </div>
-                            <a href="#vk_comments" title="Отзывы по <?=$item[$modelName]['name']?>">Отзывы клиентов</a>
+                            <a href="#vk_comments" title="Отзывы по <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?>">Отзывы клиентов</a>
                         </li>
                         <li class="col4">
                             <div class="sprite-circle circle-green"  >
@@ -33,10 +33,10 @@
 					
                     <article class="printer-article">
 						<section class="printer-header relative">
-							<h1 class="printer-title">Прошивка для принтера : <?=$item[$modelName]['name']?></h1>
+							<h1 class="printer-title">Прошивка для принтера : <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
 							<div class="printer-photo">
 								<a  class="printer-photo-img fancybox" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>">
-									<img src="/files/images/<?=$controllerName?>/image/preview/<?=$item[$modelName]['image']?>" alt="Прошивка принтера Samsung CLP-320"/>
+									<img src="/files/images/<?=$controllerName?>/image/preview/<?=$item[$modelName]['image']?>" alt="Прошивка принтера <?=$item[$modelName]['name']?>"/>
 								</a>
 								<a id="printer-photo-img" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>"
                                    title="<?=$item[$modelName]['name']?>" class="printer-photo-scale">
@@ -53,7 +53,7 @@
 								</li>
 								<li>
 									<p class="printer-descr-title">Ресурс картриджа</p>
-									<p class="printer-descr-value"><?=$item[$modelName]['life_cartridge']?></p>
+									<p class="printer-descr-value"><?=$item[$modelName]['life_cartridge']?> стр.</p>
 								</li>
 								<li>
 									<p class="printer-descr-title">Ресурс фотобарабана</p>
@@ -61,7 +61,7 @@
 								</li>
 								<li>
 									<p class="printer-descr-title">Инструкция прошивки</p>
-									<p class="printer-descr-value"><a href="#">Как прошить Samsung CLP-320?</a></p>
+									<p class="printer-descr-value"><a href="#">Как прошить <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?>?</a></p>
 								</li>
 							</ul>
 							<section class="printer-order ">
@@ -72,23 +72,28 @@
 						</section>
 						
                         <a name="printer_description"></a>
-                        <section class="printer-body printer-header relative">
-							<h1 class="printer-title">Описание принтера <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
-							<div>
-								<?=$item[$modelName]['full_description']?>
-							</div>
-                            <div class="clear"></div>
-						</section>
+                        <?if(!empty($item[$modelName]['full_description'])) {?>
+                            <section class="printer-body printer-header relative">
+                                <h1 class="printer-title">Описание принтера <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
+                                <div>
+                                    <?=$item[$modelName]['full_description']?>
+                                </div>
+                                <div class="clear"></div>
+                            </section>
+                        <?}?>
 						
                         <a name="how_flash_printer"></a>
-                        <section class="printer-body printer-header relative">
-							<h1 class="printer-title">Как прошить принтер <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
-							<div>
-								<?=$item[$modelName]['fix_description']?>
-							</div>
-                            <div class="clear"></div>
-						</section>
+                            <?if(!empty($item[$modelName]['full_description'])) {?>
+                            <section class="printer-body printer-header relative">
+                                <h1 class="printer-title">Как прошить принтер <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
+                                <div>
+                                    <?=$item[$modelName]['fix_description']?>
+                                </div>
+                                <div class="clear"></div>
+                            </section>
+                        <?}?>
 						
+                        
                         <a name="vk_comments"></a>
 						<section class="printer-comments relative">
 							<div id="vk_comments"></div>

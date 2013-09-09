@@ -51,7 +51,7 @@ class PrintersController extends AppController {
        $cond=array();
 
        $this->paginate=array(
-           'limit'=>12,
+           'limit'=>30,
            'order'=>array("$modelName.created DESC", "$modelName.name","$modelName.position", "$modelName.id"),
            'conditions'=>$cond,
            'recursive'=>1
@@ -213,8 +213,10 @@ class PrintersController extends AppController {
        }
 
 	   $item=$this->$modelName->find('first', array('conditions'=>array("$modelName.id"=>(int)$id)));
+       $this->setSeoMetaTags($item[$modelName]);
 	   $neighbors=$this->$modelName->find('neighbors', array('field' => 'id', 'value' => (int)$id));
 	   $this->set(compact('item','neighbors'));
+       
     }
 
 

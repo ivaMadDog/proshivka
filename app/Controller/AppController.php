@@ -223,7 +223,7 @@ class AppController extends Controller
 					 	 'meta_title'=> $data['meta_title'],
 						 'meta_keywords'=> $data['meta_keywords'],
 						 'meta_description'=> $data['meta_description'],
-						 'page_title'=> $data['title']));
+						 'title_for_layout'=> !empty($data['title'])?$data['title']:$data['meta_title']));
         else {
              $this->set(array(
                         'meta_title'=> Configure::read("meta_title"),
