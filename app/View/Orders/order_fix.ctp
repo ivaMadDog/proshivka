@@ -19,7 +19,7 @@
                     </div>
                     <div class="OrderFix-row">
                         <div class="OrderFix-label">Цена прошивки:</div>
-                        <?= $this->form->input('price', array("id"=>"order_price",'type'=>'text','label'=>false, 'div'=>false, "disabled"=>"disabled", 'style'=>"background: #fff"));?>
+                        <?= $this->form->input('price', array("id"=>"order_price",'type'=>'text', 'value'=>!empty($price)?$price:'','label'=>false, 'div'=>false, "disabled"=>"disabled", 'style'=>"background: #fff"));?>
                     </div>
 					<div class="OrderFix-row">
 						<div class="OrderFix-label">Способ оплаты:</div>

@@ -14,11 +14,12 @@ class PrintersController extends AppController {
          parent::beforeFilter();
          $folderName=$this->{$this->modelName}->folderName;
          $this->set(array('cp_title'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
+						  'title_for_layout'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
                           'controllerName'=>$this->controllerName,
                           'modelName'=>$this->modelName, 'folderName'=>$folderName));
 
          $this->Auth->allow('get_printer_price');
-         
+
          if(empty($this->request->params["admin"])) {
               $this->layout='default';
               $this->set(array('headerColor'=> 'header-green','headerBgImg'=> 'models.png'));
@@ -201,7 +202,7 @@ class PrintersController extends AppController {
 
        $this->set(array('data'=>$this->paginate($modelName)));
     }
-    
+
     public function view($id=null){
 	   $controllerName= $this->controllerName;
        $modelName=$this->modelName;
@@ -216,7 +217,7 @@ class PrintersController extends AppController {
        $this->setSeoMetaTags($item[$modelName]);
 	   $neighbors=$this->$modelName->find('neighbors', array('field' => 'id', 'value' => (int)$id));
 	   $this->set(compact('item','neighbors'));
-       
+
     }
 
 

@@ -14,6 +14,7 @@ class OrdersController extends AppController {
          parent::beforeFilter();
          $folderName=$this->{$this->modelName}->folderName;
          $this->set(array('cp_title'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
+						  'title_for_layout'=>$this->cp_title.' - '.Configure::read("WEBSITE_NAME"),
                           'controllerName'=>$this->controllerName,
                           'modelName'=>$this->modelName, 'folderName'=>$folderName));
          $this->Auth->allow("order_fix");
@@ -115,11 +116,17 @@ class OrdersController extends AppController {
                 $this->Session->setFlash( 'Не удалось сохранить заказ','flash_msg_error',array('title'=>'Ошибка добавления заказа'));
             }
         }
-        if(!empty($printer_id)) $this->request->data[$modelName]['printer_id']=(int)$printer_id;
+        if(!empty($printer_id)) {
+			$this->request->data[$modelName]['printer_id']=(int)$printer_id;
+			$current_printer=$this->$modelName->Printer->find('first', array('conditions'=>array('id'=>(int)$printer_id),
+																	'fields'=>array('price_fix'),
+																	'recursive'=>-1));
+			$price=$current_printer['Printer']['price_fix'];
+		}
         if($this->Auth->user()) {
             $this->request->data[$modelName]['email']=$this->Auth->user('email');
         }
-        $this->set(compact('printers','payments'));
+        $this->set(compact('printers','payments','price'));
 
     }
 

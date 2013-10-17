@@ -83,22 +83,22 @@ class AppController extends Controller
 
 	private function Init(){
           $this->setSeoMetaTags();
-        
+
 		  $this->loadModel('Contact');
 		  $contacts=$this->Contact->getContactMenus();
-          
+
           $this->loadModel('Payment');
           $footer_payments=$this->Payment->getPaymentIcons();
-          
+
           $this->loadModel('Article');
-          $footer_block1=$this->Article->getArticlesByBlock(1); 
-          $footer_block2=$this->Article->getArticlesByBlock(2); 
-          $footer_block3=$this->Article->getArticlesByBlock(3); 
+          $footer_block1=$this->Article->getArticlesByBlock(1);
+          $footer_block2=$this->Article->getArticlesByBlock(2);
+          $footer_block3=$this->Article->getArticlesByBlock(3);
 
 		  $this->set(compact('contacts','footer_payments',
                   'footer_block1', 'footer_block2', 'footer_block3'));
 	}
-    
+
     function sendEmail($to, $subject, $template, $data, $reply_to = "", $from_email = "")
     {
         $no_reply = Configure::read("BASE_NOREPLY_EMAIL");
@@ -215,9 +215,9 @@ class AppController extends Controller
         $template = 'new_pwd';
         return $this->sendEmail($data['email'], $subject, $template, $data);
     }
-    
+
     protected function setSeoMetaTags($data=null){
-        if(!empty($data)) 
+        if(!empty($data))
             $this->set(array('prepend_title'=> $data['prepend_title'],
 					 	 'append_title'=>$data['append_title'],
 					 	 'meta_title'=> $data['meta_title'],
@@ -226,6 +226,7 @@ class AppController extends Controller
 						 'title_for_layout'=> !empty($data['title'])?$data['title']:$data['meta_title']));
         else {
              $this->set(array(
+						'title_for_layout'=> Configure::read("meta_title"),
                         'meta_title'=> Configure::read("meta_title"),
                         'meta_keywords'=> Configure::read("meta_keywords"),
                         'meta_description'=> Configure::read("meta_description")));
