@@ -35,6 +35,7 @@ function onChangePrinter() {
 
 function onChangePayment() {
 	var payment = $("#payment_id").val();
+	if (!payment) {$('#payment_logo').hide(); return 0;}
 	$('#payment_logo').hide();
 	$.ajax({
             url: "/payments/get_payment_logo/"+payment,
@@ -44,6 +45,7 @@ function onChangePayment() {
 					var src="/files/images/payments/image/thumb/"+data;
 					$('#payment_logo').attr('src', src);
 					$('#payment_logo').fadeIn('300');
+
 					}
 				}
 	});

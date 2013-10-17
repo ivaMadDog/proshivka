@@ -33,7 +33,7 @@
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Модель принтера:</div>
-                <?= $this->form->input('printer_id', array('id'=>'printer_id','label'=>false, 'div'=>false, 'onchange'=>'onChangePrinter()'));?>
+                <?= $this->form->input('printer_id', array('id'=>'printer_id','empty'=>'Выбрать модель','label'=>false, 'div'=>false, 'onchange'=>'onChangePrinter()'));?>
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Цена прошивки:</div>
@@ -43,8 +43,8 @@
         <div class="OrderFix-col">
 			<div class="OrderFix-row">
                 <div class="OrderFix-label">Способ оплаты:</div>
-                <?= $this->form->input('payment_id', array('id'=>'payment_id','onchange'=>'onChangePayment()','label'=>false, 'div'=>false));?>
-				<img id="payment_logo" src="/files/images/payments/image/thumb/privatbank.png" />
+                <?= $this->form->input('payment_id', array('id'=>'payment_id','empty'=>'Тип оплаты','onchange'=>'onChangePayment()','label'=>false, 'div'=>false));?>
+				<img id="payment_logo" src="/files/images/payments/image/thumb/privatbank.png" style="display: none"/>
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Серийный номер:</div>

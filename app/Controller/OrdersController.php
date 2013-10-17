@@ -98,12 +98,12 @@ class OrdersController extends AppController {
             $selectedPrinter=$this->$modelName->Printer->find('first', array('conditions'=>array('Printer.id'=>$this->request->data[$modelName]['printer_id']),
                                                                               'recursive'=>-1));
             $this->request->data['Printer_info']=$selectedPrinter['Printer'];
-            
+
             if($this->$modelName->save($this->request->data)){
-                
+
                 $this->request->data['Payment']=$this->Order->Payment->find('first', array('conditions'=>array(
                                                             'Payment.id'=>$this->request->data[$modelName]['payment_id']),
-                                                            'fields'=>array('Payment.name'),
+                                                            'fields'=>array('Payment.name', 'Payment.full_description'),
                                                             'recursive'=>-1,
                                                             ));
                 $this->sendEmail($this->request->data[$modelName]['email'], "Заказ на прошивку принят", "fix/create_fix", $this->request->data, $reply_to = "", $from_email = "");
