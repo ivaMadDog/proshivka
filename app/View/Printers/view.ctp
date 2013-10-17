@@ -32,17 +32,17 @@
                     <div class="clr"></div>
 					
                     <article class="printer-article">
-						<section class="printer-header relative">
-							<h1 class="printer-title">Прошивка для принтера : <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
-							<div class="printer-photo">
+						<section class="printer-header relative" itemscope itemtype="http://schema.org/ImageObject">
+							<h1 class="printer-title" itemprop="name">Прошивка для принтера : <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
+							<div class="printer-photo" >
 								<a  class="printer-photo-img fancybox" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>">
-									<img src="/files/images/<?=$controllerName?>/image/preview/<?=$item[$modelName]['image']?>" alt="Прошивка принтера <?=$item[$modelName]['name']?>"/>
+									<img itemprop="contentUrl" src="/files/images/<?=$controllerName?>/image/preview/<?=$item[$modelName]['image']?>" alt="Прошивка принтера <?=$item[$modelName]['name']?>"/>
 								</a>
 								<a id="printer-photo-img" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>"
                                    title="<?=$item[$modelName]['name']?>" class="printer-photo-scale">
                                     <span class="sprite-icons loupe"></span></a>
 							</div>
-							<ul class="printer-descr">
+							<ul class="printer-descr" itemprop="description">
 								<li>
 									<p class="printer-descr-title">Модель</p>
 									<p class="printer-descr-value"><?=$item[$modelName]['name']?></p>
