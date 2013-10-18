@@ -37,6 +37,12 @@ class Order extends AppModel {
                 'message' => 'Не выбрана модель принтера'
             ),
         ),
+		'payment_id'=>array(
+            'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Не выбран тип оплаты'
+            ),
+        ),
         'order_type_id'=>array(
             'required' => array(
                 'rule' => array('notEmpty'),

@@ -14,8 +14,8 @@
         <section class="footer_menu-block">
             <h3><a href="#">О прошивке</a></h3>
             <ul>
-                <?if(!empty($footer_block1)) 
-                    foreach($footer_block1 as $item) { ?> 
+                <?if(!empty($footer_block1))
+                    foreach($footer_block1 as $item) { ?>
                         <li><a href="/articles/view/<?=$item['Article']['id']?>/<?=$item['Article']['slug']?>" title="<?=$item['Article']['name']?>"><?=$item['Article']['name']?></a></li>
                     <?}?>
             </ul>
@@ -23,26 +23,19 @@
         <section class="footer_menu-block">
             <h3><a href="#">Сотрудничество</a></h3>
             <ul>
-                <?if(!empty($footer_block2)) 
-                    foreach($footer_block2 as $item) { ?> 
+                <?if(!empty($footer_block2))
+                    foreach($footer_block2 as $item) { ?>
                         <li><a href="/articles/view/<?=$item['Article']['id']?>/<?=$item['Article']['slug']?>" title="<?=$item['Article']['name']?>"><?=$item['Article']['name']?></a></li>
                     <?}?>
-                <li><a href="#">Как стать партнером?</a></li>
-                <li><a href="#">Для партнеров?</a></li>
-                <li><a href="#">Вакансии?</a></li>
             </ul>
         </section>
         <section class="footer_menu-block">
             <h3><a href="#">Полезное</a></h3>
             <ul>
-                <?if(!empty($footer_block3)) 
-                    foreach($footer_block3 as $item) { ?> 
+                <?if(!empty($footer_block3))
+                    foreach($footer_block3 as $item) { ?>
                         <li><a href="/articles/view/<?=$item['Article']['id']?>/<?=$item['Article']['slug']?>" title="<?=$item['Article']['name']?>"><?=$item['Article']['name']?></a></li>
-                    <?}?>                
-                <li><a href="#">Новости от PROSHIVKA.BIZ</a></li>
-                <li><a href="#">Бесплатные прошивки!</a></li>
-                <li><a href="#">Все модели принтеров</a></li>
-                <li><a href="#">Отзывы клиентов</a></li>
+                    <?}?>
             </ul>
         </section>
         <section class="footer_menu-block">
@@ -52,7 +45,7 @@
                 <li><a class="sprites-social fb-mini-ico" href="#">Facebook</a></li>
                 <li><a class="sprites-social tw-mini-ico" href="#">Twitter</a></li>
                 <li><a class="sprites-social yt-mini-ico" href="#">YouTube</a></li>
-                <li><a class="sprites-social rss-mini-ico" href="#">RSS</a></li>
+                <!--<li><a class="sprites-social rss-mini-ico" href="#">RSS</a></li>-->
             </ul>
         </section>
         <div class="clr"></div>

@@ -24,11 +24,12 @@ $(document).ready(function(){
 
 function onChangePrinter() {
 	var printer = $("#printer_id").val();
+	if (!printer) {$("#price").val(); return 0;}
 	$.ajax({
             url: "/printers/get_printer_price/"+printer,
             type: "post",
 			success: function (data) {
-					if(data!=0)	$('#order_price').val(data);
+					if(data!=0)	$('#price').val(data);
 				}
 	});
 }
@@ -44,6 +45,7 @@ function onChangePayment() {
 					if(data!=0)	{
 					var src="/files/images/payments/image/thumb/"+data;
 					$('#payment_logo').attr('src', src);
+					$('#payment_id+.error-message').hide();
 					$('#payment_logo').fadeIn('300');
 
 					}

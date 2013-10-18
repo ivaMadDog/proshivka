@@ -93,12 +93,17 @@ class OrdersController extends AppController {
         $printers=$this->$modelName->Printer->find('list', array('order'=>'name'));
         $payments=$this->$modelName->Payment->find('list', array('conditions'=>array('Payment.is_active'=>1)));
 
-        if(!empty($this->request->data)){
+		$this->$modelName->set($this->request->data);
+        if($this->request->is('post') && $this->$modelName->validates() ){
+
             if($this->Auth->user()) $this->request->data[$modelName]['user_id']=$this->Auth->user('id'); //получаем ID авторизованного юзера
             $this->request->data[$modelName]['order_type_id']= $this->$modelName->OrderType->getNewStatus(); //получаем статус нового заказа
-            $selectedPrinter=$this->$modelName->Printer->find('first', array('conditions'=>array('Printer.id'=>$this->request->data[$modelName]['printer_id']),
-                                                                              'recursive'=>-1));
-            $this->request->data['Printer_info']=$selectedPrinter['Printer'];
+            if(!empty($this->request->data[$modelName]['printer_id'])){
+				$selectedPrinter=$this->$modelName->Printer->find('first', array('conditions'=>array('Printer.id'=>$this->request->data[$modelName]['printer_id']),
+																				  'recursive'=>-1));
+				$this->request->data['Printer_info']=$selectedPrinter['Printer'];
+				$this->request->data[$modelName]['price']=$selectedPrinter['Printer']['price_fix'];
+			}
 
             if($this->$modelName->save($this->request->data)){
 
@@ -113,9 +118,12 @@ class OrdersController extends AppController {
                 $this->Session->setFlash('Дополнительная информация была выслана на указанный email','flash_msg_success',array('title'=>'Заказ добавлен'));
                 $this->redirect("/");
             }else{
-                $this->Session->setFlash( 'Не удалось сохранить заказ','flash_msg_error',array('title'=>'Ошибка добавления заказа'));
+                $this->Session->setFlash( 'Не удалось сохранить заказ. Проверьте все поля','flash_msg_error',array('title'=>'Ошибка добавления заказа'));
             }
-        }
+        }else{
+			$errors=$this->$modelName->validationErrors;
+			$this->set(compact('errors'));
+		}
         if(!empty($printer_id)) {
 			$this->request->data[$modelName]['printer_id']=(int)$printer_id;
 			$current_printer=$this->$modelName->Printer->find('first', array('conditions'=>array('id'=>(int)$printer_id),

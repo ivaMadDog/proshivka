@@ -33,23 +33,12 @@
 
 								<footer class="blog-post-footer">
 									<a href="/articles/view/<?=$item[$modelName]['id']?>/<?=$item[$modelName]['slug']?>" class="blog-post-readmore"></a>
-                                    <?
-                                     $dataTwitter = empty($data[$modelName]['twitter'])
-                                        ? "http://api.addthis.com/oexchange/0.8/forward/twitter/offer?url=".Router::url( $this->here, true )
-                                        : "http://{$data[$modelName]['twitter']}";
-                                     $dataFacebook = empty($data[$modelName]['facebook'])
-                                        ? "http://api.addthis.com/oexchange/0.8/forward/facebook/offer?url=".Router::url( $this->here, true )
-                                        : "http://{$data[$modelName]['facebook']}";
-                                     $dataYoutube = empty($data[$modelName]['facebook'])
-                                        ? "http://api.addthis.com/oexchange/0.8/forward/youtube/offer?url=".Router::url( $this->here, true )
-                                        : "http://{$data[$modelName]['facebook']}";                                        
-                                    ?>
 									<ul class="list-socials-icon">
-										<li><a href="#" class="sprite-blog-social em"></a></li>
-										<li><a href="#" class="sprite-blog-social tw"></a></li>
-										<li><a href="#" class="sprite-blog-social fb"></a></li>
-										<li><a href="#" class="sprite-blog-social yt"></a></li>
-										<li><a href="#" class="sprite-blog-social vk"></a></li>
+										<!--<li><a href="#" class="sprite-blog-social em"></a></li>-->
+										<li><a href="http://api.addthis.com/oexchange/0.8/forward/twitter/offer?url=<?=Router::url( $this->here, true )."/view/".$item[$modelName]['id']."/".$item[$modelName]['slug']?>" class="sprite-blog-social tw" title="Рассказать друзьям на Twitter"></a></li>
+										<li><a href="http://api.addthis.com/oexchange/0.8/forward/facebook/offer?url=<?=Router::url( $this->here, true )."/view/".$item[$modelName]['id']."/".$item[$modelName]['slug']?>" class="sprite-blog-social fb" title="Рассказать друзьям на Facebook"></a></li>
+										<!--<li><a href="#" class="sprite-blog-social yt"></a></li>-->
+										<li><a href="http://api.addthis.com/oexchange/0.8/forward/vk/offer?url=<?=Router::url( $this->here, true )."/view/".$item[$modelName]['id']."/".$item[$modelName]['slug']?>" class="sprite-blog-social vk"title="Рассказать друзьям на Vkontakte"></a></li>
 									</ul>
 									<div style="clear: both"></div>
 								</footer>

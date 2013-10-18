@@ -37,7 +37,7 @@
             </div>
             <div class="OrderFix-row">
                 <div class="OrderFix-label">Цена прошивки:</div>
-                <?= $this->form->input('price', array("id"=>"order_price",'type'=>'text', 'style'=>'background: #fff','label'=>false, 'div'=>false,  "disabled"=>"disabled"));?>
+                <?= $this->form->input('price', array("id"=>"price",'type'=>'text', 'style'=>'background: #fff','label'=>false, 'div'=>false,  "disabled"=>"disabled"));?>
             </div>
         </div>
         <div class="OrderFix-col">

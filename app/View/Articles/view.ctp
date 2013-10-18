@@ -20,7 +20,7 @@
 							<a class="blog-post-photo fancybox"
 								   href="/files/images/<?=$folderName?>/image/original/<?=$item[$modelName]['image']?>"
 								   style="background: url(/files/images/<?=$folderName?>/image/preview/<?=$item[$modelName]['image']?> ) no-repeat center"></a>
-                            <?}?>       
+                            <?}?>
 						</header>
 						<div class="blog-post-article">
 						   <?=$item[$modelName]['full_description']?>
@@ -28,16 +28,16 @@
 
 						<footer class="blog-post-footer">
 							<?if(!empty($neighbors['next'])) {?>
-								<a href="/<?=$controllerName?>/view/<?=$neighbors['next'][$modelName]['id']?>/<?=$neighbors['next'][$modelName]['slug']?>" class="blog-post-btn next"></a>
+								<a href="/<?=$controllerName?>/view/<?=$neighbors['next'][$modelName]['id']?>/<?=$neighbors['next'][$modelName]['slug']?>" class="blog-post-btn next" title="Следующая статья"></a>
 							<?}if(!empty($neighbors['prev'])) {?>
-								<a href="/<?=$controllerName?>/view/<?=$neighbors['prev'][$modelName]['id']?>/<?=$neighbors['prev'][$modelName]['slug']?>" class="blog-post-btn prev"></a>
+								<a href="/<?=$controllerName?>/view/<?=$neighbors['prev'][$modelName]['id']?>/<?=$neighbors['prev'][$modelName]['slug']?>" class="blog-post-btn prev" title="Предыдущая статья"></a>
 							<?}?>
 							<ul class="list-socials-icon">
-								<li><a href="#" class="sprite-blog-social em"></a></li>
-								<li><a href="#" class="sprite-blog-social tw"></a></li>
-								<li><a href="#" class="sprite-blog-social fb"></a></li>
-								<li><a href="#" class="sprite-blog-social yt"></a></li>
-								<li><a href="#" class="sprite-blog-social vk"></a></li>
+								<!--<li><a href="#" class="sprite-blog-social em"></a></li>-->
+								<li><a href="http://api.addthis.com/oexchange/0.8/forward/twitter/offer?url=<?=Router::url( $this->here, true )?>" class="sprite-blog-social tw" title="Рассказать друзьям на Twitter"></a></li>
+								<li><a href="http://api.addthis.com/oexchange/0.8/forward/facebook/offer?url=<?=Router::url( $this->here, true )?>" class="sprite-blog-social fb" title="Рассказать друзьям на Facebook"></a></li>
+								<!--<li><a href="#" class="sprite-blog-social yt"></a></li>-->
+								<li><a href="http://api.addthis.com/oexchange/0.8/forward/vk/offer?url=<?=Router::url( $this->here, true )?>" class="sprite-blog-social vk"title="Рассказать друзьям на Vkontakte"></a></li>
 							</ul>
 							<div style="clear: both"></div>
 						</footer>
