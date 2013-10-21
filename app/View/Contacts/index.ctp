@@ -3,11 +3,12 @@
 		<h2 class="ContactPage-title">Контакты</h2>
 		<span class="ContactPage-phoneIco contacts-ico"></span>
         <div class="ContactPage-phone clear">
-            +38 097 187 84 85
+            <div>office@proshivki.biz</div>
+            <div>info@proshivki.biz</div>
         </div>
         <span class="ContactPage-emailIco contacts-ico"></span>
         <div class="ContactPage-email clear">
-            office@mail.ru
+            +38 097 187 84 85
         </div>
 		<span class="ContactPage-skypeIco contacts-ico"></span>
         <div class="ContactPage-skype clear">
@@ -26,8 +27,8 @@
             <div class="lft">
                     <?= $this->form->input('subject', array('label'=>false, 'div'=>false, 'class'=>'ContactPage-FormSubject', 'placeholder'=>'Имя'));?>
             </div>
-			<?=$this->element("recaptcha",array("className"=>"inputField",'width'=>"233px" , 'image'=>'captcha_sprite_grey.png' , 'border_color'=>'#D1D1D1')); ?>
-            <?=$this->form->submit('Отправить', array('class'=>"btn big_orange rght", 'style'=>'width: 200px;'));?>
+            <?=$this->form->submit('Отправить', array('class'=>"btn big_orange rght", 'style'=>'width: 200px;', 'div'=>false));?>
+			<?=$this->CaptchaTool->show(); ?>
         <?=$this->form->end();?>
     </section>
 </div>

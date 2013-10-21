@@ -1,12 +1,15 @@
 <?php
 
+App::import('Vendor', 'recaptcha/recaptchalib');
+
 class ContactsController extends AppController {
 
     public $name = 'Contacts';
     public $uses = array('Contact');
 	public $components = array("Captcha","Email");
+    public $helpers = array("CaptchaTool");
 
-    public $controllerName='contacts';
+    public $controllerName="contacts";
     public $modelName = 'Contact';
     public $cp_title='Список контактов';
 
