@@ -53,17 +53,24 @@ background:url(/img/<?php echo $image;?>) -22px 0px;
 border:0px;
 }
 </style>
-<!--////not working in ie6//////-->
-<script type="text/javascript">
-var RecaptchaOptions = {
-   theme : 'custom',
-   custom_theme_widget: 'recaptcha_widget'
+<?php
 
-};
+$IMG_URL = Configure::read('IMG_URL');
+
+?>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+ Recaptcha.create("<?php echo Configure::read("PUBLIC_KEY_FROM_RECAPTCHA_DOT_NET");?>", 'recaptcha_widget', {
+        theme: "custom"
+//       callback: Recaptcha.focus_response_field
+    });
+    
+});
 
 </script>
-<div id="recaptcha_widget" style="display:none;margin-bottom:10px;">
-	<div id="recaptcha_image"></div>
+<div id="recaptcha_widget" class="floatClass" style="display:none;margin-bottom:10px;">
+	<div id="recaptcha_image" style=""></div>
 	
 	<span class="recaptcha_only_if_audio" id="audio_explanation" style="display:none;">Enter the numbers you hear</span>
 	
@@ -82,16 +89,8 @@ var RecaptchaOptions = {
 		<div class="recaptcha_only_if_audio " style="float:right; margin-top:1px;width:26px;border-right:solid 1px <?php echo $border_color;?>;text-align:center"><a href="javascript:Recaptcha.switch_type('image');" title="Get an image code"><img src="<?php echo Configure::read('BASE_IMG_URL');?>/img/spacer.gif" alt="Get an image CAPTCHA" border="0"  class="sprite_image_captcha"/></a></div>
 		<div class="" style="float:right; width:17px;border-right:solid 1px <?php echo $border_color;?>;text-align:left;margin-top:1px;"><a href="javascript:Recaptcha.reload()" title="Get another captcha"><img src="<?php echo Configure::read('BASE_IMG_URL');?>/img/spacer.gif" alt="Get another image" border="0" class="sprite_reload_captcha"/></a></div>
 	</div>
-</div>
+	
+	
+	
 
- <script type="text/javascript"
-    src="http://www.google.com/recaptcha/api/challenge?k=<?php echo Configure::read("PUBLIC_KEY_FROM_RECAPTCHA_DOT_NET");?>">
- </script>
- <noscript>
-   <iframe src="http://www.google.com/recaptcha/api/noscript?k=<?php echo Configure::read("PUBLIC_KEY_FROM_RECAPTCHA_DOT_NET");?>"
-        height="300" width="500" frameborder="0"></iframe><br>
-   <textarea name="recaptcha_challenge_field" rows="3" cols="40">
-   </textarea>
-   <input type="hidden" name="recaptcha_response_field"
-        value="manual_challenge">
- </noscript>
+</div>

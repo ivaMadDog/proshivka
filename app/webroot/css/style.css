@@ -651,7 +651,7 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
 	text-align:  center;
 	box-shadow: 0 2px 4px rgba(0,0,0,0.11);
     padding: 10px 0 20px;
-    
+
 }
 .brands-list-item-body a{text-decoration: none;}
 .brands-list-item-body-logo {}
@@ -711,7 +711,7 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
 .list-companies-body {
    position: relative;
    width: 160px;
-   height: 120px;  
+   height: 120px;
    padding: 15px 20px;
    background: #CCEEF8;
    border-top: 1px solid #fff;
@@ -751,19 +751,29 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
     border-radius: 10px;
 }
 
-.ContactPage-Form input{
-    background: #EAEAEA;
+.ContactPage-Form input, .ContactPage-Form textarea{
     border: 1px solid #fff;
+	padding: 5px;
+}
+
+.ContactPage-Form input{
+	margin-bottom: 3px;
+}
+
+.ContactPage-Form textarea{
+	width: 323px;
+    background: #EAEAEA;
 }
 
 .ContactPage-columnLeft{
     float:left;
     width: 300px;
+	font-weight: bold;
 }
 
 .ContactPage-columnRight{
     float: right;
-    width: 690px;    
+    width: 690px;
     border-left: 2px solid #F3F3F3;
 }
 
@@ -774,3 +784,33 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
     margin: 0 0 20px;
     color: #006697;
 }
+
+.contacts-ico{
+	margin: 10px auto 5px;
+	background: url(../img/sprite_contacts_ico.png) no-repeat;
+	display: block;
+	height: 24px;
+	width: 24px;
+}
+
+.ContactPage-phone, .ContactPage-email, .ContactPage-skype{
+	text-align: center;
+}
+
+.ContactPage-phoneIco{background-position: 0 0;}
+.ContactPage-emailIco{background-position: 0 -50px;}
+.ContactPage-skypeIco{background-position: 0 -25px;}
+
+.ContactPage-Form{
+	width: 600px;
+	margin: 0 auto;
+}
+
+.ContactPage-FormEmail, .ContactPage-FormSubject{
+	width: 215px;
+	padding-left: 35px !important;
+	background: #EAEAEA url(../img/sprite_contacts_ico.png) no-repeat;
+}
+
+.ContactPage-FormEmail {background-position: -45px -25px;}
+.ContactPage-FormSubject {background-position: -45px 0px;}
