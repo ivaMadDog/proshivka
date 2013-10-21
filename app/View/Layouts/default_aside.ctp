@@ -4,10 +4,11 @@
 	<meta charset="utf-8" />
 	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<title><?php echo $title_for_layout;?></title>
-
-        <?php echo $this->element('meta_tags'); ?>
-
-        <?php echo $this->element('head');?>
+    <?php
+        echo $this->element('meta_tags'); 
+        echo $this->Html->meta('favicon.ico', '/img/favicon.ico',  array('type' => 'icon'));
+        echo $this->element('head');
+    ?>
 </head>
 
 <body class="<?php echo $headerColor ?>">

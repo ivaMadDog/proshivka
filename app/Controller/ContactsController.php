@@ -128,6 +128,13 @@ class ContactsController extends AppController {
           }
           exit;
       }
+      
+      
+      public function index(){
+          $modelName = $this->modelName;
+          $controllerName = $this->controllerName;
+          
+      }
     
     
 }   

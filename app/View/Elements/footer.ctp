@@ -41,10 +41,10 @@
         <section class="footer_menu-block">
             <h3><a href="#">Присоединяйтесь</a></h3>
             <ul class="mini-socials">
-                <li><a class="sprites-social vk-mini-ico" href="#">Вконтакте</a></li>
-                <li><a class="sprites-social fb-mini-ico" href="#">Facebook</a></li>
-                <li><a class="sprites-social tw-mini-ico" href="#">Twitter</a></li>
-                <li><a class="sprites-social yt-mini-ico" href="#">YouTube</a></li>
+                <li><a class="sprites-social vk-mini-ico" href="http://vk.com/club59969729" title="Proshivki.biz Вконтакте" rel="nofollow">Вконтакте</a></li>
+                <li><a class="sprites-social fb-mini-ico" href="http://www.facebook.com/proshivkibiz" title="Proshivki.biz Facebook" rel="nofollow">Facebook</a></li>
+                <li><a class="sprites-social tw-mini-ico" href="#" title="Proshivki.biz Twitter" rel="nofollow">Twitter</a></li>
+                <li><a class="sprites-social yt-mini-ico" href="#" title="Proshivki.biz YouTube" rel="nofollow">YouTube</a></li>
                 <!--<li><a class="sprites-social rss-mini-ico" href="#">RSS</a></li>-->
             </ul>
         </section>
@@ -79,7 +79,7 @@
 				<?=($contacts['Others'][0]['Contact']['name'])?>
 			</li>
         </ul>
-        <div><a href="/about_us">Все контакты</a></div>
+        <div><a href="/contacts">Все контакты</a></div>
     </div>
 
 </footer><!-- #footer -->
