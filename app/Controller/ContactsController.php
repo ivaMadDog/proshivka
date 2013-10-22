@@ -1,6 +1,6 @@
 <?php
-
 App::import('Vendor', 'recaptcha/recaptchalib');
+App::uses('Sanitize', 'Utility');
 
 class ContactsController extends AppController {
 
@@ -137,25 +137,19 @@ class ContactsController extends AppController {
       public function index(){
           $modelName = $this->modelName;
           $controllerName = $this->controllerName;
-
-
+		  $err=0;
 		  if($this->request->is('post') && !empty($this->request->data)){
-				$this->request->data = Sanitize::clean($this->request->data, array('encode' => false));
-
-				if (!$this->Captcha->validate()) {
-            	 if(!$this->RequestHandler->isAjax()){
-	                    $this->Session->setFlash("Incorrect Visual Code","err");
-	                    $this->redirect('/pages/contact_us');
-	                    exit;
-	                }else{
-	                    // echo __("visual_code",true);
-	                    echo 1;
-	                    exit;
-	                }
-	                $err=1;
+			  if (!$this->Captcha->validate()) $err=1;
+				if($err==0){
+					$this->request->data = Sanitize::clean($this->request->data, array('encode' => false));
+					$this->sendEmail(Configure::read("BASE_ADMIN_EMAIL"), "Обратная связь", "contact", $this->request->data['Contact']);
+					$this->sendEmail($this->request->data['Contact']['email'], "Мы получили Ваше письмо", "contact_user", $this->request->data['Contact']);
+					$this->Session->setFlash(__('Письмо успешно было отправлено.'),'flash_msg_success',array('title'=>'Письмо отправлено'));
+					$this->redirect(array('action' => 'index'));
 				}
-
 		  }
+
+		  $this->set('list_contacts',$this->$modelName->find('all', array('conditions'=>array("$modelName.is_active"=>1))));
 
       }
 

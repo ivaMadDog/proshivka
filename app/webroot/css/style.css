@@ -751,6 +751,10 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
     border-radius: 10px;
 }
 
+.ContactPage{
+	margin: 0 0 30px;
+}
+
 .ContactPage-Form input, .ContactPage-Form textarea{
     border: 1px solid #fff;
 	padding: 5px;
@@ -760,8 +764,16 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
 	margin-bottom: 3px;
 }
 
+.ContactPage-lftBlock{
+	width: 275px;
+}
+
+.ContactPage-rghtBlock{
+	width: 265px;
+}
+
 .ContactPage-Form textarea{
-	width: 323px;
+	width: 265px;
     background: #EAEAEA;
 }
 
@@ -807,10 +819,19 @@ box-shadow:         0px 1px 2px rgba(196, 144, 219, 0.78);
 }
 
 .ContactPage-FormEmail, .ContactPage-FormSubject{
-	width: 215px;
+	width: 275px;
 	padding-left: 35px !important;
 	background: #EAEAEA url(../img/sprite_contacts_ico.png) no-repeat;
 }
 
 .ContactPage-FormEmail {background-position: -45px -25px;}
 .ContactPage-FormSubject {background-position: -45px 0px;}
+
+.contact_send{
+	margin: 30px 25px 0 0 ;
+}
+
+label.error {
+	color: #f00;
+	font-weight: bold;
+}
