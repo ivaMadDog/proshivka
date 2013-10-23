@@ -13,6 +13,10 @@ class Printer extends AppModel {
 											 'preview'=>array('width'=>250,'height'=>250,),
 											 'small'=>array('width'=>150,'height'=>150,),
 											 'thumb'=>array('width'=>120,'height'=>120,),),
+                                  'image_report'=>array(
+											 'preview'=>array('width'=>500,'height'=>250,),
+											 'small'=>array('width'=>250,'height'=>100,),
+											 'thumb'=>array('width'=>120,'height'=>48,),),
 //								  'video'=>array(
 //											 'preview'=>array('width'=>200,'height'=>150,),
 //											 'thumb'=>array('width'=>120,'height'=>90,),),
@@ -54,19 +58,21 @@ class Printer extends AppModel {
         $this->setCurrentItem();
 		//сохраняем картинки для полей, которые могут содержать имена изображений
 		foreach($this->resizeSettings as $field=>$options)
-			$this->saveFieldImage($field);
+                $this->saveFieldImage($field);
 
         $this->saveSeo('name', 'short_description');
     }
 
 	function afterSave($created) {
 		parent::afterSave($created);
-
+//        debug($this->currentItem[$this->name]);
+//        debug($this->data[$this->name]);
+//        die;
         if(!empty($this->currentItem))
             foreach($this->resizeSettings as $field=>$options)
-                if(!empty($this->data[$this->name][$field]) && $this->currentItem[$this->name][$field]!=$this->data[$this->name][$field])
+                if(!empty($this->data[$this->name][$field]) && $this->currentItem[$this->name][$field]!=$this->data[$this->name][$field]){
                     $this->deleteImageField($field);
-
+                }     
     }
 
 	function beforeDelete($cascade = true) {
@@ -77,24 +83,23 @@ class Printer extends AppModel {
 	function afterDelete() {
 		parent::afterDelete();
 
-		$this->deleteImageField();
+		$this->deleteImagesField();
 	}
 /*
  * удаление изображений связаных с полями таблицы
- * @method void deleteImageField(int $id,string $imageField)
+ * @method void deleteImagesField(int $id,string $imageField)
  * @param int $id - id current record
  * @param  string $field by image, if $field==null then delete all images by field
  * @return true on success or array images files on failure
  */
-    public function deleteImageField($imageField=null){
+    public function deleteImagesField(){
        $errorArr=array();
-       if(!empty($imageField)) $field=$imageField;
        foreach ($this->resizeSettings as $field=>$folders){
 			$folders[$this->originalFolderName]=array('path'=>$this->originalFolderName);
 			foreach($folders as $folder=>$options){
 				!empty($options['path'])? $folder_name=$options['path']: $folder_name= $folder;
 				$file = WWW_ROOT."files".DS."images".DS.$this->folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
-				if(file_exists($file) && is_file($file))
+				if(file_exists($file) && is_file($file) )
                     if(!unlink($file))
                         $errorArr[]=$file;
 			}
@@ -104,6 +109,24 @@ class Printer extends AppModel {
         else return $errorArr;
 
    }
+   
+    public function deleteImageField($imageField=null){
+       $errorArr=array();
+       if(!empty($imageField)) $field=$imageField;
+            $folders=$this->resizeSettings[$field];
+			$folders[$this->originalFolderName]=array('path'=>$this->originalFolderName);
+			foreach($folders as $folder=>$options){
+				!empty($options['path'])? $folder_name=$options['path']: $folder_name= $folder;
+				$file = WWW_ROOT."files".DS."images".DS.$this->folderName.DS.$field.DS.$folder_name.DS.$this->currentItem[$this->name][$field];
+				if(file_exists($file) && is_file($file) )
+                    if(!unlink($file))
+                        $errorArr[]=$file;
+			}
+
+        if(empty($errorArr)) return true;
+        else return $errorArr;
+
+   }   
  /*
  * очищает поле и удаляет изображение
  * @method void clearFieldImage(int $id, string $field)

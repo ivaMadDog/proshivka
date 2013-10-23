@@ -56,7 +56,7 @@
         <div class="column grid_10 ">
             <?= $this->form->input('is_active', array('label'=>false, 'div'=>false)) ;?>
         </div>
-    </div>
+    </div> 
 	<div class="row">
         <div class="column grid_2 title-left">
           <p>Популярный?</p>
@@ -99,6 +99,24 @@
             <? endif; ?>
         </div>
     </div>
+    <div class="row">
+        <div class="column grid_2 title-left">
+          <p>Фото отчета <br />(500px*200px, 5:2)</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('image_report', array( 'type'=>'file','label'=>false, 'div'=>false)) ;?>
+            <?if(!empty($this->request->data[$modelName]['image_report'])) : ?>
+                <div class="clear"></div>
+                <div id="thumb2_<?=$this->request->data[$modelName]['id']?>" class="input_image">
+					<a class="fancybox" href="/files/images/<?=$controllerName?>/image_report/original/<?=$this->request->data[$modelName]['image_report']?>" title="<?=$this->request->data[$modelName]['name']?>">
+                    <?= $this->html->image("/files/images/$controllerName/image_report/small/{$this->request->data[$modelName]['image_report']}",
+                            array("alt"=>"{$this->request->data[$modelName]['name']}", "escape"=>false));?>
+					<a>
+                    <a class="input_image_delete" onclick="removeImg(<?=$this->request->data[$modelName]['id']?>,'<?=$controllerName?>','image_report', '#thumb2_<?=$this->request->data[$modelName]['id']?>');return false;">Удалить Х</a>
+                </div>
+            <? endif; ?>
+        </div>
+    </div>    
 	<div class="row">
         <div class="column grid_2 title-left">
           <p>Цена принтера</p>

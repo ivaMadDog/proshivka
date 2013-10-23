@@ -21,5 +21,7 @@ $(document).ready(function(){
             location = '#' + ( target.id || target.name );
         }
     });
+    
+    $().UItoTop({ easingType: 'easeOutQuart' });
 
 });
