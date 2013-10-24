@@ -43,8 +43,8 @@
             <ul class="mini-socials">
                 <li><a class="sprites-social vk-mini-ico" href="http://vk.com/club59969729" title="Proshivki.biz Вконтакте" rel="nofollow">Вконтакте</a></li>
                 <li><a class="sprites-social fb-mini-ico" href="http://www.facebook.com/proshivkibiz" title="Proshivki.biz Facebook" rel="nofollow">Facebook</a></li>
-                <li><a class="sprites-social tw-mini-ico" href="#" title="Proshivki.biz Twitter" rel="nofollow">Twitter</a></li>
-                <li><a class="sprites-social yt-mini-ico" href="#" title="Proshivki.biz YouTube" rel="nofollow">YouTube</a></li>
+                <li><a class="sprites-social tw-mini-ico" href="https://twitter.com/ProshivkiBiz" title="Proshivki.biz Twitter" rel="nofollow">Twitter</a></li>
+                <li><a class="sprites-social yt-mini-ico" href="https://www.youtube.com/channel/UCj9lxWbNSk3YnVnC19Qng-Q" title="Proshivki.biz YouTube" rel="nofollow">YouTube</a></li>
                 <!--<li><a class="sprites-social rss-mini-ico" href="#">RSS</a></li>-->
             </ul>
         </section>

@@ -519,7 +519,7 @@ li a {text-decoration: none;}
 =============================================================================*/
 .printer-article {margin-top: 10px; }
 .printer-header {border: 1px solid #e1e1e1;background: #F2F2F2; margin: 10px 0;}
-.printer-title {text-align: center; margin: 20px 0 0;}
+.printer-title {text-align: center; padding: 15px 0; border-bottom: 1px solid #fff;text-transform: uppercase; font-size: 1.5em; background: #E7E6E6}
 .printer-photo {float: left;width: 300px;height: 250px; position: relative;overflow: hidden;margin-right: 20px;}
 .printer-photo-img {display: block; width: 250px; margin: 30px auto;}
 .printer-photo-scale {

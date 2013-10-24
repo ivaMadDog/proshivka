@@ -27,10 +27,10 @@
                             </div>
                             <a href="/orders/order_fix/<?=$item[$modelName]['id']?>/<?=$item[$modelName]['slug']?>" title="Купить прошивку для принтера <?=$item[$modelName]['name']?>">Заказать прошивку</a>
                         </li>
-    
+
                     </ul>
                     <div class="clr"></div>
-					
+
                     <article class="printer-article">
 						<section class="printer-header relative" itemscope itemtype="http://schema.org/ImageObject">
 							<h1 class="printer-title" itemprop="name">Прошивка для принтера : <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
@@ -40,7 +40,8 @@
 								</a>
 								<a id="printer-photo-img" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>"
                                    title="<?=$item[$modelName]['name']?>" class="printer-photo-scale">
-                                    <span class="sprite-icons loupe"></span></a>
+                                    <span class="sprite-icons loupe"></span>
+								</a>
 							</div>
 							<ul class="printer-descr" itemprop="description">
 								<li>
@@ -70,7 +71,7 @@
 							</section>
 							<div class="clr"></div>
 						</section>
-						
+
                         <a name="printer_description"></a>
                         <?if(!empty($item[$modelName]['full_description'])) {?>
                             <section class="printer-body printer-header relative">
@@ -81,7 +82,7 @@
                                 <div class="clear"></div>
                             </section>
                         <?}?>
-						
+
                         <a name="how_flash_printer"></a>
                             <?if(!empty($item[$modelName]['full_description'])) {?>
                             <section class="printer-body printer-header relative">
@@ -92,8 +93,8 @@
                                 <div class="clear"></div>
                             </section>
                         <?}?>
-						
-                        
+
+
                         <a name="vk_comments"></a>
 						<section class="printer-comments relative">
 							<div id="vk_comments"></div>
