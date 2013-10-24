@@ -43,6 +43,22 @@
     </div>
      <div class="row">
         <div class="column grid_2 title-left">
+          <p>URL-адресс PDF как прошить?</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('pdf_fix', array('style'=>'width: 300px','label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>
+     <div class="row">
+        <div class="column grid_2 title-left">
+          <p>URL-адресс PDF как заправить?</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('pdf_refill', array('style'=>'width: 300px','label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>    
+     <div class="row">
+        <div class="column grid_2 title-left">
           <p>URL-youtube обзор</p>
         </div>
         <div class="column grid_10 ">

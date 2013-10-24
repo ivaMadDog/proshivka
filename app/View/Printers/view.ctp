@@ -72,18 +72,36 @@
 							<div class="clr"></div>
 							<section class="printer-relIconsBlock">
 								<ul class="relIcons-List">
+                                    <? if(!empty($item[$modelName]['image_report'])) {?>
 									<li class="relIcons-Item">
-										<a href="#" class="relIcons-link relIcons-ReportIco" title="Отчет принтера <?=$item[$modelName]['name']?>, CRUM номер <?=$item[$modelName]['name']?>, серийный номер"></a>
+										<a href="/files/images/<?=$controllerName?>/image_report/original/<?=$item[$modelName]['image_report']?>" 
+                                           class="relIcons-link relIcons-ReportIco fancybox" 
+                                           title="Отчет принтера <?=$item[$modelName]['name']?>, CRUM номер <?=$item[$modelName]['name']?>, серийный номер">
+                                        </a>
 									</li>
+                                    <?}?>
+                                    <? if(!empty($item[$modelName]['pdf_fix'])) {?>
 									<li class="relIcons-Item">
-										<a href="#" class="relIcons-link relIcons-PdfIco" title="PDF инструкция прошивки принтера <?=$item[$modelName]['name']?>"></a>
+										<a href="<?=$item[$modelName]['pdf_fix']?>" class="relIcons-link relIcons-PdfIco" title="PDF инструкция прошивки принтера <?=$item[$modelName]['name']?>"></a>
 									</li>
+                                    <?}?>
+                                    <? if(!empty($item[$modelName]['pdf_refill'])) {?>
+									<li class="relIcons-Item">
+										<a href="<?=$item[$modelName]['pdf_refill']?>" class="relIcons-link relIcons-RefillIco" title="PDF инструкция заправки принтера <?=$item[$modelName]['name']?>"></a>
+									</li>
+                                    <?}?>                                    
+                                    <? if(!empty($item['PrinterVideo'])) {?>                                    
 									<li class="relIcons-Item">
 										<a href="#" class="relIcons-link relIcons-YoutubeIco" title="Полезное видео по принтеру <?=$item[$modelName]['name']?>"></a>
 									</li>
+                                    <?}?>
+                                    <? if(!empty($item['PrinterImage'])) {?>                                    
 									<li class="relIcons-Item">
-										<a href="#" class="relIcons-link relIcons-PhotoIco" title="Фото <?=$item[$modelName]['name']?>"></a>
+										<a href="#" 
+                                           class="relIcons-link relIcons-PhotoIco " title="Фото <?=$item[$modelName]['name']?>">
+                                        </a>
 									</li>
+                                    <?}?>
 								</ul>
 								<div class="clear"></div>
 							</section>
@@ -114,9 +132,11 @@
 
                         <a name="vk_comments"></a>
 						<section class="printer-comments relative">
-							<div id="vk_comments"></div>
-						   <!-- <script type="text/javascript">VK.Widgets.Comments("vk_comments", {limit: 20, width: "1000", attach: false});</script> -->
-						</section>
+						   <div id="vk_comments"></div>
+                            <script type="text/javascript">
+                                VK.Widgets.Comments("vk_comments", {limit: 10, width: "1000", attach: false});
+                            </script>
+                        </section>
 					</article>
 					<div class="clear"></div>
 

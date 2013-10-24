@@ -570,32 +570,36 @@ li a {text-decoration: none;}
 
 /* иконки для связанной информации с принтером */
 .printer-relIconsBlock {
-	margin: -20px 0 0 25px;
+	margin: -20px 0 0 23px;
 }
-.relIcons-List {
-
-}
-.relIcons-Item {
-	float: left;
-	margin-right: 10px;
-}
+.relIcons-List {}
+.relIcons-Item {float: left;}
 
 .relIcons-link {
 	display: block;
 	background: url(../img/sprite-printer-relative-icons.png) no-repeat;
-	width: 25px;
-	height: 25px;
+	width: 36px;
+	height: 36px;
+    margin: 10px 13px;
+    border: 1px solid #E7E6E6;
+    border-radius: 5px;    
 }
 
-.relIcons-ReportIco{background-position: 0 0}
-.relIcons-PdfIco{ background-position:-30px 0;}
-.relIcons-YoutubeIco{background-position:-60px 0;}
-.relIcons-PhotoIco{background-position:-90px 0;}
+.relIcons-link:hover {
+    border: 1px solid #47A978;
+}
 
-.relIcons-ReportIco:hover{background-position:0 -30px}
-.relIcons-PdfIco:hover{background-position: -30px -30px}
-.relIcons-YoutubeIco:hover{background-position: -60px -30px}
-.relIcons-PhotoIco:hover{background-position: -90px -30px;}
+.relIcons-ReportIco{background-position: 6px 6px}
+.relIcons-PdfIco{ background-position:-24px 6px;}
+.relIcons-YoutubeIco{background-position:-54px 6px;}
+.relIcons-PhotoIco{background-position:-84px 6px;}
+.relIcons-RefillIco{background-position:-114px 6px;}
+
+.relIcons-ReportIco:hover{background-position: 6px -24px}
+.relIcons-PdfIco:hover{background-position: -24px -24px}
+.relIcons-YoutubeIco:hover{background-position: -54px -24px}
+.relIcons-PhotoIco:hover{background-position: -84px -24px;}
+.relIcons-RefillIco:hover{background-position: -114px -24px;}
 
 
 
