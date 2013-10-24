@@ -82,7 +82,10 @@
                                     <?}?>
                                     <? if(!empty($item[$modelName]['pdf_fix'])) {?>
 									<li class="relIcons-Item">
-										<a href="<?=$item[$modelName]['pdf_fix']?>" class="relIcons-link relIcons-PdfIco" title="PDF инструкция прошивки принтера <?=$item[$modelName]['name']?>"></a>
+										<a href="<?=$item[$modelName]['pdf_fix']?>" class="relIcons-link relIcons-PdfIco" 
+                                           title="PDF инструкция прошивки принтера <?=$item[$modelName]['name']?>"
+                                           rel="nofollow">
+                                        </a>
 									</li>
                                     <?}?>
                                     <? if(!empty($item[$modelName]['pdf_refill'])) {?>
