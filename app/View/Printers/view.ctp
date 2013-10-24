@@ -33,7 +33,7 @@
 
                     <article class="printer-article">
 						<section class="printer-header relative" itemscope itemtype="http://schema.org/ImageObject">
-							<h1 class="printer-title" itemprop="name">Прошивка для принтера : <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
+							<h1 class="printer-title printer-titleMain" itemprop="name">Прошивка для принтера : <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
 							<div class="printer-photo" >
 								<a  class="printer-photo-img fancybox" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>">
 									<img itemprop="contentUrl" src="/files/images/<?=$controllerName?>/image/preview/<?=$item[$modelName]['image']?>" alt="Прошивка принтера <?=$item[$modelName]['name']?>"/>
@@ -70,6 +70,23 @@
 								<p class="printer-order-price">Прошивка всего лишь <span class="printer-order-value"><?=$item[$modelName]['price_fix']?> грн.</span></p>
 							</section>
 							<div class="clr"></div>
+							<section class="printer-relIconsBlock">
+								<ul class="relIcons-List">
+									<li class="relIcons-Item">
+										<a href="#" class="relIcons-link relIcons-ReportIco" title="Отчет принтера <?=$item[$modelName]['name']?>, CRUM номер <?=$item[$modelName]['name']?>, серийный номер"></a>
+									</li>
+									<li class="relIcons-Item">
+										<a href="#" class="relIcons-link relIcons-PdfIco" title="PDF инструкция прошивки принтера <?=$item[$modelName]['name']?>"></a>
+									</li>
+									<li class="relIcons-Item">
+										<a href="#" class="relIcons-link relIcons-YoutubeIco" title="Полезное видео по принтеру <?=$item[$modelName]['name']?>"></a>
+									</li>
+									<li class="relIcons-Item">
+										<a href="#" class="relIcons-link relIcons-PhotoIco" title="Фото <?=$item[$modelName]['name']?>"></a>
+									</li>
+								</ul>
+								<div class="clear"></div>
+							</section>
 						</section>
 
                         <a name="printer_description"></a>
