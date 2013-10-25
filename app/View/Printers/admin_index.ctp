@@ -10,11 +10,17 @@
 </div>
 <div class="content_area">
      <div class="row">
-        <div class="column grid_5 title">
+        <div class="column grid_4 title">
           <p>Название</p>
         </div>
-         <div class="column grid_2 title">
-          <p>Цена принтера</p>
+         <div class="column grid_1 title">
+          <p>Фото</p>
+        </div>
+         <div class="column grid_1 title">
+          <p>Опис.</p>
+        </div>
+         <div class="column grid_1 title">
+          <p>Отчет</p>
         </div>
          <div class="column grid_2 title">
           <p>Цена fix</p>
@@ -25,11 +31,17 @@
     </div>
     <?php foreach($data as $key=>$item):  ?>
     <div id="row_<?=$item[$modelName]['id']?>" class="row">
-        <div class="column grid_5">
+        <div class="column grid_4">
           <p><a href="/admin/<?=$controllerName?>/edit/<?=$item[$modelName]['id']?>"><?= $item['Brand']['name'].' '.$item[$modelName]['name']?></a></p>
         </div>
-        <div class="column grid_2 center">
-          <p><?= $item[$modelName]['price_printer']?></p>
+        <div class="column grid_1 center">
+          <p><?=!empty($item[$modelName]['image'])?'+':''?></p>
+        </div>
+        <div class="column grid_1 center">
+          <p><?=!empty($item[$modelName]['full_description'])?'+':''?></p>
+        </div>
+        <div class="column grid_1 center">
+          <p><?=!empty($item[$modelName]['image_report'])?'+':''?></p>
         </div>
 		<div class="column grid_2 center">
           <p><?= $item[$modelName]['price_fix']?></p>

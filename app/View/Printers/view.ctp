@@ -74,15 +74,15 @@
 								<ul class="relIcons-List">
                                     <? if(!empty($item[$modelName]['image_report'])) {?>
 									<li class="relIcons-Item">
-										<a href="/files/images/<?=$controllerName?>/image_report/original/<?=$item[$modelName]['image_report']?>" 
-                                           class="relIcons-link relIcons-ReportIco fancybox" 
+										<a href="/files/images/<?=$controllerName?>/image_report/original/<?=$item[$modelName]['image_report']?>"
+                                           class="relIcons-link relIcons-ReportIco fancybox"
                                            title="Отчет принтера <?=$item[$modelName]['name']?>, CRUM номер <?=$item[$modelName]['name']?>, серийный номер">
                                         </a>
 									</li>
                                     <?}?>
                                     <? if(!empty($item[$modelName]['pdf_fix'])) {?>
 									<li class="relIcons-Item">
-										<a href="<?=$item[$modelName]['pdf_fix']?>" class="relIcons-link relIcons-PdfIco" 
+										<a href="<?=$item[$modelName]['pdf_fix']?>" class="relIcons-link relIcons-PdfIco"
                                            title="PDF инструкция прошивки принтера <?=$item[$modelName]['name']?>"
                                            rel="nofollow">
                                         </a>
@@ -92,15 +92,15 @@
 									<li class="relIcons-Item">
 										<a href="<?=$item[$modelName]['pdf_refill']?>" class="relIcons-link relIcons-RefillIco" title="PDF инструкция заправки принтера <?=$item[$modelName]['name']?>"></a>
 									</li>
-                                    <?}?>                                    
-                                    <? if(!empty($item['PrinterVideo'])) {?>                                    
+                                    <?}?>
+                                    <? if(!empty($item['PrinterVideo'])) {?>
 									<li class="relIcons-Item">
 										<a href="#" class="relIcons-link relIcons-YoutubeIco" title="Полезное видео по принтеру <?=$item[$modelName]['name']?>"></a>
 									</li>
                                     <?}?>
-                                    <? if(!empty($item['PrinterImage'])) {?>                                    
+                                    <? if(!empty($item['PrinterImage'])) {?>
 									<li class="relIcons-Item">
-										<a href="#" 
+										<a href="#"
                                            class="relIcons-link relIcons-PhotoIco " title="Фото <?=$item[$modelName]['name']?>">
                                         </a>
 									</li>
@@ -108,6 +108,7 @@
 								</ul>
 								<div class="clear"></div>
 							</section>
+							<div class="clr"></div>
 						</section>
 
                         <a name="printer_description"></a>
