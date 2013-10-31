@@ -185,7 +185,7 @@ Style for sprite
 .big-btn-forms{background-position: 0 0; }
 .big-btn-card{background-position: -135px 0; }
 .big-btn-email{background-position: -270px 0; }
-.big-btn-printer{background-position: -405px 0; }
+.big-btn-printer{background-position: -400px 4px; }
 
 .btn_blue{background: url(../img/bg_btn_blue.png) no-repeat; display: block; width: 40px; height: 40px; margin: 0 auto;}
 .btn_blue-pig{background-position: 0 0;}
@@ -481,6 +481,21 @@ li a {text-decoration: none;}
 .blog-post-btn {float: right; margin: 0 3px;width: 26px; height: 26px;background: url(../img/bg_blog_prevnext.png) no-repeat;}
 .blog-post-btn.prev {background-position: 0 0;}
 .blog-post-btn.next {background-position:-27px 0;}
+
+.blog-post-article ul li{
+    list-style: disc;
+    list-style-position: inside;
+}
+
+.blog-post-article ol li{
+    list-style: decimal;
+    list-style-position: inside;
+}
+
+.blog-post-article li {
+    padding-left: 30px;
+}
+
 
 .list-socials-icon {margin: 0 10px;}
 .list-socials-icon li { float: left;margin-right: 1px;}
