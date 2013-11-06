@@ -1,4 +1,3 @@
-<? //    debug($item)?>
 <div id="container">
 
 	<div id="content">
@@ -123,9 +122,9 @@
                         <?}?>
 
                         <a name="how_flash_printer"></a>
-                            <?if(!empty($item[$modelName]['full_description'])) {?>
+                        <?if(!empty($item[$modelName]['fix_description'])) {?>
                             <section class="printer-body printer-header relative">
-                                <h1 class="printer-title">Как прошить принтер <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
+                                <h1 class="printer-title">Как прошить принтер и печать отчета <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
                                 <div>
                                     <?=$item[$modelName]['fix_description']?>
                                 </div>

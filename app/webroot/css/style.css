@@ -258,6 +258,21 @@ Style for sprite
 }
 
 
+.btn_red_download{
+    background: url(../img/bg_btn_red_download.png) center no-repeat;
+    display: block;
+    margin: 20px auto;
+    width: 208px;
+    padding-left: 100px;
+    height: 88px;
+    line-height: 88px;
+    color: #fff !important;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-transform: uppercase;
+}
+
 .header-blue a,.txt_blue {color: #67c6e2}
 .header-orange a,.txt_orange {color: #E68D39}
 .header-green a, .txt_green {color: #46A877;}

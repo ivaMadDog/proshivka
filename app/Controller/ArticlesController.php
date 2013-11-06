@@ -50,7 +50,7 @@ class ArticlesController extends AppController {
 
        $this->paginate=array(
            'limit'=>12,
-           'order'=>array("$modelName.created DESC", "$modelName.name","$modelName.position", "$modelName.id"),
+           'order'=>array("$modelName.created"=>"DESC", "$modelName.name","$modelName.position", "$modelName.id"),
            'conditions'=>$cond,
            'recursive'=>1
        );
@@ -186,11 +186,11 @@ class ArticlesController extends AppController {
 
        $this->paginate=array(
            'limit'=>3,
-           'order'=>array("$modelName.date DESC", "$modelName.name", "$modelName.position", "$modelName.id"),
+           'order'=>array("$modelName.date"=>"DESC"),
            'conditions'=>$cond,
            'recursive'=>1
        );
-
+       
        $data=$this->paginate($modelName);
        $this->set(array('data'=>$data, 'categories'=>$categories[0],'articles_recommend'=>$articles_recommend,
                         'articles_views'=>$articles_views ));
@@ -200,15 +200,23 @@ class ArticlesController extends AppController {
 	   $controllerName= $this->controllerName;
        $modelName=$this->modelName;
 
+       
        if(empty($id)){
              $this->Session->setFlash('Неверный запрос','flash_msg_error',array('title'=>'Страница отсутствует'));
              $this->redirect("/$controllerName/index");
              exit;
        }
+       
+       $categories=$this->$modelName->Category->getArrayCategoriesActive();
+       $articles_recommend=$this->$modelName->getArticlesRecommend();
+       $articles_views=$this->$modelName->getArticlesByField("number_views");
 
 	   $item=$this->$modelName->find('first', array('conditions'=>array("$modelName.id"=>(int)$id)));
 	   $neighbors=$this->$modelName->find('neighbors', array('field' => 'id', 'value' => (int)$id));
 	   $this->set(compact('item','neighbors'));
+       
+       $this->set(array('categories'=>$categories[0],'articles_recommend'=>$articles_recommend,
+                        'articles_views'=>$articles_views ));       
     }
 
 
