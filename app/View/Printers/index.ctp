@@ -1,9 +1,13 @@
 <div id="container">
 	<div id="content">
-		<h1 class="hpage txt_green">прайс прошивок для принтера <a href="#" class="download_green">Скачать</a></h1>
+		<h1 class="hpage txt_green">прайс прошивок для принтера 
+<!--            <a href="#" class="download_green">Скачать</a>-->
+        </h1>
 		<section class="models-filter">
-				<input id="search_input" class="models-filter-value filter" placeholder="фильтр по значению" 
-                       data-placeholder="фильтр по значению" name="livefilter" type="text" style="width: 250px" value="" />
+            <div class="models-filterWrap">
+				<input id="search_input" class="models-filter-value filter" placeholder="начните вводить свою модель" 
+                       data-placeholder="начните вводить свою модель" name="livefilter" type="text" style="width: 270px" value="" />
+            </div>     
 		</section>
 		<?if(!empty($data)) {?>
 		<section class="table">
@@ -18,20 +22,24 @@
 				<? foreach($data as $printer) { ?>
 				   <li class="table-row">
 					   <div class="lft col4">
-						   <a href="/brands/brand/<?=$printer['Brand']['id']?>/<?=$printer['Brand']['slug']?>">
+						   <a href="/brands/brand/<?=$printer['Brand']['id']?>/<?=$printer['Brand']['slug']?>" title="Информация про компанию <?=$printer['Brand']['name']?>">
 							   <?=$printer['Brand']['name']?>
 						   </a>
 					   </div>
 					   <div class="lft col4">
-						   <a href="/<?=$controllerName?>/view/<?=$printer[$modelName]['id']?>/<?=$printer[$modelName]['slug']?>">
+						   <a href="/<?=$controllerName?>/view/<?=$printer[$modelName]['id']?>/<?=$printer[$modelName]['slug']?>" title="Прошивка для принтера <?=$printer['Brand']['name']?> <?=$printer[$modelName]['name']?>">
 							   <?=$printer[$modelName]['name']?>
 						   </a>
 					   </div>
 					   <div class="lft col4 center">
-						   <a href="/orders/order_fix/<?=$controllerName?>/view/<?=$printer[$modelName]['id']?>/<?=$printer[$modelName]['slug']?>"><?=$printer[$modelName]['price_fix']?></a>
+						   <a href="/orders/order_fix/<?=$controllerName?>/view/<?=$printer[$modelName]['id']?>/<?=$printer[$modelName]['slug']?>"
+                              title="Цена прошивки <?=$printer[$modelName]['name']?>">
+                                <?=$printer[$modelName]['price_fix']?>
+                           </a>
 					   </div>
 					   <div class="lft col4 center">
-						   <a href="/orders/order_fix/<?=$printer[$modelName]['id']?>/<?=$printer[$modelName]['slug']?>" class="btn_order_model">
+						   <a href="/orders/order_fix/<?=$printer[$modelName]['id']?>/<?=$printer[$modelName]['slug']?>" class="btn_order_model"
+                              title="Купить прошивку <?=$printer[$modelName]['name']?>">
 						   </a>
 					   </div>
 					   <div class="clr"></div>

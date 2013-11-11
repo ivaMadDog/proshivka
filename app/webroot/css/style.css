@@ -530,7 +530,22 @@ li a {text-decoration: none;}
 /*===========================================================================
 Список моделей
 =============================================================================*/
-.models-filter-value {border: 1px solid #E7E7E7}
+.models-filterWrap {
+    height: 48px;
+    line-height: 48px;
+    width: 275px;
+    margin: 0 auto;
+    padding-left: 50px;
+    background: url(../img/filter_printers.png) left no-repeat;
+}
+.models-filter-value {
+    border: 2px solid #BC82D5;
+    height: 32px;
+    font-size: 1.1em;
+    color: #BC82D5;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 
 .table {font-size: 1.3em}
 .table-row-title {

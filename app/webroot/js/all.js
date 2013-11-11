@@ -18,7 +18,41 @@ $(document).ready(function(){
         }
     }
     });
+    
+    
+/* Layout fancybox for preview Video */
+	 $(".fancyVideo").fancybox({
+		openEffect: 'none',
+		closeEffect: 'none',
+        beforeShow: function () {
+            $('.fancybox-headerTitle').html(
+                this.element.data('title')
+            );
+        },
+        tpl: {
+            wrap: '<div class="fancybox-wrap previewVideo" tabIndex="-1">' +
+					'<div class="fancybox-header">' +
+						'<div class="fancybox-headerTitle"></div>' +
+					'</div>' +
+					'<div class="fancybox-skin">' +
+						'<div class="fancybox-outer">' +
+						'<div class="fancybox-inner"></div>' +
+					'</div>' +
+					'</div>' +
+                 '</div>'
+        },
+        helpers: {
+            title: {
+                type: 'inside'
+            },
+			overlay : {
+				locked : false
+			},
+            media: {
 
+			}
+        }
+    });  
 
 });
 

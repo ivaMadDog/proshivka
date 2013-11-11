@@ -6,6 +6,8 @@
   echo $this->html->css('reset');
   echo $this->html->css('style');
   echo $this->html->css('../js/fancybox/jquery.fancybox');
+  echo $this->html->css('../js/fancybox/helpers/jquery.fancybox-thumbs');
+  
   
 ?>
 <!--[if IE]><link rel="stylesheet" href="css/ie.css" type="text/css"  /><![endif]-->
@@ -13,6 +15,8 @@
   echo $this->html->script('jquery/jquery-1.9.1.min');
   echo $this->html->script('jquery/jquery-ui-1.10.2.custom.min');
   echo $this->html->script('fancybox/jquery.fancybox.pack');
+  echo $this->html->script('fancybox/helpers/jquery.fancybox-media');
+  echo $this->html->script('fancybox/helpers/jquery.fancybox-thumbs');
   echo $this->html->script('jquery/jquery.fastLiveFilter');
   echo $this->html->script('jquery/jquery.ui.totop.js');
   echo $this->html->script('jquery/jquery.cycle.all.js');

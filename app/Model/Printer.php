@@ -24,6 +24,7 @@ class Printer extends AppModel {
 
     public $hasMany = array(
 		  'Order'=>array('className'=> 'Order','foreignKey'=> 'printer_id','order'=> 'Order.created DESC','dependent'=> true),
+		  'Version'=>array('className'=> 'Version','foreignKey'=> 'printer_id','order'=> 'Version.created DESC','dependent'=> true),
 	);
 
     public $hasAndBelongsToMany = array(

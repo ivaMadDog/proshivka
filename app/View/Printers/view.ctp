@@ -1,3 +1,4 @@
+<? debug($item) ?>
 <div id="container">
 
 	<div id="content">
@@ -82,19 +83,19 @@
                                     <? if(!empty($item[$modelName]['pdf_fix'])) {?>
 									<li class="relIcons-Item">
 										<a href="<?=$item[$modelName]['pdf_fix']?>" class="relIcons-link relIcons-PdfIco"
-                                           title="PDF инструкция прошивки принтера <?=$item[$modelName]['name']?>"
+                                           title="Инструкция прошивки принтера <?=$item[$modelName]['name']?>"
                                            rel="nofollow">
                                         </a>
 									</li>
                                     <?}?>
                                     <? if(!empty($item[$modelName]['pdf_refill'])) {?>
 									<li class="relIcons-Item">
-										<a href="<?=$item[$modelName]['pdf_refill']?>" class="relIcons-link relIcons-RefillIco" title="PDF инструкция заправки принтера <?=$item[$modelName]['name']?>"></a>
+										<a href="<?=$item[$modelName]['pdf_refill']?>" class="relIcons-link relIcons-RefillIco" title="Инструкция заправки принтера <?=$item[$modelName]['name']?>"></a>
 									</li>
                                     <?}?>
-                                    <? if(!empty($item['PrinterVideo'])) {?>
+                                    <? if(!empty($item[$modelName]['video'])) {?>
 									<li class="relIcons-Item">
-										<a href="#" class="relIcons-link relIcons-YoutubeIco" title="Полезное видео по принтеру <?=$item[$modelName]['name']?>"></a>
+										<a href="<?=$item[$modelName]['video']?>" class="relIcons-link relIcons-YoutubeIco fancyVideo" title="Видео прошивки или обзора по принтеру <?=$item[$modelName]['name']?>"></a>
 									</li>
                                     <?}?>
                                     <? if(!empty($item['PrinterImage'])) {?>

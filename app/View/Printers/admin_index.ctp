@@ -2,9 +2,18 @@
 // debug($data) ?>
  <div class="row">
     <div class="column ">
+          <ul class="row-top-commands">
+            <li class="row-top-command">
+                <a class="controls control-add" href="<?="/admin/$controllerName/add/"?>" title="Добавить запись"></a>
+                <a href="<?="/admin/$controllerName/add/"?>" title="Добавить запись">Добавить новый принтер</a>
+            </li>
+            <li class="row-top-command">
+                <a class="controls control-add" href="<?="/admin/versions/add/"?>" title="Добавить версию прошивки"></a>
+                <a href="<?="/admin/versions/add/"?>" title="Добавить запись">Добавить версию прошивки</a>
+            </li>
+          </ul>        
       <p>
-          <a class="controls control-add" href="<?="/admin/$controllerName/add/"?>" title="Добавить запись"></a>
-          <a href="<?="/admin/$controllerName/add/"?>" title="Добавить запись">Добавить новый принтер</a>
+
       </p>
     </div>
 </div>
@@ -32,7 +41,14 @@
     <?php foreach($data as $key=>$item):  ?>
     <div id="row_<?=$item[$modelName]['id']?>" class="row">
         <div class="column grid_4">
-          <p><a href="/admin/<?=$controllerName?>/edit/<?=$item[$modelName]['id']?>"><?= $item['Brand']['name'].' '.$item[$modelName]['name']?></a></p>
+          <p>
+             <a href="/admin/<?=$controllerName?>/edit/<?=$item[$modelName]['id']?>">
+                <?= $item['Brand']['name'].' '.$item[$modelName]['name']?>
+             </a>
+             ( <a class="grey_link" href="/admin/versions/index/<?=$item[$modelName]['id']?>">
+                Версии прошивок
+             </a> )             
+          </p>
         </div>
         <div class="column grid_1 center">
           <p><?=!empty($item[$modelName]['image'])?'+':''?></p>
