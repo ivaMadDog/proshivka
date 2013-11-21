@@ -1,4 +1,3 @@
-<? debug($item) ?>
 <div id="container">
 
 	<div id="content">
@@ -34,42 +33,6 @@
                     <article class="printer-article">
 						<section class="printer-header relative" itemscope itemtype="http://schema.org/ImageObject">
 							<h1 class="printer-title printer-titleMain" itemprop="name">Прошивка для принтера : <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?></h1>
-							<div class="printer-photo" >
-								<a  class="printer-photo-img fancybox" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>">
-									<img itemprop="contentUrl" src="/files/images/<?=$controllerName?>/image/preview/<?=$item[$modelName]['image']?>" alt="Прошивка принтера <?=$item[$modelName]['name']?>"/>
-								</a>
-								<a id="printer-photo-img" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>"
-                                   title="<?=$item[$modelName]['name']?>" class="printer-photo-scale">
-                                    <span class="sprite-icons loupe"></span>
-								</a>
-							</div>
-							<ul class="printer-descr" itemprop="description">
-								<li>
-									<p class="printer-descr-title">Модель</p>
-									<p class="printer-descr-value"><?=$item[$modelName]['name']?></p>
-								</li>
-								<li>
-									<p class="printer-descr-title">Картридж</p>
-									<p class="printer-descr-value"><?=$item[$modelName]['cartridge']?></p>
-								</li>
-								<li>
-									<p class="printer-descr-title">Ресурс картриджа</p>
-									<p class="printer-descr-value"><?=$item[$modelName]['life_cartridge']?> стр.</p>
-								</li>
-								<li>
-									<p class="printer-descr-title">Ресурс фотобарабана</p>
-									<p class="printer-descr-value">~ <?=$item[$modelName]['life_photobaraban']?> заправки</p>
-								</li>
-								<li>
-									<p class="printer-descr-title">Инструкция прошивки</p>
-									<p class="printer-descr-value"><a href="#">Как прошить <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?>?</a></p>
-								</li>
-							</ul>
-							<section class="printer-order ">
-								<a class="printer-order-btn" href="/orders/order_fix/<?=$item[$modelName]['price_fix']?>" title="<?=$item[$modelName]['name']?>"><span class="sprite-icons trademark lft"></span>Заказать</a>
-								<p class="printer-order-price">Прошивка всего лишь <span class="printer-order-value"><?=$item[$modelName]['price_fix']?> грн.</span></p>
-							</section>
-							<div class="clr"></div>
 							<section class="printer-relIconsBlock">
 								<ul class="relIcons-List">
                                     <? if(!empty($item[$modelName]['image_report'])) {?>
@@ -107,6 +70,42 @@
                                     <?}?>
 								</ul>
 								<div class="clear"></div>
+							</section>
+							<div class="printer-photo" >
+								<a  class="printer-photo-img fancybox" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>">
+									<img itemprop="contentUrl" src="/files/images/<?=$controllerName?>/image/preview/<?=$item[$modelName]['image']?>" alt="Прошивка принтера <?=$item[$modelName]['name']?>"/>
+								</a>
+								<a id="printer-photo-img" href="/files/images/<?=$controllerName?>/image/original/<?=$item[$modelName]['image']?>"
+                                   title="<?=$item[$modelName]['name']?>" class="printer-photo-scale">
+                                    <span class="sprite-icons loupe"></span>
+								</a>
+								<div class="clear"></div>
+							</div>
+							<ul class="printer-descr" itemprop="description">
+								<li>
+									<p class="printer-descr-title">Модель</p>
+									<p class="printer-descr-value"><?=$item[$modelName]['name']?></p>
+								</li>
+								<li>
+									<p class="printer-descr-title">Картридж</p>
+									<p class="printer-descr-value"><?=$item[$modelName]['cartridge']?></p>
+								</li>
+								<li>
+									<p class="printer-descr-title">Ресурс картриджа</p>
+									<p class="printer-descr-value"><?=$item[$modelName]['life_cartridge']?> стр.</p>
+								</li>
+								<li>
+									<p class="printer-descr-title">Ресурс фотобарабана</p>
+									<p class="printer-descr-value">~ <?=$item[$modelName]['life_photobaraban']?> заправки</p>
+								</li>
+								<li>
+									<p class="printer-descr-title">Инструкция прошивки</p>
+									<p class="printer-descr-value"><a href="#">Как прошить <?=$item['Brand']['name']?> <?=$item[$modelName]['name']?>?</a></p>
+								</li>
+							</ul>
+							<section class="printer-order ">
+								<a class="printer-order-btn" href="/orders/order_fix/<?=$item[$modelName]['id']?>" title="<?=$item[$modelName]['name']?>"><span class="sprite-icons trademark lft"></span>Заказать</a>
+								<p class="printer-order-price">Прошивка всего лишь <span class="printer-order-value"><?=$item[$modelName]['price_fix']?> грн.</span></p>
 							</section>
 							<div class="clr"></div>
 						</section>

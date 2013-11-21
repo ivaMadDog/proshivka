@@ -74,6 +74,7 @@ class OrdersController extends AppController {
 			}
           $this->$modelName->id=$id;
           if($this->$modelName->save($this->request->data)){
+			  if($this->request->data[$modelName]['is_send_new_ordertype']==true) $this->sendNewTypeOrder($id);
               $this->Session->setFlash('Данные успешно были обновлены','flash_msg_success',array('title'=>'Обновление данных'));
               $this->redirect("/admin/$this->controllerName/index");
           }else{
@@ -86,7 +87,19 @@ class OrdersController extends AppController {
        $this->render('admin_form');
 	}
 
-    public function order_fix($printer_id=0) {
+	private function sendNewTypeOrder($id){
+        $controllerName= $this->controllerName;
+        $modelName=$this->modelName;
+		$this->autoRender=false;
+
+		$data=$this->$modelName->find('first', array('conditions'=>array("$modelName.id"=>(int)$id)));
+		$user_email=!empty($data[$modelName]['email'])?$data[$modelName]['email']:$data['User']['email'];
+
+		$this->sendEmail($user_email, "Новый статус заказа прошивки для ".$data['Printer']['name'], "fix/new_type_order", $data);
+
+	}
+
+	public function order_fix($printer_id=0) {
         $modelName=$this->modelName;
         $controllerName=$this->controllerName;
 

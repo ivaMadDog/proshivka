@@ -467,7 +467,10 @@ li a {text-decoration: none;}
     display: block;
     height: 250px;
     margin: 10px 10px 20px;
+	position: relative;
 }
+
+
 .blog-post-header { position: relative;}
 .blog-post-title{color: #333333; font-size: 1.3em; padding-left: 40px; text-transform: uppercase; margin-top: 10px;}
 .blog-post-info {padding-left: 30px;}
@@ -566,17 +569,17 @@ li a {text-decoration: none;}
 .printer-header {border: 1px solid #e1e1e1;background: #F2F2F2; margin: 10px 0;}
 .printer-title {text-align: center; padding: 15px 0;text-transform: uppercase; font-size: 1.5em;}
 .printer-titleMain {border-bottom: 1px solid #fff; background: #E7E6E6}
-.printer-photo {float: left;width: 300px;height: 250px; position: relative;overflow: hidden;margin-right: 20px;}
-.printer-photo-img {display: block; width: 250px; margin: 30px auto;}
+.printer-photo {float: left;width: 300px;position: relative;overflow: hidden;margin-right: 20px;}
+.printer-photo-img {display: block; width: 250px; margin: 0 auto 30px;}
 .printer-photo-scale {
     width: 300px;
-    height: 300px;
+    height: 250px;
     top:0; left:0;
     position: absolute;
     z-index: 2;
 }
 .printer-photo-scale span {position: absolute; z-index: 3; top: 50%; left: 50%; margin: -30px 0 0 -30px;}
-.printer-descr {margin-top: 30px;}
+/*.printer-descr {margin-top: 30px;}*/
 .printer-descr li {margin: 10px 0;}
 .printer-descr-title {
     float: left;
@@ -615,7 +618,7 @@ li a {text-decoration: none;}
 
 /* иконки для связанной информации с принтером */
 .printer-relIconsBlock {
-	margin: -20px 0 0 23px;
+	margin: 5px 0 0 10px;
 }
 .relIcons-List {}
 .relIcons-Item {float: left;}
@@ -627,7 +630,7 @@ li a {text-decoration: none;}
 	height: 36px;
     margin: 10px 13px;
     border: 1px solid #E7E6E6;
-    border-radius: 5px;    
+    border-radius: 5px;
 }
 
 .relIcons-link:hover {

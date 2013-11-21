@@ -1,4 +1,4 @@
-<?  //		debug($this->request->data)?>
+<? // debug($this->request->data)?>
 <div class="admin_area" >
      <?php echo $this->form->create($modelName, array('type'=>'file','url'=>array('controller'=>$controllerName, 'action'=>$action, !empty($id)?$id:'' ), 'id'=>'OrderForm'));?>
      <div class="row">
@@ -24,6 +24,14 @@
     </div>
      <div class="row">
         <div class="column grid_2 title-left">
+          <p>Отправить письмо о новом статусе?</p>
+        </div>
+        <div class="column grid_10 ">
+            <?= $this->form->input('is_send_new_ordertype', array('type'=>'checkbox', 'label'=>false, 'div'=>false)) ;?>
+        </div>
+    </div>
+     <div class="row">
+        <div class="column grid_2 title-left">
           <p>Тип оплаты</p>
         </div>
         <div class="column grid_10 ">
@@ -38,7 +46,7 @@
             <?  if(!empty($this->request->data[$modelName]['user_id']))
 					echo $this->form->input('User.email', array('label'=>false, 'div'=>false));
 				else
-					$this->request->data[$modelName]['email'];
+					echo $this->request->data[$modelName]['email'];
 			?>
         </div>
     </div>

@@ -19,7 +19,9 @@
                             <? if(!empty($item[$modelName]['image'])) {?>
 							<a class="blog-post-photo fancybox"
 								   href="/files/images/<?=$folderName?>/image/original/<?=$item[$modelName]['image']?>"
-								   style="background: url(/files/images/<?=$folderName?>/image/preview/<?=$item[$modelName]['image']?> ) no-repeat center"></a>
+								   style="background: url(/files/images/<?=$folderName?>/image/preview/<?=$item[$modelName]['image']?> ) no-repeat center">
+								<span class="sprite-icons loupe"></span>
+							</a>
                             <?}?>
 						</header>
 						<div class="blog-post-article">
