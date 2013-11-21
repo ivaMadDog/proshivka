@@ -168,6 +168,35 @@ class OrdersController extends AppController {
 
     }
 
+	    public function admin_delete($id) {
+
+          $modelName=$this->modelName;
+          $controllerName = $this->controllerName;
+
+          if(empty($id)){
+              $this->Session->setFlash('Запись с данным id не существует','flash_msg_error',array('title'=>'Ошибочный запрос'));
+              $this->redirect("/admin/$controllerName/index");
+              exit;
+          }
+
+          $data=$this->$modelName->find('first', array('conditions'=>array('id'=>(int)$id), 'recursive'=>-1));
+          $this->$modelName->id=(int)$id;
+          if($this->RequestHandler->isAjax()){
+                $this->layout='';
+          }
+          if($this->$modelName->delete($id)){
+                if($this->RequestHandler->isAjax()){
+                    echo 1;exit;
+                }else{
+                    $this->Session->setFlash('Данные успешно были удалены','flash_msg_success',array('title'=>'Удаление записи'));
+                    $this->redirect("/admin/$controllerName/index");
+                }
+          }else{
+               $this->Session->setFlash('Не удалось удалить данные','flash_msg_error',array('title'=>'Ошибка удаления'));
+               exit;
+          }
+      }
+
 }
 
 ?>
